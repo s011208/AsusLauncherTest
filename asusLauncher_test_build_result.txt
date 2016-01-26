@@ -1,0 +1,151 @@
+read params
+length of params: 3
+show debug messages: true
+keep jar in ./TestLauncher/bin: true
+cmd: remove old file
+cmd: copy classes.dex
+cmd: convert dex 2 jar
+cmd: remove classes.dex
+cmd: copy class.jar 2 ../bin
+cmd: remove classes-dex2jar.jar
+cmd: clean test project
+Buildfile: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/build.xml
+
+-check-env:
+ [checkenv] Android SDK Tools Revision 24.4.1
+ [checkenv] Installed at /home/yen-hsun_huang/antbuild/sdk
+
+-setup:
+     [echo] Project Name: AsusLauncher
+  [gettype] Project Type: Self-Tested Application
+
+-pre-clean:
+
+clean:
+   [delete] Deleting directory /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin
+   [delete] Deleting directory /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/gen
+[getlibpath] Library dependencies:
+[getlibpath] No Libraries
+   [subant] No sub-builds to iterate on
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+cmd: start to build test project
+Buildfile: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/build.xml
+
+-set-mode-check:
+
+-set-release-mode:
+
+-release-obfuscation-check:
+     [echo] proguard.config is ${proguard.config}
+
+-pre-build:
+
+-check-env:
+ [checkenv] Android SDK Tools Revision 24.4.1
+ [checkenv] Installed at /home/yen-hsun_huang/antbuild/sdk
+
+-setup:
+     [echo] Project Name: AsusLauncher
+  [gettype] Project Type: Self-Tested Application
+
+-build-setup:
+[getbuildtools] Using latest Build Tools: 20.0.0
+     [echo] Resolving Build Target for AsusLauncher...
+[gettarget] Project Target:   Google APIs
+[gettarget] Vendor:           Google Inc.
+[gettarget] Platform Version: 5.1.1
+[gettarget] API level:        22
+     [echo] ----------
+     [echo] Creating output directories if needed...
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/res
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/rsObj
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/rsLibs
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/gen
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes
+    [mkdir] Created dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/dexedLibs
+     [echo] ----------
+     [echo] Resolving Dependencies for AsusLauncher...
+[dependency] Library dependencies:
+[dependency] No Libraries
+[dependency] 
+[dependency] ------------------
+     [echo] ----------
+     [echo] Building Libraries with 'release'...
+   [subant] No sub-builds to iterate on
+
+-code-gen:
+[mergemanifest] Merging AndroidManifest files into one.
+[mergemanifest] Manifest merger disabled. Using project manifest only.
+     [echo] Handling aidl files...
+     [aidl] No AIDL files to compile.
+     [echo] ----------
+     [echo] Handling RenderScript files...
+     [echo] ----------
+     [echo] Handling Resources...
+     [aapt] Generating resource IDs...
+     [echo] ----------
+     [echo] Handling BuildConfig class...
+[buildconfig] Generating BuildConfig class.
+
+-pre-compile:
+
+-compile:
+     [echo] /home/yen-hsun_huang/antbuild/frameworks/22/am.jar:/home/yen-hsun_huang/antbuild/frameworks/22/android.policy.jar:/home/yen-hsun_huang/antbuild/frameworks/22/android.test.runner.jar:/home/yen-hsun_huang/antbuild/frameworks/22/apache-xml.jar:/home/yen-hsun_huang/antbuild/frameworks/22/appops.jar:/home/yen-hsun_huang/antbuild/frameworks/22/appwidget.jar:/home/yen-hsun_huang/antbuild/frameworks/22/bmgr.jar:/home/yen-hsun_huang/antbuild/frameworks/22/bouncycastle.jar:/home/yen-hsun_huang/antbuild/frameworks/22/bu.jar:/home/yen-hsun_huang/antbuild/frameworks/22/com.android.future.usb.accessory.jar:/home/yen-hsun_huang/antbuild/frameworks/22/com.android.location.provider.jar:/home/yen-hsun_huang/antbuild/frameworks/22/com.android.media.remotedisplay.jar:/home/yen-hsun_huang/antbuild/frameworks/22/com.android.mediadrm.signer.jar:/home/yen-hsun_huang/antbuild/frameworks/22/conscrypt.jar:/home/yen-hsun_huang/antbuild/frameworks/22/content.jar:/home/yen-hsun_huang/antbuild/frameworks/22/core-junit.jar:/home/yen-hsun_huang/antbuild/frameworks/22/core-libart.jar:/home/yen-hsun_huang/antbuild/frameworks/22/dpm.jar:/home/yen-hsun_huang/antbuild/frameworks/22/ethernet-service.jar:/home/yen-hsun_huang/antbuild/frameworks/22/ext.jar:/home/yen-hsun_huang/antbuild/frameworks/22/framework.jar:/home/yen-hsun_huang/antbuild/frameworks/22/ime.jar:/home/yen-hsun_huang/antbuild/frameworks/22/ims-common.jar:/home/yen-hsun_huang/antbuild/frameworks/22/input.jar:/home/yen-hsun_huang/antbuild/frameworks/22/javax.obex.jar:/home/yen-hsun_huang/antbuild/frameworks/22/media_cmd.jar:/home/yen-hsun_huang/antbuild/frameworks/22/mms-common.jar:/home/yen-hsun_huang/antbuild/frameworks/22/monkey.jar:/home/yen-hsun_huang/antbuild/frameworks/22/okhttp.jar:/home/yen-hsun_huang/antbuild/frameworks/22/pm.jar:/home/yen-hsun_huang/antbuild/frameworks/22/requestsync.jar:/home/yen-hsun_huang/antbuild/frameworks/22/services.jar:/home/yen-hsun_huang/antbuild/frameworks/22/settings.jar:/home/yen-hsun_huang/antbuild/frameworks/22/svc.jar:/home/yen-hsun_huang/antbuild/frameworks/22/telephony-common.jar:/home/yen-hsun_huang/antbuild/frameworks/22/uiautomator.jar:/home/yen-hsun_huang/antbuild/frameworks/22/voip-common.jar:/home/yen-hsun_huang/antbuild/frameworks/22/wifi-service.jar:/home/yen-hsun_huang/antbuild/frameworks/22/wm.jar
+     [echo] 
+     [echo] /home/yen-hsun_huang/antbuild/sdk/platforms/android-22/android.jar:/home/yen-hsun_huang/antbuild/sdk/platforms/android-22/data/icu4j.jar:/home/yen-hsun_huang/antbuild/sdk/platforms/android-22/data/layoutlib.jar:/home/yen-hsun_huang/antbuild/sdk/platforms/android-22/uiautomator.jar
+     [echo]  no google.sdk.type
+    [javac] Compiling 11 source files to /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes
+
+-post-compile:
+
+-obfuscate:
+
+-dex:
+      [dex] input: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes
+      [dex] input: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/libs/classes.jar
+      [dex] Pre-Dexing /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/libs/classes.jar -> classes-ae9306fe540ccb87b9180843497d4f1c.jar
+      [dex] Converting compiled files and external libraries into /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes.dex...
+       [dx] Result compacted from 9658.6KiB to 8294.8KiB to save 1363.8KiB
+       [dx] Merged dex A (11 defs/17.5KiB) with dex B (8828 defs/8274.8KiB). Result is 8839 defs/8294.8KiB. Took 1.8s
+
+-crunch:
+   [crunch] Crunching PNG Files in source dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/res
+   [crunch] To destination dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/res
+   [crunch] Crunched 0 PNG files to update cache
+
+-package-resources:
+     [aapt] Creating full resource package...
+
+-package:
+[apkbuilder] Current build type is different than previous build: forced apkbuilder run.
+[apkbuilder] Creating AsusLauncher-release.apk for release...
+
+-post-package:
+
+-release-prompt-for-password:
+
+-release-nosign:
+
+-release-sign:
+     [echo] Signing final apk...
+ [zipalign] Running zip align on final apk...
+     [echo] Release Package: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/AsusLauncher-release.apk
+[propertyfile] Creating new property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
+[propertyfile] Updating property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
+[propertyfile] Updating property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
+[propertyfile] Updating property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
+
+-post-build:
+
+release:
+
+BUILD SUCCESSFUL
+Total time: 46 seconds
+
+
+    =====Done. Takes 64s=====
+
+    

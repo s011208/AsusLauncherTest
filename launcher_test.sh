@@ -4,6 +4,7 @@
 ERROR_CODE_LAUNCHER_BUILD_FAILED=-1;
 ERROR_CODE_TEST_LAUNCHER_BUILD_FAILED=-2;
 ERROR_CODE_UNABLE_TO_INSTALL=-3;
+ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER=-4;
 
 ##Source
 SOURCE_SQLITE="./AsusLauncherTest/sqlite_utilities.sh";
@@ -15,9 +16,11 @@ targetBranch="AsusLauncher_1.4_beta";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
+unitTestResultsAdapter="./../test_results_adapter.txt"
 apkPath="bin/AsusLauncher-release-unaligned.apk";
 
 sqlitePath="./test_results.db";
+sqlitePathWhenInAsusLauncher="./../test_results.db";
 
 function readSources() {
     initSqlite;
@@ -47,6 +50,8 @@ function exitWitherror() {
         echo "Test Launcher build failed";
     elif [ $1 == ERROR_CODE_UNABLE_TO_INSTALL ]; then
         echo "failed to install apk $2"
+    elif [ $1 == ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER ]; then
+        echo "unable to read parse result adapter";
     fi;
     exit 0;
 }
@@ -132,7 +137,60 @@ function runAllTests() {
 }
 
 function parseTestsResult() {
-    parser_start ${unitTestResults};
+    parser_start ${unitTestResults} ${unitTestResultsAdapter};
+}
+
+function readTestResultAdapter() {
+    if [ ! -f ${unitTestResultsAdapter} ]; then
+        exitWitherror ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER;
+    fi;
+    sqlite_changePath ${sqlitePathWhenInAsusLauncher};
+    IFS=$'\n';
+    local rawata=$(cat ${unitTestResultsAdapter});
+    local filteredData=();
+    for next in $rawata
+    do
+        filteredData+=("$next");
+    done
+
+    local timeStamp="";
+    local timeStampId=-1;
+    local testCase="";
+    local testCaseId=-1;
+    local testResult="";
+    local changeTag=true;
+    local nextTag="";
+    for next in ${filteredData[@]}
+    do
+        if [ "${next}" == "${TAG_TIME_STAMP}" ]; then
+            nextTag=${TAG_TIME_STAMP};
+            #debugMessage "${TAG_TIME_STAMP}";
+            changeTag=true;
+        elif [ "${next}" == "${TAG_TEST_CASE}" ]; then
+            nextTag=${TAG_TEST_CASE};
+            #debugMessage "${TAG_TEST_CASE}";
+            changeTag=true;
+        elif [ "${next}" == "${TAG_TEST_RESULT}" ]; then
+            nextTag=${TAG_TEST_RESULT};
+            #debugMessage "${TAG_TEST_RESULT}";
+            changeTag=true;
+        else
+            if [ "${nextTag}" == "${TAG_TIME_STAMP}" ]; then
+                timeStamp="${next}";
+                sqlite_insertNewTimeStamp ${timeStamp};
+                timeStampId=$(sqlite_getTimeStampId ${timeStamp});
+                debugMessage "timeStamp: ${timeStamp}, id: ${timeStampId}";
+            elif [ "${nextTag}" == "${TAG_TEST_CASE}" ]; then
+                testCase="${next}";
+                sqlite_insertNewTestcase ${testCase};
+                testCaseId=$(sqlite_getTestCaseId ${testCase});
+                debugMessage "test case: ${testCase}, id: ${testCaseId}" ;
+            elif [ "${nextTag}" == "${TAG_TEST_RESULT}" ]; then
+                testResult="$(echo ${next} | sed -e 's/@@@/\r/g')";
+                sqlite_insertTestResult ${testCaseId} ${timeStampId} ${testResult};
+            fi;
+        fi;
+    done
 }
 
 cd ~;
@@ -158,7 +216,10 @@ cd './AsusLauncher';
 ## run all tests
 #runAllTests;
 
-cd '..';
-## in ./AsusLauncherTest
+## parse test results
 parseTestsResult;
+readTestResultAdapter;
+
+
+
 echo "666";

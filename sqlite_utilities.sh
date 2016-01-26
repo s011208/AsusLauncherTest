@@ -26,8 +26,12 @@ function sqlite_sayHi() {
     debugMessage "hi! sqlite_utilities imported";
 }
 
-function sqlite_create() {
+function sqlite_changePath() {
     sqlite_path="$1";
+}
+
+function sqlite_create() {
+    sqlite_changePath "$1";
     # create table testcases
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTCASES} (_id INTEGER PRIMARY KEY,${COLUMN_TESTCASES_NAME} TEXT NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (_id INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL);";
@@ -36,7 +40,7 @@ function sqlite_create() {
 }
 
 function sqlite_getAllTestCases() {
-    query=$(sqlite3 "$sqlite_path" "select ${COLUMN_TESTCASES_NAME} from ${TABLE_TESTCASES};");
+    local query=$(sqlite3 "$sqlite_path" "select ${COLUMN_TESTCASES_NAME} from ${TABLE_TESTCASES};");
     readarray -t testCases <<<"$query"
 }
 
@@ -49,5 +53,34 @@ function sqlite_showAllTestCases() {
 }
 
 function sqlite_insertNewTestcase() {
-    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTCASES} (${COLUMN_TESTCASES_NAME}) values ($1);";
+    found=false;
+    for item in "${testCases[@]}"; do
+        if [ "$item" == "$1" ]; then
+            found=true;
+            break;
+        fi;
+    done
+    debugMessage "found: ${found}, case: $1";
+    if [ $found == false ]; then
+        sqlite3 "$sqlite_path" "insert into ${TABLE_TESTCASES} ('${COLUMN_TESTCASES_NAME}') values ('$1');";
+        testCases+=($1);
+    fi;
 }
+
+function sqlite_getTestCaseId() {
+    sqlite3 "$sqlite_path" "select _id from ${TABLE_TESTCASES} where ${COLUMN_TESTCASES_NAME}='$1'";
+}
+
+function sqlite_insertNewTimeStamp() {
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}') values ('$1');";
+}
+
+function sqlite_getTimeStampId() {
+    sqlite3 "$sqlite_path" "select _id from ${TABLE_TESTTIME} where ${COLUMN_TESTTIME_TIME}='$1'";
+}
+
+function sqlite_insertTestResult() {
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTRESULTS} ('${COLUMN_TESTCASES_ID}','${COLUMN_TESTTIME_ID}','${COLUMN_TESTRESULTS_RESULTS}') values ('$1', '$2', '$3');";
+}
+
+

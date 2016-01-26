@@ -41,7 +41,16 @@ function sqlite_create() {
 
 function sqlite_getAllTestCases() {
     local query=$(sqlite3 "$sqlite_path" "select ${COLUMN_TESTCASES_NAME} from ${TABLE_TESTCASES};");
-    readarray -t testCases <<<"$query"
+	if [ ${ENV_MAC} == true ]; then
+        echo "start to print";
+        IFS=$'\n';
+        for next in ${query}
+        do
+            testCases+=("${next}");
+        done
+    else
+        readarray -t testCases <<<"$query"
+    fi;
 }
 
 function sqlite_showAllTestCasesSize() {

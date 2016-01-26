@@ -9,6 +9,7 @@ ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER=-4;
 ##Source
 SOURCE_SQLITE="./AsusLauncherTest/sqlite_utilities.sh";
 SOURCE_PARSE_TEST_RESULTS="./AsusLauncherTest/parse_test_results.sh";
+SOURCE_UTILITIES="./AsusLauncherTest/utilities.sh";
 
 debug=true;
 syncExternalProjectScriptName="deploy_AsusLauncher_1.4.sh";
@@ -23,8 +24,13 @@ sqlitePath="./test_results.db";
 sqlitePathWhenInAsusLauncher="./../test_results.db";
 
 function readSources() {
+    initUtilities;
     initSqlite;
     initParser;
+}
+
+function initUtilities() {
+    source "${SOURCE_UTILITIES}";
 }
 
 function initParser() {

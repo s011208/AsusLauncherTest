@@ -226,6 +226,7 @@ cd './AsusLauncher';
 parseTestsResult;
 readTestResultAdapter;
 
+echo "hello world" | sendmail -f s011208@gmail.com s011208@gmail.com
 
 
 echo "666";

@@ -17,7 +17,14 @@ def get_test_version(test_versions, test_time_id):
         if int(version.get('test_time_id')) == int(test_time_id):
             return version.get('test_version')
     return "N/A"
+	
+def get_test_tag(test_tags, test_time_id):
+    for tag in test_tags:
+        if int(tag.get('test_time_id')) == int(test_time_id):
+            return tag.get('test_version')
+    return "N/A"
     
 register.simple_tag(remove_pkg)
 register.simple_tag(get_test_result)
 register.simple_tag(get_test_version)
+register.simple_tag(get_test_tag)

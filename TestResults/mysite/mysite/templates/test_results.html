@@ -23,7 +23,11 @@
 
 			<tr class="content_column">
 				<td class="column">
-					<div class="column">{{ test_time.test_time }}<br><br>version:<br>{% get_test_version all_versions test_time.id%}</div>
+					<div class="column">
+					{{ test_time.test_time }}
+					<br><br>version:<br>{% get_test_version all_versions test_time.id%}
+					<br><br>launcher tag:<br>{% get_test_tag all_test_tags test_time.id%}
+					</div>
 				</td>
 				{% for test_case in all_test_cases %}
 				<td class="content">

@@ -110,10 +110,11 @@ function sqlite_insertTestVersion() {
 
 ## remain latest 500 test results
 function sqlite_removeOldTimeStamp() {
-	deleteTimeCmd="(SELECT id FROM ${TABLE_TESTTIME} ORDER BY ROWID DESC LIMIT -1 OFFSET 500)";
+	remainItems=500;
+	deleteTimeCmd="(SELECT id FROM ${TABLE_TESTTIME} ORDER BY ROWID DESC LIMIT -1 OFFSET ${remainItems})";
 	sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_TESTVERSION} WHERE ${COLUMN_TESTTIME_ID} in ${deleteTimeCmd};";
 	sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_TESTRESULTS} WHERE ${COLUMN_TESTTIME_ID} in ${deleteTimeCmd};";
-	sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_TESTTIME} WHERE ROWID in (SELECT ROWID FROM ${TABLE_TESTTIME} ORDER BY ROWID DESC LIMIT -1 OFFSET 10);";
+	sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_TESTTIME} WHERE ROWID in (SELECT ROWID FROM ${TABLE_TESTTIME} ORDER BY ROWID DESC LIMIT -1 OFFSET ${remainItems});";
 	sqlite3 "$sqlite_path" "delete from ${TABLE_TESTCASES} where id not in (select distinct ${COLUMN_TESTCASES_ID} from ${TABLE_TESTRESULTS});";
 }
 

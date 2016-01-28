@@ -239,6 +239,6 @@ cd './AsusLauncher';
 ## parse test results
 parseTestsResult;
 readTestResultAdapter;
-
+sqlite_removeOldTimeStamp
 
 echo "666";

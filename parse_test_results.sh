@@ -23,6 +23,7 @@ function parse_getLauncherVersionCode() {
 	else
 		echo $(cat "AndroidManifest.xml" | grep "android:versionCode=" | sed 's/android:versionCode=//g' | sed 's/\"//g' | sed 's/ //g');
 	fi;
+
 }
 
 # $1 = test result file

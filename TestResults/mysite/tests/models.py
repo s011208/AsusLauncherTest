@@ -15,3 +15,7 @@ class test_times(models.Model):
 class test_versions(models.Model):
     test_time_id = models.IntegerField(null=False)
     test_version = models.TextField(null=False)
+	
+class test_tags(models.Model):
+    test_time_id = models.IntegerField(null=False)
+    test_tag = models.TextField(null=False)

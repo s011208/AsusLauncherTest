@@ -167,6 +167,7 @@ function readTestResultAdapter() {
     local timeStamp="";
     local timeStampId=-1;
 	local version="";
+	local lastestTag="";
     local testCase="";
     local testCaseId=-1;
     local testResult="";
@@ -181,6 +182,10 @@ function readTestResultAdapter() {
         elif [ "${next}" == "${TAG_TEST_VERSION}" ]; then
             nextTag=${TAG_TEST_VERSION};
             #debugMessage "${TAG_TEST_VERSION}";
+            changeTag=true;
+        elif [ "${next}" == "${TAG_TEST_LAUNCHER_TAG}" ]; then
+            nextTag=${TAG_TEST_LAUNCHER_TAG};
+            #debugMessage "${TAG_TEST_LAUNCHER_TAG}";
             changeTag=true;
         elif [ "${next}" == "${TAG_TEST_CASE}" ]; then
             nextTag=${TAG_TEST_CASE};
@@ -200,6 +205,10 @@ function readTestResultAdapter() {
                 version="${next}";
                 sqlite_insertTestVersion ${version} ${timeStampId};
                 debugMessage "version: ${version}"
+		    elif [ "${nextTag}" == "${TAG_TEST_LAUNCHER_TAG}" ]; then
+                lastestTag="${next}";
+                sqlite_insertTestTag ${lastestTag} ${timeStampId};
+                debugMessage "lastestTag: ${lastestTag}"
             elif [ "${nextTag}" == "${TAG_TEST_CASE}" ]; then
                 testCase="${next}";
                 sqlite_insertNewTestcase ${testCase};

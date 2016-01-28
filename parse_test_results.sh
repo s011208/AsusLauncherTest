@@ -8,6 +8,7 @@ TAG_TIME_STAMP="tag_TIME_STAMP";
 TAG_TEST_CASE="tag_TEST_CASE";
 TAG_TEST_RESULT="tag_TEST_RESULT";
 TAG_TEST_VERSION="tag_TEST_VERSION";
+TAG_TEST_LAUNCHER_TAG="tag_TEST_LAUNCHER_TAG";
 
 function parser_init() {
     parser_sayHi;
@@ -15,6 +16,10 @@ function parser_init() {
 
 function parser_sayHi() {
     debugMessage "hi! parse_test_results imported";
+}
+
+function parse_getLastestLauncherTag() {
+	echo $(git describe --abbrev=0 --tags);
 }
 
 function parse_getLauncherVersionCode() {
@@ -96,6 +101,8 @@ function parser_start() {
     echo $(date "+%Y/%m/%d %H:%M:%S") >> "$2";
 	echo ${TAG_TEST_VERSION} >> "$2";
 	echo $(parse_getLauncherVersionCode) >> "$2";
+	echo ${TAG_TEST_LAUNCHER_TAG} >> "$2";
+	echo $(parse_getLastestLauncherTag) >> "$2";
     for i in $(seq 0 $((${#testCases[@]}-1)))
     do
         echo ${TAG_TEST_CASE} >> "$2";

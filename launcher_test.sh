@@ -178,7 +178,7 @@ function readTestResultAdapter() {
             nextTag=${TAG_TIME_STAMP};
             #debugMessage "${TAG_TIME_STAMP}";
             changeTag=true;
-		elif [ "${next}" == "${TAG_TEST_VERSION}" ]; then
+        elif [ "${next}" == "${TAG_TEST_VERSION}" ]; then
             nextTag=${TAG_TEST_VERSION};
             #debugMessage "${TAG_TEST_VERSION}";
             changeTag=true;
@@ -196,10 +196,10 @@ function readTestResultAdapter() {
                 sqlite_insertNewTimeStamp ${timeStamp};
                 timeStampId=$(sqlite_getTimeStampId ${timeStamp});
                 debugMessage "timeStamp: ${timeStamp}, id: ${timeStampId}";
-			elif [ "${nextTag}" == "${TAG_TEST_VERSION}" ]; then
-				version="${next}";
-				sqlite_insertTestVersion ${version} ${timeStampId};
-				debugMessage "version: ${version}"
+            elif [ "${nextTag}" == "${TAG_TEST_VERSION}" ]; then
+                version="${next}";
+                sqlite_insertTestVersion ${version} ${timeStampId};
+                debugMessage "version: ${version}"
             elif [ "${nextTag}" == "${TAG_TEST_CASE}" ]; then
                 testCase="${next}";
                 sqlite_insertNewTestcase ${testCase};

@@ -14,9 +14,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from tests.views import hello_world
+from tests.views import test_results
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^hello/$', hello_world),
+    url(r'^results/$', test_results),
 ]

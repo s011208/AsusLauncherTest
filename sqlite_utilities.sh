@@ -1,15 +1,17 @@
 #!/bin/bash
 
-TABLE_TESTCASES="test_cases";
+TABLE_TESTCASES="tests_test_cases";
 COLUMN_TESTCASES_NAME="test_case";
 
-TABLE_TESTTIME="test_times";
+TABLE_TESTTIME="tests_test_times";
 COLUMN_TESTTIME_TIME="test_time";
 
-TABLE_TESTRESULTS="test_results";
+TABLE_TESTRESULTS="tests_test_results";
 COLUMN_TESTCASES_ID="test_case_id";
 COLUMN_TESTTIME_ID="test_time_id";
 COLUMN_TESTRESULTS_RESULTS="test_result";
+
+COLUMN_ID="id";
 
 sqlite_path="";
 
@@ -33,9 +35,9 @@ function sqlite_changePath() {
 function sqlite_create() {
     sqlite_changePath "$1";
     # create table testcases
-    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTCASES} (_id INTEGER PRIMARY KEY,${COLUMN_TESTCASES_NAME} TEXT NOT NULL);";
-    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (_id INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL);";
-    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTRESULTS} (_id INTEGER PRIMARY KEY,${COLUMN_TESTCASES_ID} INTEGER NOT NULL,${COLUMN_TESTTIME_ID} INTEGER NOT NULL,${COLUMN_TESTRESULTS_RESULTS} TEXT NOT NULL);";
+    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTCASES} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_NAME} TEXT NOT NULL);";
+    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL);";
+    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTRESULTS} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_ID} INTEGER NOT NULL,${COLUMN_TESTTIME_ID} INTEGER NOT NULL,${COLUMN_TESTRESULTS_RESULTS} TEXT NOT NULL);";
     sqlite_getAllTestCases;
 }
 
@@ -77,7 +79,7 @@ function sqlite_insertNewTestcase() {
 }
 
 function sqlite_getTestCaseId() {
-    sqlite3 "$sqlite_path" "select _id from ${TABLE_TESTCASES} where ${COLUMN_TESTCASES_NAME}='$1'";
+    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_TESTCASES} where ${COLUMN_TESTCASES_NAME}='$1'";
 }
 
 function sqlite_insertNewTimeStamp() {
@@ -85,7 +87,7 @@ function sqlite_insertNewTimeStamp() {
 }
 
 function sqlite_getTimeStampId() {
-    sqlite3 "$sqlite_path" "select _id from ${TABLE_TESTTIME} where ${COLUMN_TESTTIME_TIME}='$1'";
+    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_TESTTIME} where ${COLUMN_TESTTIME_TIME}='$1'";
 }
 
 function sqlite_insertTestResult() {

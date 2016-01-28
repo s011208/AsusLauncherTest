@@ -1,18 +1,20 @@
 from django.shortcuts import render
 from datetime import datetime
 from django.http import HttpResponse
-from tests.models import test_cases
+from tests.models import *
+from tests.models import test_results as models_test_results
 
-
-def hello_world(request):
-    return render(request, 'hello_world.html', {
-        'current_time': datetime.now(), 'insert_time' : addTestCase(), 'all_tests' : getAllTestCases()
+def test_results(request):
+    return render(request, 'test_results.html', {
+        'all_test_cases' : getAllTestCases(), 'all_test_times' : getAllTestTimes(),
+        'all_test_results' : getAllResults()
     })
-    
-def addTestCase():
-    current_time = datetime.now()
-    #test_cases.objects.create(test_case=current_time)
-    return current_time
-    
+
 def getAllTestCases():
-    return test_cases.objects.all().values()
+    return test_cases.objects.all().order_by('id').values()
+
+def getAllTestTimes():
+    return test_times.objects.all().order_by('-id').values()
+
+def getAllResults():
+    return models_test_results.objects.order_by('-test_time_id').all().values()

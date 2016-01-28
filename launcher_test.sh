@@ -20,8 +20,13 @@ unitTestResults="./../test_results.txt";
 unitTestResultsAdapter="./../test_results_adapter.txt"
 apkPath="bin/AsusLauncher-release-unaligned.apk";
 
-sqlitePath="./test_results.db";
-sqlitePathWhenInAsusLauncher="./../test_results.db";
+## for django
+sqlitePath="./AsusLauncherTest/TestResults/mysite/db.sqlite3";
+sqlitePathWhenInAsusLauncher="./.././AsusLauncherTest/TestResults/mysite/db.sqlite3";
+
+## for script only
+#sqlitePath="./test_results.db";
+#sqlitePathWhenInAsusLauncher="./../test_results.db";
 
 function readSources() {
     initUtilities;
@@ -225,8 +230,6 @@ cd './AsusLauncher';
 ## parse test results
 parseTestsResult;
 readTestResultAdapter;
-
-echo "hello world" | sendmail -f s011208@gmail.com s011208@gmail.com
 
 
 echo "666";

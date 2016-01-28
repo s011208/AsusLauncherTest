@@ -1,0 +1,44 @@
+<!-- test_results.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+		{% load staticfiles %}
+		<link rel="stylesheet" type="text/css" href="/static/style.css" media="screen" />
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    </head>
+    <body>
+		{% load test_library %}
+		<table>
+			<tr>
+				<td class="column">
+				</td>
+				{% for test_case in all_test_cases %}
+				<td class="column">
+					<div class="column">{% remove_pkg test_case.test_case %}</div>
+				</td>
+				{% endfor %}
+			</tr>
+			{% for test_time in all_test_times %}
+
+			<tr class="content_column">
+				<td class="column">
+					<div class="column">{{ test_time.test_time }}</div>
+				</td>
+				{% for test_case in all_test_cases %}
+				<td class="content">
+					<script>
+					var result="{% get_test_result all_test_results test_case.id test_time.id %}";
+					if (result.localeCompare("OK") == 0) {
+						document.write('<div class="content_pass">' + result + '</div>');
+					} else {
+						document.write('<div class="content_failure">' + result + '</div>');
+					}
+					</script>
+				</td>
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+    </body>
+	<script type="text/javascript" src="/static/main.js"></script>
+</html>

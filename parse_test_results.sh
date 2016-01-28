@@ -50,7 +50,7 @@ function parser_start() {
         #debugMessage "$next";
         if [ -z $(echo "$next" | grep "^com.asus.launcher.") ]; then
             if [ -z $(echo "$next" | grep "${OK_PATTERN}\|${FAILURE_PATTERN}") ]; then
-                previousTestResult="$(echo ${previousTestResult}${next} | sed -e 's/\t//g' | sed -e 's/\r/@@@/g')";
+                previousTestResult="$(echo ${previousTestResult}${next})";
             else
                 local isOK=$(echo "$next" | grep "${OK_PATTERN}");
                 if [ -z $isOK ]; then

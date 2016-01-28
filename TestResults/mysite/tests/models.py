@@ -11,3 +11,7 @@ class test_results(models.Model):
     
 class test_times(models.Model):
     test_time = models.TextField(null=False)
+    
+class test_versions(models.Model):
+    test_time_id = models.IntegerField(null=False)
+    test_version = models.TextField(null=False)

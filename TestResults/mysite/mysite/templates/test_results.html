@@ -5,6 +5,7 @@
 		{% load staticfiles %}
 		<link rel="stylesheet" type="text/css" href="/static/style.css" media="screen" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="/static/main.js"></script>
     </head>
     <body>
 		{% load test_library %}
@@ -22,7 +23,7 @@
 
 			<tr class="content_column">
 				<td class="column">
-					<div class="column">{{ test_time.test_time }}</div>
+					<div class="column">{{ test_time.test_time }}<br><br>version:<br>{% get_test_version all_versions test_time.id%}</div>
 				</td>
 				{% for test_case in all_test_cases %}
 				<td class="content">
@@ -40,5 +41,5 @@
 			{% endfor %}
 		</table>
     </body>
-	<script type="text/javascript" src="/static/main.js"></script>
+	
 </html>

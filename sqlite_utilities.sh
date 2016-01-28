@@ -6,6 +6,9 @@ COLUMN_TESTCASES_NAME="test_case";
 TABLE_TESTTIME="tests_test_times";
 COLUMN_TESTTIME_TIME="test_time";
 
+TABLE_TESTVERSION="tests_test_versions";
+COLUMN_TESTVERSION_VERSION="test_version";
+
 TABLE_TESTRESULTS="tests_test_results";
 COLUMN_TESTCASES_ID="test_case_id";
 COLUMN_TESTTIME_ID="test_time_id";
@@ -37,6 +40,7 @@ function sqlite_create() {
     # create table testcases
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTCASES} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_NAME} TEXT NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL);";
+	sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTVERSION} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTVERSION_VERSION} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTRESULTS} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_ID} INTEGER NOT NULL,${COLUMN_TESTTIME_ID} INTEGER NOT NULL,${COLUMN_TESTRESULTS_RESULTS} TEXT NOT NULL);";
     sqlite_getAllTestCases;
 }
@@ -92,6 +96,16 @@ function sqlite_getTimeStampId() {
 
 function sqlite_insertTestResult() {
     sqlite3 "$sqlite_path" "insert into ${TABLE_TESTRESULTS} ('${COLUMN_TESTCASES_ID}','${COLUMN_TESTTIME_ID}','${COLUMN_TESTRESULTS_RESULTS}') values ('$1', '$2', '$3');";
+}
+
+## with $1=test_time_id
+function sqlite_getTestVersion() {
+	sqlite3 "$sqlite_path" "select ${COLUMN_TESTVERSION_VERSION} from ${TABLE_TESTVERSION} where ${COLUMN_TESTTIME_ID}='$1'";
+}
+
+## with $1=test_version, $2=test_time_id
+function sqlite_insertTestVersion() {
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTVERSION} ('${COLUMN_TESTVERSION_VERSION}','${COLUMN_TESTTIME_ID}') values ('$1', '$2');";
 }
 
 

@@ -21,7 +21,7 @@ div.column {
 	color: blue;
 	text-align: center;
 	padding: 10px;
-	font-size: 80%;
+	font-size: 70%;
 }
 
 td.column {
@@ -33,18 +33,19 @@ td.content {
 }
 
 div.content_pass {
-	font-size: 100%;
+	font-size: 80%;
 	text-align: center;
 	color: rgb(0, 255, 0);
 }
 
 div.content_failure {
-	font-size: 60%;
+	font-size: 70%;
 	text-align: left;
 	color: rgb(255, 99, 71);
 	overflow: scroll;
+	margin:3px;
 }
 
 .content_failure {
-	height:100px;
+	height:70px;
 }

@@ -13,7 +13,7 @@ SOURCE_UTILITIES="./AsusLauncherTest/utilities.sh";
 
 debug=true;
 syncExternalProjectScriptName="deploy_AsusLauncher_1.4.sh";
-targetBranch="AsusLauncher_1.4_beta";
+targetBranch="AsusLauncher_1.4_play";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
@@ -217,24 +217,24 @@ cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-#syncExternalProjects;
+syncExternalProjects;
 
 cd './AsusLauncher';
 ## in ./AsusLauncherTest/AsusLauncher
 
-#syncLauncher;
-#buildLauncher;
-#checkBuildLauncherResult;
+syncLauncher;
+buildLauncher;
+checkBuildLauncherResult;
 
-#buildTestLauncher;
-#checkBuildTestLauncherResult;
+buildTestLauncher;
+checkBuildTestLauncherResult;
 
 ## install apk
-#installLauncher;
-#installTestLauncher;
+installLauncher;
+installTestLauncher;
 
 ## run all tests
-#runAllTests;
+runAllTests;
 
 ## parse test results
 parseTestsResult;

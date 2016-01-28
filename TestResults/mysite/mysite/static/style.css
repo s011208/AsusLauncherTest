@@ -18,10 +18,10 @@ table tr td {
 }
 
 div.column {
-	color: blue;
+	color: #3a0088;
 	text-align: center;
 	padding: 10px;
-	font-size: 70%;
+	font-size: 15px;
 }
 
 td.column {
@@ -33,13 +33,13 @@ td.content {
 }
 
 div.content_pass {
-	font-size: 80%;
+	font-size: 14px;
 	text-align: center;
-	color: rgb(0, 255, 0);
+	color: #55AA00;
 }
 
 div.content_failure {
-	font-size: 70%;
+	font-size: 13px;
 	text-align: left;
 	color: rgb(255, 99, 71);
 	overflow: scroll;

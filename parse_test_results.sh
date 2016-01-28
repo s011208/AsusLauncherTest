@@ -21,7 +21,7 @@ function parse_getLauncherVersionCode() {
 	if [ ! -f "AndroidManifest.xml" ]; then
 		echo "failed to find AndroidManifest.xml";
 	else
-		return $(cat "AndroidManifest.xml" | grep "android:versionCode= " | sed 's/android:versionCode=//g' | sed 's/\"//g' | sed 's/ //g');
+		echo $(cat "AndroidManifest.xml" | grep "android:versionCode=" | sed 's/android:versionCode=//g' | sed 's/\"//g' | sed 's/ //g');
 	fi;
 }
 

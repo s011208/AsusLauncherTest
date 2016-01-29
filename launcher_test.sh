@@ -166,8 +166,8 @@ function readTestResultAdapter() {
 
     local timeStamp="";
     local timeStampId=-1;
-	local version="";
-	local lastestTag="";
+    local version="";
+    local lastestTag="";
     local testCase="";
     local testCaseId=-1;
     local testResult="";
@@ -205,7 +205,7 @@ function readTestResultAdapter() {
                 version="${next}";
                 sqlite_insertTestVersion ${version} ${timeStampId};
                 debugMessage "version: ${version}"
-		    elif [ "${nextTag}" == "${TAG_TEST_LAUNCHER_TAG}" ]; then
+            elif [ "${nextTag}" == "${TAG_TEST_LAUNCHER_TAG}" ]; then
                 lastestTag="${next}";
                 sqlite_insertTestTag ${lastestTag} ${timeStampId};
                 debugMessage "lastestTag: ${lastestTag}"

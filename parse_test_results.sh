@@ -19,15 +19,15 @@ function parser_sayHi() {
 }
 
 function parse_getLastestLauncherTag() {
-	echo $(git describe --abbrev=0 --tags);
+    echo $(git describe --abbrev=0 --tags);
 }
 
 function parse_getLauncherVersionCode() {
-	if [ ! -f "AndroidManifest.xml" ]; then
-		echo "failed to find AndroidManifest.xml";
-	else
-		echo $(cat "AndroidManifest.xml" | grep "android:versionCode=" | sed 's/android:versionCode=//g' | sed 's/\"//g' | sed 's/ //g');
-	fi;
+    if [ ! -f "AndroidManifest.xml" ]; then
+        echo "failed to find AndroidManifest.xml";
+    else
+        echo $(cat "AndroidManifest.xml" | grep "android:versionCode=" | sed 's/android:versionCode=//g' | sed 's/\"//g' | sed 's/ //g');
+    fi;
 
 }
 
@@ -99,10 +99,10 @@ function parser_start() {
     rm -f "$2";
     echo ${TAG_TIME_STAMP} >> "$2";
     echo $(date "+%Y/%m/%d %H:%M:%S") >> "$2";
-	echo ${TAG_TEST_VERSION} >> "$2";
-	echo $(parse_getLauncherVersionCode) >> "$2";
-	echo ${TAG_TEST_LAUNCHER_TAG} >> "$2";
-	echo $(parse_getLastestLauncherTag) >> "$2";
+    echo ${TAG_TEST_VERSION} >> "$2";
+    echo $(parse_getLauncherVersionCode) >> "$2";
+    echo ${TAG_TEST_LAUNCHER_TAG} >> "$2";
+    echo $(parse_getLastestLauncherTag) >> "$2";
     for i in $(seq 0 $((${#testCases[@]}-1)))
     do
         echo ${TAG_TEST_CASE} >> "$2";

@@ -15,7 +15,7 @@
 				</td>
 				{% for test_case in all_test_cases %}
 				<td class="column">
-					<div class="column">{% remove_pkg test_case.test_case %}</div>
+					<div class="column">{% remove_pkg test_case.test_case %}<br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)</div>
 				</td>
 				{% endfor %}
 			</tr>

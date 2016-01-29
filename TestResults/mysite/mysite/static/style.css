@@ -42,7 +42,8 @@ div.content_failure {
 	font-size: 13px;
 	text-align: left;
 	color: rgb(255, 99, 71);
-	overflow: scroll;
+	overflow: auto;
+	overflow-x: hidden;
 	margin:3px;
     height:70px;
 }
@@ -50,5 +51,7 @@ div.content_failure {
 tr.content_column td.column div.column {
     height:70px;
     text-align: center;
-    overflow: scroll;
+    overflow: auto;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }

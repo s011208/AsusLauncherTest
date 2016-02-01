@@ -64,18 +64,25 @@ function debugMessage() {
 }
 
 function exitWitherror() {
-    if [ $1 == ERROR_CODE_LAUNCHER_BUILD_FAILED ]; then
+    if (( $1 -eq ${ERROR_CODE_LAUNCHER_BUILD_FAILED} )); then
         echo "Launcher build failed";
-    elif [ $1 == ERROR_CODE_TEST_LAUNCHER_BUILD_FAILED ]; then
+    elif (( $1 -eq ${ERROR_CODE_TEST_LAUNCHER_BUILD_FAILED} )); then
         echo "Test Launcher build failed";
-    elif [ $1 == ERROR_CODE_UNABLE_TO_INSTALL ]; then
+    elif (( $1 -eq ${ERROR_CODE_UNABLE_TO_INSTALL} )); then
         echo "failed to install apk $2"
-    elif [ $1 == ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER ]; then
+    elif (( $1 -eq ${ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER} )); then
         echo "unable to read parse result adapter";
-    elif [ $1 == ERROR_CODE_UNABLE_TO_READ_GIT_LOGS ]; then
+    elif (( $1 -eq ${ERROR_CODE_UNABLE_TO_READ_GIT_LOGS} )); then
         echo "unable to read git logs";
     fi;
+	handleErrors;
     exit 0;
+}
+
+## update test columns
+function handleErrors() {
+    sqlite_insertNewTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")";
+	sqlite_update_lastest_untested_hash;
 }
 
 function installApk() {
@@ -232,7 +239,7 @@ function readTestResultAdapter() {
     done
 }
 
-function parse_and_insert_git_logs() {
+function parseAndInsertGitLogs() {
     if [ ! -f ${git_logs} ]; then
         exitWitherror ERROR_CODE_UNABLE_TO_READ_GIT_LOGS;
     fi;
@@ -244,60 +251,79 @@ function parse_and_insert_git_logs() {
         #echo $next;
         filteredData+=("$next");
     done
-    for data in ${filteredData[@]}
+	for (( index=${#filteredData[@]}-1 ; index>=0 ; index-- ));
     do
+	    data_f=${filteredData[$index]};
 	    local change_subject="";
 		local change_author="";
 		local change_hash="";
 		local change_author_email="";
 		local counter=0;
-        for column in $(echo ${data} | sed "s/$git_saperater/\n/g")
+        for column in $(echo ${data_f} | sed "s/$git_saperater/\n/g")
         do
 			if [ $counter == 0 ]; then
 			    change_subject=$column;
+				change_subject="$(echo $change_subject | sed "s/'//g")"
+				#debugMessage "change_subject: $change_subject";
 			elif [ $counter == 1 ]; then
 			    change_author=$column;
+				#debugMessage "change_author: $change_author";
 			elif [ $counter == 2 ]; then
 			    change_hash=$column;
+				#debugMessage "change_hash: $change_hash";
             elif [ $counter == 3 ]; then
 			    change_author_email=$column;
+				#debugMessage "change_author_email: $change_author_email";
 			fi;
 			counter=$(($counter + 1));
         done
+		#debugMessage $data_f;
 		#debugMessage "s: " $change_subject "a: " $change_author "h: " $change_hash "ae: " $change_author_email
-		sqlite_insert_git_log $change_subject $change_author $change_hash $change_author_email;
+		sqlite_insert_git_log "$change_subject" "$change_author" "$change_hash" "$change_author_email";
     done
+}
+
+function resetToRightChange() {
+    local last_untested_hash=$(sqlite_get_lastest_untested_hash);
+	echo $last_untested_hash;
+    git reset --hard $last_untested_hash;
 }
 
 cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-#syncExternalProjects;
+syncExternalProjects;
 
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
-#syncLauncher;
-git_helper_syncDatabase $git_logs;
-parse_and_insert_git_logs;
-#buildLauncher;
-#checkBuildLauncherResult;
+syncLauncher;
 
-#buildTestLauncher;
-#checkBuildTestLauncherResult;
+## checkout to right commit
+git_helper_syncDatabase $git_logs;
+parseAndInsertGitLogs;
+resetToRightChange;
+
+buildLauncher;
+checkBuildLauncherResult;
+
+buildTestLauncher;
+checkBuildTestLauncherResult;
 
 ## install apk
-#installLauncher;
-#installTestLauncher;
+installLauncher;
+installTestLauncher;
 
 ## run all tests
-#runAllTests;
+runAllTests;
 
 ## parse test results
-#parseTestsResult;
-#readTestResultAdapter;
-#sqlite_removeOldTimeStamp
+parseTestsResult;
+readTestResultAdapter;
+sqlite_removeOldTimeStamp;
+
+sqlite_update_lastest_untested_hash;
 
 echo "666";

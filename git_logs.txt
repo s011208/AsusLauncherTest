@@ -1,0 +1,30 @@
+[AMAX][AsusLauncher][ThemeStore] fixed crash when download page IndexOutOfBounds@@@Peter_Chou@@@66aa5b917141a2ef33602fec6ee5af2c26d4467d@@@Peter_Chou@asus.com
+[AMAX][AsusLauncher][Fix] Google play NPE crash@@@nokia_du@@@a61686c749687df164bed8b2131691854dd0cf31@@@nokia_du@asus.com
+[AMAX][AsusLauncher][ThemeStore][Banner] Fix NPE problem if user cannot donwload valid banner_list.json at first time@@@lansilote_lin@@@b65e536a5c3c48df6ddfa9093bc15c3edb8fb4b9@@@lansilote_lin@asus.com
+Revert "[AMAX][AsusLauncher][ThemeStore][Banner] Fix NPE problem if user cannot donwload valid banner_list.json at first time"@@@Du Nokia@@@fa19c7666d910a9114900e7fc46ea9da2e9d6292@@@Nokia_Du@asus.com
+[AMAX][AsusLauncher][ThemeStore] Fix crash when website of wallpaper is empty@@@Peter_Chou@@@ecb8769fcb4520057a919da0a3e3e1239b4fea59@@@Peter_Chou@asus.com
+[AMAX][AsusLauncher][ThemeStore][Banner] Fix NPE problem if user cannot donwload valid banner_list.json at first time@@@lansilote_lin@@@097cc6aa86dfe8f7fa77b425ba9f679c9c0e39c5@@@lansilote_lin@asus.com
+Revert "[AMAX][AsusLauncher] using mPinchAnimationImages.size() as index instead"@@@Yufeng Kuo@@@ef5d825ef9366c914389790df25342ebcda38176@@@yufeng_kuo@asus.com
+[AMAX][AsusLauncher] using mPinchAnimationImages.size() as index instead@@@yen-hsun_huang@@@036a1c2d09797dbaaa7d2b48df33d7993efb5c15@@@yen-hsun_huang@asus.com
+[AMAX][AsusLauncher][LAUN-1028][Folder] Fix NPE :偶發長按 folder shortcut 發生 launcher crash@@@herry_wang@@@b5d2bde1f3d0631262fcf8f19633ff35430ef831@@@herry_wang@asus.com
+[AMAX][AsusLauncher][ZenUI Now] create new folder ZenUINow_1.1 for play branch@@@vincent1_hsieh@@@d2c886c6cb41f3bb75dec6ec26ba15048847a122@@@Vincent1_Hsieh@asus.com
+Revert "[AMAX][AsusLauncher][ZenUI Now] move start ZenUI Now service to LauncherApplication"@@@PingJung_Lu@@@c3445cc3df32a88df0ac4b1faae9b794d4c03d77@@@pingjung_lu@asus.com
+[AMAX][AsusLauncher][TT-737362][Fix] [MGSEI][Home/ Launcher]設備橫屏時將所有應用程序小部件放置到桌面上并快速點擊一下，發生crash@@@george_yeh@@@db1473591e15040d6c4eb3e1b9206de42b7142ec@@@george_yeh@asus.com
+[AMAX][AsusLauncher][TT-736370][Fix] 使用條款鏈接顯示找不到此頁面。@@@Beyond_Chao@@@c90605a842c6d6af91db4ef991d71a64cafd6a39@@@Beyond_Chao@asus.com
+[AMAX][AsusLauncher][ZenUI Now][Build] sync ZenuiNow_1.0_Play branch in AsusLauncher play branch@@@vincent1_hsieh@@@5b901e2d5a3a9e153dfd0dd11fea90ec4b12b103@@@Vincent1_Hsieh@asus.com
+[AMAX][AsusLauncher][TT 736380] [MGSEI][Home/ Launcher]從桌面設置點擊選擇文字或者字體大小進入的界面下方的圖標顯示不匹配@@@yen-hsun_huang@@@cc051db5e9265f59f9b75c70173294bd3b9596bb@@@yen-hsun_huang@asus.com
+[AMAX][AsusLauncher][ThemeStore][GA] Polling the applied theme usage on everyday@@@charlie2_lin@@@f58814e78ba216f51e737ad600af0c10f87b9f2e@@@charlie2_lin@asus.com
+[AMAX][AsusLauncher][ThemeStore][GA] Add GA when entry store from Wallpaper picker@@@steven2_hsu@@@ef8156fdd518d0eb0b03e4f5402e2f41ffb03014@@@steven2_hsu@asus.com
+[QuickFind][TT-736296] Fix that Contacts preference still disabled after permission granted@@@WeiSheng_Cheng@@@e09ceb6b3658499c60f81b7cea3da8b848ba259e@@@weisheng_cheng@asus.com
+[QuickFind][TT-735461] Remove clear history preference in SearchSettings in verizon sku@@@WeiSheng_Cheng@@@848b814800d25cd0164403b5b9c863e18a1b97d9@@@weisheng_cheng@asus.com
+[AMAX][AsusLauncher][TT 735459] 橫屏下，轉場動畫的圖標icon在左上角@@@yen-hsun_huang@@@fb6d006368c3d946e8ed2be348c495a8d1a6134b@@@yen-hsun_huang@asus.com
+[AMAX][AsusLauncher][TT 736305] [MGSEI][Home/ Launcher]橫屏時，頁面管理界面顯示不完整@@@yen-hsun_huang@@@f00a19840b729f49279eb47e85fbabd6a31466e4@@@yen-hsun_huang@asus.com
+[AMAX][AsusLauncher][TT-736294] Modify asus live wallpapers folder is empty on Verizon devices@@@kaiwun_shih@@@d70574257fb026c56961c0ec987c077c8689e84b@@@kaiwun_shih@asus.com
+[AMAX][AsusLauncher] hide font style option in Verizon@@@Tzu-Yen_Huang@@@5a255360e0a9359be82282b2cdc82e20adf3bcc6@@@Tzu-Yen_Huang@asus.com
+[AMAX][AsusLauncher][TT-735295] HideApps button not working in workspace chooser when single laye@@@Tzu-Yen_Huang@@@6e6cbd0657eedf2353c4110778dc3a071c7f1003@@@Tzu-Yen_Huang@asus.com
+[AMAX][AsusLauncher] Dangerous permission - Utilities, check with context instead of activity@@@kyle1_tsai@@@7b4ba7b855c34f592497a78b54c55e6baee2045d@@@kyle1_tsai@asus.com
+[AMAX][AsusLauncher][Badge] Gmail - Check permission with Context instead of LauncherActivity@@@mingchun_hsu@@@1b36984f726221ff3e2c3a288a6da8fe48799b80@@@mingchun_hsu@asus.com
+[AMAX][AsusLauncher][TT-733644][Fix] [AppInstallationService][1.0][Ze550KL]沒有跑progressbar下載的動畫@@@george_yeh@@@e30da067a05ea86991f706119b6d8403f4d4f7a2@@@george_yeh@asus.com
+[AMAX][AsusLauncher][LAUN-937][Tips] Finish quick find tips directly in VZW SKU@@@johnson2_chen@@@0d517572c37a0fd677d936ed3c8e3db05c4bc42b@@@johnson2_chen@asus.com
+[AMAX][AsusLauncher][Laun-1042][Placement] Set VZW sku's all app button to aosp default@@@Kyle_Peng@@@65bbef3691e6071f945e78d9561d5c2d36a65ae2@@@Kyle_Peng@asus.com
+[AMAX][AsusLauncher][ThemeStore] Avoid ClassCastException when user upgrade ZenUi from 2.0.4.7 to 2.1.0.1@@@nokia_du@@@a1b21434890c07823f010d237dadac90c3f2adb6@@@nokia_du@asus.com

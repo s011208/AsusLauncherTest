@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git_sqlite_path="";
-git_get_number_of_logs=10;
+git_get_number_of_logs=30;
 git_saperater="@@@";
 function git_helper_changePath() {
     git_sqlite_path="$1";

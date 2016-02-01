@@ -5,6 +5,7 @@ COLUMN_TESTCASES_NAME="test_case";
 
 TABLE_TESTTIME="tests_test_times";
 COLUMN_TESTTIME_TIME="test_time";
+COLUME_GIT_LOG_ID="test_git_log_id";
 
 TABLE_TESTVERSION="tests_test_versions";
 COLUMN_TESTVERSION_VERSION="test_version";
@@ -49,7 +50,7 @@ function sqlite_create() {
     sqlite_changePath "$1";
     # create table testcases
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTCASES} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_NAME} TEXT NOT NULL);";
-    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL);";
+    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL, ${COLUME_GIT_LOG_ID} INTEGER NOT NULL DEFAULT -1);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTVERSION} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTVERSION_VERSION} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_LAUNCHERTAG} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_LAUNCHERTAG_TAG} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTRESULTS} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_ID} INTEGER NOT NULL,${COLUMN_TESTTIME_ID} INTEGER NOT NULL,${COLUMN_TESTRESULTS_RESULTS} TEXT NOT NULL);";
@@ -99,7 +100,8 @@ function sqlite_getTestCaseId() {
 }
 
 function sqlite_insertNewTimeStamp() {
-    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}') values ('$1');";
+    local unTestedId=$(sqlite_get_lastest_untested_id);
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}') values ('$1','($unTestedId)');";
 }
 
 function sqlite_getTimeStampId() {
@@ -130,6 +132,20 @@ function sqlite_insertTestTag() {
     sqlite3 "$sqlite_path" "insert into ${TABLE_LAUNCHERTAG} ('${COLUMN_LAUNCHERTAG_TAG}','${COLUMN_TESTTIME_ID}') values ('$1', '$2');";
 }
 
+## update tests_test_git_log set git_tested='True' where git_hash_code in (select git_hash_code from tests_test_git_log where git_tested='False' order by id limit 1)
+function sqlite_update_lastest_untested_hash() {
+    sqlite3 "$sqlite_path" "update ${TABLE_GIT_LOG} set ${COLUMN_GIT_LOG_TESTED}='True' where ${COLUMN_GIT_LOG_HASH}='$(sqlite_get_lastest_untested_hash)'"
+}
+
+function sqlite_get_lastest_untested_id() {
+    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' order by ${COLUMN_ID} limit 1";
+}
+
+## select git_hash_code from tests_test_git_log where git_tested='False' order by id limit 1
+function sqlite_get_lastest_untested_hash() {
+    sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' order by ${COLUMN_ID} limit 1";
+}
+
 function sqlite_get_git_log() {
     sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_HASH}='$1'";
 }
@@ -139,8 +155,6 @@ function sqlite_insert_git_log() {
     local result=$(sqlite_get_git_log $3);
 	if [ -z $result ]; then
 	    sqlite3 "$sqlite_path" "insert into ${TABLE_GIT_LOG} ('${COLUMN_GIT_LOG_SUBJECT}','${COLUMN_GIT_LOG_AUTHOR_NAME}','${COLUMN_GIT_LOG_HASH}','${COLUMN_GIT_LOG_AUTHOR_EMAIL}','${COLUMN_GIT_LOG_TESTED}') values ('$1', '$2', '$3', '$4', 'False');";
-	else
-	    debugMessage "$1 is old";
 	fi;
 }
 

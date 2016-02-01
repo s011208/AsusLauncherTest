@@ -2,5 +2,5 @@
 while :
 do
     ./launcher_test.sh;
-    sleep 600;
+    sleep 300;
 done

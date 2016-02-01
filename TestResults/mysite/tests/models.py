@@ -19,3 +19,10 @@ class test_versions(models.Model):
 class test_tags(models.Model):
     test_time_id = models.IntegerField(null=False)
     test_tag = models.TextField(null=False)
+	
+class test_git_log(models.Model):
+    git_subject = models.TextField(null=False)
+    git_author_name = models.TextField(null=False)
+    git_author_email = models.TextField(null=False)
+    git_hash_code = models.TextField(null=False)
+    git_tested = models.TextField(null=False, default='False')

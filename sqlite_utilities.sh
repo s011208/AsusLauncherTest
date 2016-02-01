@@ -53,7 +53,7 @@ function sqlite_create() {
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTVERSION} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTVERSION_VERSION} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_LAUNCHERTAG} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_LAUNCHERTAG_TAG} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTRESULTS} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_ID} INTEGER NOT NULL,${COLUMN_TESTTIME_ID} INTEGER NOT NULL,${COLUMN_TESTRESULTS_RESULTS} TEXT NOT NULL);";
-	sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_GIT_LOG} (${COLUMN_ID} INTEGER PRIMARY KEY, ${COLUMN_GIT_LOG_SUBJECT} TEXT NOT NULL, ${COLUMN_GIT_LOG_AUTHOR_NAME} TEXT NOT NULL, ${COLUMN_GIT_LOG_AUTHOR_EMAIL} TEXT NOT NULL, ${COLUMN_GIT_LOG_HASH} TEXT NOT NULL, ${COLUMN_GIT_LOG_TESTED} TEXT NOT NULL DEFAULT 'False');";
+    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_GIT_LOG} (${COLUMN_ID} INTEGER PRIMARY KEY, ${COLUMN_GIT_LOG_SUBJECT} TEXT NOT NULL, ${COLUMN_GIT_LOG_AUTHOR_NAME} TEXT NOT NULL, ${COLUMN_GIT_LOG_AUTHOR_EMAIL} TEXT NOT NULL, ${COLUMN_GIT_LOG_HASH} TEXT NOT NULL, ${COLUMN_GIT_LOG_TESTED} TEXT NOT NULL DEFAULT 'False');";
     sqlite_getAllTestCases;
 }
 
@@ -128,6 +128,20 @@ function sqlite_getTestTag() {
 ## with $1=test_tag, $2=test_time_id
 function sqlite_insertTestTag() {
     sqlite3 "$sqlite_path" "insert into ${TABLE_LAUNCHERTAG} ('${COLUMN_LAUNCHERTAG_TAG}','${COLUMN_TESTTIME_ID}') values ('$1', '$2');";
+}
+
+function sqlite_get_git_log() {
+    sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_HASH}='$1'";
+}
+
+## with $1=subject, $2=author, $3=hash, $4=author_email
+function sqlite_insert_git_log() {
+    local result=$(sqlite_get_git_log $3);
+	if [ -z $result ]; then
+	    sqlite3 "$sqlite_path" "insert into ${TABLE_GIT_LOG} ('${COLUMN_GIT_LOG_SUBJECT}','${COLUMN_GIT_LOG_AUTHOR_NAME}','${COLUMN_GIT_LOG_HASH}','${COLUMN_GIT_LOG_AUTHOR_EMAIL}','${COLUMN_GIT_LOG_TESTED}') values ('$1', '$2', '$3', '$4', 'False');";
+	else
+	    debugMessage "$1 is old";
+	fi;
 }
 
 ## remain latest 500 test results

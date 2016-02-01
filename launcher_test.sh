@@ -5,11 +5,13 @@ ERROR_CODE_LAUNCHER_BUILD_FAILED=-1;
 ERROR_CODE_TEST_LAUNCHER_BUILD_FAILED=-2;
 ERROR_CODE_UNABLE_TO_INSTALL=-3;
 ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER=-4;
+ERROR_CODE_UNABLE_TO_READ_GIT_LOGS=-5;
 
 ##Source
 SOURCE_SQLITE="./AsusLauncherTest/sqlite_utilities.sh";
 SOURCE_PARSE_TEST_RESULTS="./AsusLauncherTest/parse_test_results.sh";
 SOURCE_UTILITIES="./AsusLauncherTest/utilities.sh";
+SOURCE_GIT_HELPER="./AsusLauncherTest/git_helper.sh";
 
 debug=true;
 syncExternalProjectScriptName="deploy_AsusLauncher_1.4.sh";
@@ -18,6 +20,7 @@ asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
 unitTestResultsAdapter="./../test_results_adapter.txt"
+git_logs="./../git_logs.txt"
 apkPath="bin/AsusLauncher-release-unaligned.apk";
 
 ## for django
@@ -32,6 +35,12 @@ function readSources() {
     initUtilities;
     initSqlite;
     initParser;
+    initGitHelper;
+}
+
+function initGitHelper() {
+    source "${SOURCE_GIT_HELPER}";
+    git_helper_changePath ${sqlitePath};
 }
 
 function initUtilities() {
@@ -63,6 +72,8 @@ function exitWitherror() {
         echo "failed to install apk $2"
     elif [ $1 == ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER ]; then
         echo "unable to read parse result adapter";
+    elif [ $1 == ERROR_CODE_UNABLE_TO_READ_GIT_LOGS ]; then
+        echo "unable to read git logs";
     fi;
     exit 0;
 }
@@ -155,7 +166,6 @@ function readTestResultAdapter() {
     if [ ! -f ${unitTestResultsAdapter} ]; then
         exitWitherror ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER;
     fi;
-    sqlite_changePath ${sqlitePathWhenInAsusLauncher};
     IFS=$'\n';
     local rawata=$(cat ${unitTestResultsAdapter});
     local filteredData=();
@@ -222,32 +232,72 @@ function readTestResultAdapter() {
     done
 }
 
+function parse_and_insert_git_logs() {
+    if [ ! -f ${git_logs} ]; then
+        exitWitherror ERROR_CODE_UNABLE_TO_READ_GIT_LOGS;
+    fi;
+    IFS=$'\n';
+    local rawata=$(cat ${git_logs});
+    local filteredData=();
+    for next in $rawata
+    do
+        #echo $next;
+        filteredData+=("$next");
+    done
+    for data in ${filteredData[@]}
+    do
+	    local change_subject="";
+		local change_author="";
+		local change_hash="";
+		local change_author_email="";
+		local counter=0;
+        for column in $(echo ${data} | sed "s/$git_saperater/\n/g")
+        do
+			if [ $counter == 0 ]; then
+			    change_subject=$column;
+			elif [ $counter == 1 ]; then
+			    change_author=$column;
+			elif [ $counter == 2 ]; then
+			    change_hash=$column;
+            elif [ $counter == 3 ]; then
+			    change_author_email=$column;
+			fi;
+			counter=$(($counter + 1));
+        done
+		#debugMessage "s: " $change_subject "a: " $change_author "h: " $change_hash "ae: " $change_author_email
+		sqlite_insert_git_log $change_subject $change_author $change_hash $change_author_email;
+    done
+}
+
 cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-syncExternalProjects;
+#syncExternalProjects;
 
 cd './AsusLauncher';
+sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
-syncLauncher;
-buildLauncher;
-checkBuildLauncherResult;
+#syncLauncher;
+git_helper_syncDatabase $git_logs;
+parse_and_insert_git_logs;
+#buildLauncher;
+#checkBuildLauncherResult;
 
-buildTestLauncher;
-checkBuildTestLauncherResult;
+#buildTestLauncher;
+#checkBuildTestLauncherResult;
 
 ## install apk
-installLauncher;
-installTestLauncher;
+#installLauncher;
+#installTestLauncher;
 
 ## run all tests
-runAllTests;
+#runAllTests;
 
 ## parse test results
-parseTestsResult;
-readTestResultAdapter;
-sqlite_removeOldTimeStamp
+#parseTestsResult;
+#readTestResultAdapter;
+#sqlite_removeOldTimeStamp
 
 echo "666";

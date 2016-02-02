@@ -12,6 +12,7 @@ SOURCE_SQLITE="./AsusLauncherTest/sqlite_utilities.sh";
 SOURCE_PARSE_TEST_RESULTS="./AsusLauncherTest/parse_test_results.sh";
 SOURCE_UTILITIES="./AsusLauncherTest/utilities.sh";
 SOURCE_GIT_HELPER="./AsusLauncherTest/git_helper.sh";
+SOURCE_DEVICES_INFO_HELPER="./AsusLauncherTest/devices_info_helper.sh";
 
 debug=true;
 syncExternalProjectScriptName="deploy_AsusLauncher_1.4.sh";
@@ -36,6 +37,11 @@ function readSources() {
     initSqlite;
     initParser;
     initGitHelper;
+	initDevicesInfoHelper;
+}
+
+function initDevicesInfoHelper() {
+    source "${SOURCE_DEVICES_INFO_HELPER}";
 }
 
 function initGitHelper() {

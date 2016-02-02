@@ -12,7 +12,9 @@ class test_results(models.Model):
 class test_times(models.Model):
     test_time = models.TextField(null=False)
     test_done = models.TextField(null=False, default='False')
+    test_branch = models.TextField(default='')
     test_git_log_id = models.IntegerField(null=False, default=-1)
+    test_device_info_id = models.IntegerField(null=False, default=-1)
     
 class test_versions(models.Model):
     test_time_id = models.IntegerField(null=False)

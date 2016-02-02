@@ -13,6 +13,8 @@
 			<tr>
 				<td class="column">
 				</td>
+				<td class="column">
+				</td>
 				{% for test_case in all_test_cases %}
 				<td class="column">
 					<div class="column">{% remove_pkg test_case.test_case %}
@@ -26,11 +28,15 @@
 			<tr class="content_column">
 				<td class="column">
 					<div class="column">
-					{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
-					<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
-					<br><br>{{ test_time.test_time }}
+					{{ test_time.test_time }}
 					<br>version:  {% get_test_version all_versions test_time.id%}
 					<br>tag:  {% get_test_tag all_test_tags test_time.id%}
+					</div>
+				</td>
+				<td class="column">
+					<div class="column">
+					{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
+					<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
 					</div>
 				</td>
 				{% for test_case in all_test_cases %}

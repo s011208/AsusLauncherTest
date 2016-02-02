@@ -86,10 +86,10 @@
 			<tr class="content_column">
 				<td class="column">
 					<div class="column">
-					<br><div class="title">test time:</div>{{ test_time.test_time }}
+					<div class="title">test time:</div>{{ test_time.test_time }}
 					<br><br><div class="title">version:</div>{% get_test_version all_versions test_time.id%}
 					<br><br><div class="title">tag:</div>{% get_test_tag all_test_tags test_time.id%}
-					<br><br><div class="title">branch:</div>{{test_time.test_branch}}
+					<br><br><div class="title">test status:</div>{{test_time.test_done}}
 					<br><br><div class="title">device id:</div>{{test_time.test_device_info_id}}
 					</div>
 				</td>
@@ -97,6 +97,7 @@
 					<div class="column">
 					{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
 					<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
+					<br><br><div class="title">branch:</div>{{test_time.test_branch}}
 					</div>
 				</td>
 				{% for test_case in all_test_cases %}

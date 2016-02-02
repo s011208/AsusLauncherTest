@@ -14,13 +14,13 @@ def get_test_result(test_results, test_case_id, test_time_id):
     
 def get_test_version(test_versions, test_time_id):
     for version in test_versions:
-        if int(version.get('test_time_id')) == int(test_time_id):
+        if isinstance(version.get('test_time_id'), int) and int(version.get('test_time_id')) == int(test_time_id):
             return version.get('test_version')
     return "N/A"
 	
 def get_test_tag(test_tags, test_time_id):
     for tag in test_tags:
-        if int(tag.get('test_time_id')) == int(test_time_id):
+        if isinstance(tag.get('test_time_id'), int) and int(tag.get('test_time_id')) == int(test_time_id):
             return tag.get('test_tag')
     return "N/A"
 	

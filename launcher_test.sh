@@ -65,23 +65,23 @@ function debugMessage() {
 
 function exitWitherror() {
     if (( $1 -eq ${ERROR_CODE_LAUNCHER_BUILD_FAILED} )); then
-        echo "Launcher build failed";
+        handleErrors "Launcher build failed";
     elif (( $1 -eq ${ERROR_CODE_TEST_LAUNCHER_BUILD_FAILED} )); then
-        echo "Test Launcher build failed";
+        handleErrors "Test Launcher build failed";
     elif (( $1 -eq ${ERROR_CODE_UNABLE_TO_INSTALL} )); then
-        echo "failed to install apk $2"
+        handleErrors "failed to install apk $2"
     elif (( $1 -eq ${ERROR_CODE_UNABLE_TO_READ_PARSE_RESULT_ADAPTER} )); then
-        echo "unable to read parse result adapter";
+        handleErrors "unable to read parse result adapter";
     elif (( $1 -eq ${ERROR_CODE_UNABLE_TO_READ_GIT_LOGS} )); then
-        echo "unable to read git logs";
+        handleErrors "unable to read git logs";
     fi;
-	handleErrors;
     exit 0;
 }
 
 ## update test columns
 function handleErrors() {
-    sqlite_insertNewTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")";
+    echo "$1";
+    sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1";
 	sqlite_update_lastest_untested_hash;
 }
 

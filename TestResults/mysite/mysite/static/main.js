@@ -1,8 +1,8 @@
 $(document).ready(function() {
     var collapse_height=70;
-    var expand_height=300;
+    var expand_height=350;
     var expand_delta=expand_height-collapse_height;
-    var expand_animate_time=400;
+    var expand_animate_time=200;
 	$("tr.content_column").click(function () {
 		$(this).find(".content_failure").each(function() {
 			if($(this).height() == collapse_height) {

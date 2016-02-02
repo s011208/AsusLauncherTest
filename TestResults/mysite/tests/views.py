@@ -8,7 +8,7 @@ def test_results(request):
     return render(request, 'test_results.html', {
         'all_test_cases' : getAllTestCases(), 'all_test_times' : getAllTestTimes(),
         'all_test_results' : getAllResults(), 'all_versions' : getAllVersions(),
-		'all_test_tags' : getAllLauncherTags()
+		'all_test_tags' : getAllLauncherTags(), 'all_git_tags' : getAllGitLogs()
     })
 
 def getAllTestCases():
@@ -25,3 +25,6 @@ def getAllVersions():
 	
 def getAllLauncherTags():
     return test_tags.objects.all().values()
+	
+def getAllGitLogs():
+    return test_git_log.objects.all().values()

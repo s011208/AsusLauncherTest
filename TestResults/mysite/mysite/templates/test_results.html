@@ -6,7 +6,6 @@
 		<link rel="stylesheet" type="text/css" href="/static/style.css" media="screen" />
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript" src="/static/main.js"></script>
-		<meta http-equiv="refresh" content="1200">
     </head>
     <body>
 		{% load test_library %}
@@ -16,7 +15,9 @@
 				</td>
 				{% for test_case in all_test_cases %}
 				<td class="column">
-					<div class="column">{% remove_pkg test_case.test_case %}<br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)</div>
+					<div class="column">{% remove_pkg test_case.test_case %}
+					    <br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)
+					</div>
 				</td>
 				{% endfor %}
 			</tr>
@@ -25,9 +26,11 @@
 			<tr class="content_column">
 				<td class="column">
 					<div class="column">
-					{{ test_time.test_time }}
-					<br><br>version:<br>{% get_test_version all_versions test_time.id%}
-					<br><br>launcher tag:<br>{% get_test_tag all_test_tags test_time.id%}
+					{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
+					<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
+					<br><br>{{ test_time.test_time }}
+					<br>version:  {% get_test_version all_versions test_time.id%}
+					<br>tag:  {% get_test_tag all_test_tags test_time.id%}
 					</div>
 				</td>
 				{% for test_case in all_test_cases %}

@@ -49,9 +49,16 @@ div.content_failure {
 }
 
 tr.content_column td.column div.column {
+	width:150px;
     height:70px;
     text-align: center;
     overflow: auto;
 	overflow-x: hidden;
 	overflow-y: hidden;
+	word-break:break-all
+}
+
+tr.content_column td.column div.column div.git_author{
+	font-weight:bold;
+	font-size: 18px;
 }

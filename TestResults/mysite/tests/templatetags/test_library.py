@@ -34,8 +34,36 @@ def get_test_case_fail_rate(test_results, test_case_id):
                pass_results += 1
     return int(round(1 - float(pass_results) / float(total_results), 2) * 100)
 
+def get_git_log_subject_from_time_stamp(git_logs, test_time_git_id):
+    if isinstance(test_time_git_id, int) or test_time_git_id.isdigit():
+        for git_log in git_logs:
+	        if int(git_log.get('id')) == int(test_time_git_id):
+		        return git_log.get('git_subject')
+        return "N/A"
+    return test_time_git_id
+	
+def get_git_log_author_name_from_time_stamp(git_logs, test_time_git_id):
+    if isinstance(test_time_git_id, int) or test_time_git_id.isdigit():
+        for git_log in git_logs:
+	        if int(git_log.get('id')) == int(test_time_git_id):
+		        return git_log.get('git_author_name')
+        return "N/A"
+    return test_time_git_id
+	
+def get_git_log_hash_code_from_time_stamp(git_logs, test_time_git_id):
+    if isinstance(test_time_git_id, int) or test_time_git_id.isdigit():
+        for git_log in git_logs:
+	        if int(git_log.get('id')) == int(test_time_git_id):
+		        return git_log.get('git_hash_code')
+        return "N/A"
+    return test_time_git_id
+
+
 register.simple_tag(remove_pkg)
 register.simple_tag(get_test_result)
 register.simple_tag(get_test_version)
 register.simple_tag(get_test_tag)
 register.simple_tag(get_test_case_fail_rate)
+register.simple_tag(get_git_log_subject_from_time_stamp)
+register.simple_tag(get_git_log_author_name_from_time_stamp)
+register.simple_tag(get_git_log_hash_code_from_time_stamp)

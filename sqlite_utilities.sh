@@ -5,6 +5,7 @@ COLUMN_TESTCASES_NAME="test_case";
 
 TABLE_TESTTIME="tests_test_times";
 COLUMN_TESTTIME_TIME="test_time";
+COLUMN_TESTTIME_TEST_DONE="test_done";
 COLUME_GIT_LOG_ID="test_git_log_id";
 
 TABLE_TESTVERSION="tests_test_versions";
@@ -50,7 +51,7 @@ function sqlite_create() {
     sqlite_changePath "$1";
     # create table testcases
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTCASES} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_NAME} TEXT NOT NULL);";
-    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL, ${COLUME_GIT_LOG_ID} INTEGER NOT NULL DEFAULT -1);";
+    sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTTIME} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTTIME_TIME} TEXT NOT NULL, ${COLUME_GIT_LOG_ID} INTEGER NOT NULL DEFAULT -1, ${COLUMN_TESTTIME_TEST_DONE} TEXT NOT NULL DEFAULT 'False');";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTVERSION} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTVERSION_VERSION} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_LAUNCHERTAG} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_LAUNCHERTAG_TAG} TEXT NOT NULL, ${COLUMN_TESTTIME_ID} INTEGER NOT NULL);";
     sqlite3 "$sqlite_path" "CREATE TABLE IF NOT EXISTS ${TABLE_TESTRESULTS} (${COLUMN_ID} INTEGER PRIMARY KEY,${COLUMN_TESTCASES_ID} INTEGER NOT NULL,${COLUMN_TESTTIME_ID} INTEGER NOT NULL,${COLUMN_TESTRESULTS_RESULTS} TEXT NOT NULL);";
@@ -99,9 +100,16 @@ function sqlite_getTestCaseId() {
     sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_TESTCASES} where ${COLUMN_TESTCASES_NAME}='$1'";
 }
 
+function sqlite_insertErrorTimeStamp() {
+    local unTestedId=$(sqlite_get_lastest_untested_id);
+	#debugMessage "sqlite_insertNewTimeStamp: ${unTestedId}";
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}') values ('$1',($unTestedId),'$2');";
+}
+
 function sqlite_insertNewTimeStamp() {
     local unTestedId=$(sqlite_get_lastest_untested_id);
-    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}') values ('$1','($unTestedId)');";
+	#debugMessage "sqlite_insertNewTimeStamp: ${unTestedId}";
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}') values ('$1',($unTestedId),'Done');";
 }
 
 function sqlite_getTimeStampId() {

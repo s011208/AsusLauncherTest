@@ -11,6 +11,7 @@ class test_results(models.Model):
     
 class test_times(models.Model):
     test_time = models.TextField(null=False)
+    test_done = models.TextField(null=False, default='False')
     test_git_log_id = models.IntegerField(null=False, default=-1)
     
 class test_versions(models.Model):

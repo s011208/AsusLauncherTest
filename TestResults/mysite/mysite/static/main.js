@@ -1,6 +1,6 @@
 $(document).ready(function() {
     var collapse_height=70;
-    var expand_height=350;
+    var expand_height=380;
     var expand_delta=expand_height-collapse_height;
     var expand_animate_time=200;
 	$("tr.content_column").click(function () {

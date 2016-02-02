@@ -1,6 +1,6 @@
 #!/bin/bash
 
-debugMessage "hi! device helper imported";
+debugMessage "hi! device info helper imported";
 
 ## [ro.build.version.sdk]: [21]
 function devices_info_helper_getVersionSdk() {

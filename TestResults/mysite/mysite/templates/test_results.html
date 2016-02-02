@@ -9,6 +9,64 @@
     </head>
     <body>
 		{% load test_library %}
+		<div class="para_title">Device list</div>
+		<table class="devices">
+		    <tr>
+			    <td class="column_titles">
+				    device id
+				</td>
+				<td class="column_titles">
+				    version sdk
+				</td>
+				<td class="column_titles">
+				    version incremental
+				</td>
+				<td class="column_titles">
+				    product
+				</td>
+				<td class="column_titles">
+				    csc version
+				</td>
+				<td class="column_titles">
+				    characristics
+				</td>
+				<td class="column_titles">
+				    sku
+				</td>
+				<td class="column_titles">
+				    device adb id
+				</td>
+			</tr>
+			{% for device_info in all_device_infos %}
+		    <tr>
+				<td class="column_values">
+				    {{device_info.id}}
+				</td>
+				<td class="column_values">
+				    {{device_info.version_sdk}}
+				</td>
+				<td class="column_values">
+				    {{device_info.version_incremental}}
+				</td>
+				<td class="column_values">
+				    {{device_info.product}}
+				</td>
+				<td class="column_values">
+				    {{device_info.csc_version}}
+				</td>
+				<td class="column_values">
+				    {{device_info.characristics}}
+				</td>
+				<td class="column_values">
+				    {{device_info.sku}}
+				</td>
+				<td class="column_values">
+				    {{device_info.device_id}}
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+		<div class="para_title">Test results</div>
 		<table>
 			<tr>
 				<td class="column">
@@ -28,9 +86,11 @@
 			<tr class="content_column">
 				<td class="column">
 					<div class="column">
-					{{ test_time.test_time }}
-					<br>version:  {% get_test_version all_versions test_time.id%}
-					<br>tag:  {% get_test_tag all_test_tags test_time.id%}
+					<br><div class="title">test time:</div>{{ test_time.test_time }}
+					<br><br><div class="title">version:</div>{% get_test_version all_versions test_time.id%}
+					<br><br><div class="title">tag:</div>{% get_test_tag all_test_tags test_time.id%}
+					<br><br><div class="title">branch:</div>{{test_time.test_branch}}
+					<br><br><div class="title">device id:</div>{{test_time.test_device_info_id}}
 					</div>
 				</td>
 				<td class="column">

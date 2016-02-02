@@ -55,10 +55,43 @@ tr.content_column td.column div.column {
     overflow: auto;
 	overflow-x: hidden;
 	overflow-y: hidden;
-	word-break:break-all
+	word-break:break-all;
+}
+
+tr.content_column td.column div.column div.title{
+    text-align: left;
+    overflow: auto;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	word-break:break-all;
+	font-weight:bold;
 }
 
 tr.content_column td.column div.column div.git_author{
 	font-weight:bold;
 	font-size: 18px;
+}
+
+table.devices tr td.column_titles {
+	width:180px;
+	background-color: rgb(192, 255, 62);
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(255, 255, 255);
+	overflow: auto;
+	text-align: center;
+	font-size: 18px;
+}
+
+table.devices tr td.column_values {
+	width:180px;
+	word-break:break-all;
+	text-align: center;
+	font-size: 13px;
+}
+
+div.para_title {
+	font-size: 22px;
+	margin: 15px;
+	color: rgb(0,0,255);
 }

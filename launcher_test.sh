@@ -24,6 +24,9 @@ unitTestResultsAdapter="./../test_results_adapter.txt"
 git_logs="./../git_logs.txt"
 apkPath="bin/AsusLauncher-release-unaligned.apk";
 
+testDeviceId=0;
+
+
 ## for django
 sqlitePath="./AsusLauncherTest/TestResults/mysite/db.sqlite3";
 sqlitePathWhenInAsusLauncher="./.././AsusLauncherTest/TestResults/mysite/db.sqlite3";
@@ -87,7 +90,7 @@ function exitWitherror() {
 ## update test columns
 function handleErrors() {
     echo "$1";
-    sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1";
+    sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1" $(get_helper_getCurrentBranch) ${testDeviceId};
 	sqlite_update_lastest_untested_hash;
 }
 
@@ -221,7 +224,7 @@ function readTestResultAdapter() {
         else
             if [ "${nextTag}" == "${TAG_TIME_STAMP}" ]; then
                 timeStamp="${next}";
-                sqlite_insertNewTimeStamp ${timeStamp};
+                sqlite_insertNewTimeStamp ${timeStamp} $(get_helper_getCurrentBranch) ${testDeviceId};
                 timeStampId=$(sqlite_getTimeStampId ${timeStamp});
                 debugMessage "timeStamp: ${timeStamp}, id: ${timeStampId}";
             elif [ "${nextTag}" == "${TAG_TEST_VERSION}" ]; then
@@ -295,6 +298,23 @@ function resetToRightChange() {
     git reset --hard $last_untested_hash;
 }
 
+function getTestingDeviceInfo() {
+    local versionSdk=$(devices_info_helper_getVersionSdk);
+	local versionIncremental=$(devices_info_helper_getVersionIncremental);
+	local product=$(devices_info_helper_getBuildProduct);
+	local cscVersion=$(devices_info_helper_getBuildCscVersion);
+	local characteristics=$(devices_info_helper_getBuildCharacteristics);
+	local sku=$(devices_info_helper_getBuildSku);
+	local deviceId=$(devices_info_helper_getDeviceId);
+
+    if [ -z  $(sqlite_getDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId}) ]; then
+	    sqlite_insertDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId};
+	fi;
+	testDeviceId=$(sqlite_getDeviceInfoId ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId});
+	debugMessage "testing device id:" ${testDeviceId};
+}
+
+## main
 cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
@@ -306,6 +326,8 @@ sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
 syncLauncher;
+
+getTestingDeviceInfo;
 
 ## checkout to right commit
 git_helper_syncDatabase $git_logs;
@@ -332,4 +354,4 @@ sqlite_removeOldTimeStamp;
 
 sqlite_update_lastest_untested_hash;
 
-echo "666";
+echo "66666666";

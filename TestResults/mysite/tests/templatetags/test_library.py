@@ -11,6 +11,13 @@ def get_test_result(test_results, test_case_id, test_time_id):
             if isinstance(result.get('test_time_id'), int) and int(result.get('test_time_id')) == int(test_time_id):
                 return result.get('test_result').replace("\r", "@@@")
     return "N/A"
+	
+def get_test_result_extra_message(test_results, test_case_id, test_time_id):
+    for result in test_results:
+        if int(result.get('test_case_id')) == int(test_case_id):
+            if isinstance(result.get('test_time_id'), int) and int(result.get('test_time_id')) == int(test_time_id):
+                return result.get('test_extra_msgs').replace("\n", "@@@")
+    return ""
     
 def get_test_version(test_versions, test_time_id):
     for version in test_versions:
@@ -67,3 +74,4 @@ register.simple_tag(get_test_case_fail_rate)
 register.simple_tag(get_git_log_subject_from_time_stamp)
 register.simple_tag(get_git_log_author_name_from_time_stamp)
 register.simple_tag(get_git_log_hash_code_from_time_stamp)
+register.simple_tag(get_test_result_extra_message)

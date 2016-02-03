@@ -20,11 +20,20 @@ targetBranch="AsusLauncher_1.4_play";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
-unitTestResultsAdapter="./../test_results_adapter.txt"
-git_logs="./../git_logs.txt"
+unitTestResultsAdapter="./../test_results_adapter.txt";
+gitLogs="./../git_logs.txt";
+adbLogcat="./../test_runners_logcat.txt";
 apkPath="bin/AsusLauncher-release-unaligned.apk";
 
+adbLogcatTerminalTitle="adb logcat by testing";
+
 testDeviceId=0;
+
+## TestRunner tags
+TAG_CLASS="THRESHOLD_CLASS_TAG";
+TAG_METHOD="THRESHOLD_METHOD_TAG";
+TAG_VALUE="THRESHOLD_VALUE_TAG";
+TAG_EXTRA_MESSAGES="EXTRA_MESSAGES_TAG";
 
 
 ## for django
@@ -91,7 +100,7 @@ function exitWitherror() {
 function handleErrors() {
     echo "$1";
     sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1" $(get_helper_getCurrentBranch) ${testDeviceId};
-	sqlite_update_lastest_untested_hash;
+	sqlite_updateLastedUntestedHash;
 }
 
 function installApk() {
@@ -224,7 +233,7 @@ function readTestResultAdapter() {
         else
             if [ "${nextTag}" == "${TAG_TIME_STAMP}" ]; then
                 timeStamp="${next}";
-                sqlite_insertNewTimeStamp ${timeStamp} $(get_helper_getCurrentBranch) ${testDeviceId};
+                sqlite_insertNewTimeStamp "${timeStamp}" "$(git_helper_getCurrentBranch)" "${testDeviceId}";
                 timeStampId=$(sqlite_getTimeStampId ${timeStamp});
                 debugMessage "timeStamp: ${timeStamp}, id: ${timeStampId}";
             elif [ "${nextTag}" == "${TAG_TEST_VERSION}" ]; then
@@ -249,11 +258,11 @@ function readTestResultAdapter() {
 }
 
 function parseAndInsertGitLogs() {
-    if [ ! -f ${git_logs} ]; then
+    if [ ! -f ${gitLogs} ]; then
         exitWitherror ERROR_CODE_UNABLE_TO_READ_GIT_LOGS;
     fi;
     IFS=$'\n';
-    local rawata=$(cat ${git_logs});
+    local rawata=$(cat ${gitLogs});
     local filteredData=();
     for next in $rawata
     do
@@ -288,7 +297,7 @@ function parseAndInsertGitLogs() {
         done
 		#debugMessage $data_f;
 		#debugMessage "s: " $change_subject "a: " $change_author "h: " $change_hash "ae: " $change_author_email
-		sqlite_insert_git_log "$change_subject" "$change_author" "$change_hash" "$change_author_email";
+		sqlite_insertGitLog "$change_subject" "$change_author" "$change_hash" "$change_author_email";
     done
 }
 
@@ -314,44 +323,156 @@ function getTestingDeviceInfo() {
 	debugMessage "testing device id:" ${testDeviceId};
 }
 
+function updateTestCasesThreshold() {
+    local class='';
+	local thresholdMsgs=();
+
+	IFS=$'\n'$'\r';
+    local rawata="$(cat ${adbLogcat} | grep "\[THRESHOLD.*\]")";
+	for next in $rawata
+    do
+	    local classRaw="$(echo ${next} | grep "\[${TAG_CLASS}\]")";
+		local methodRaw="$(echo ${next} | grep "\[${TAG_METHOD}\]")";
+		local valueRaw="$(echo ${next} | grep "\[${TAG_VALUE}\]")";
+		if [ ! -z ${classRaw} ]; then
+			if [ ${#thresholdMsgs[@]} != 0 ]; then
+				local finalMsg='';
+				for msg in ${thresholdMsgs[@]}
+				do
+				    if [ -z "${finalMsg}" ]; then
+					    finalMsg="${msg}";
+					else
+				        finalMsg="$(echo -e "${finalMsg}" \\n "${msg}")";
+					fi;
+				done
+				sqlite_updateTestCaseThreshold "${class}" "${finalMsg}";
+			fi;
+			class="$(echo ${classRaw} | sed 's/.*]//')";
+			thresholdMsgs=();
+			#debugMessage ${class};
+		elif [ ! -z ${methodRaw} ]; then
+			thresholdMsgs+=("$(echo ${methodRaw} | sed 's/.*]//')");
+	    elif [ ! -z ${valueRaw} ]; then
+		    thresholdMsgs+=("$(echo ${valueRaw} | sed 's/.*]//')");
+		fi;
+	done
+	if [ ${#thresholdMsgs[@]} != 0 ]; then
+        local finalMsg='';
+        for msg in ${thresholdMsgs[@]}
+        do
+            finalMsg="$(echo -e "${finalMsg}" \\n "${msg}")";
+        done
+        sqlite_updateTestCaseThreshold "${class}" "${finalMsg}";
+    fi;
+}
+
+function insertExtraMessages() {
+    local class='';
+	local extraMsgs=();
+	
+	IFS=$'\n'$'\r';
+    local rawata="$(cat ${adbLogcat} | grep "\[${TAG_EXTRA_MESSAGES}.*\]\|started:")";
+	for next in $rawata
+    do
+	    local classRaw="$(echo ${next} | grep ": started: ")";
+		local extraMsg="$(echo ${next} | grep "\[${TAG_EXTRA_MESSAGES}\]")";
+		if [ ! -z ${classRaw} ]; then
+		    if [ ${#extraMsgs[@]} != 0 ]; then
+			    local time_id="$(sqlite_getLastTimeStampId)";
+				local test_case_id="$(sqlite_getTestCaseId ${class})";
+			    local finalMsg='';
+				for msg in ${extraMsgs[@]}
+				do
+				    if [ -z "${finalMsg}" ]; then
+					    finalMsg="${msg}";
+					else
+				        finalMsg="$(echo -e "${finalMsg}" \\n "${msg}")";
+					fi;
+				done
+				sqlite_updateTestResultExtraMessages "${time_id}" "${test_case_id}" "${finalMsg}";
+			fi;
+			extraMsgs=();
+		    class="$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')";
+			debugMessage "class: ${class}";
+		elif [ ! -z ${extraMsg} ]; then
+		    extraMsgs+=("$(echo ${extraMsg} | sed 's/.*]//')");
+			debugMessage "extraMsg: ${extraMsg}";
+		fi;
+	done
+	if [ ${#extraMsgs[@]} != 0 ]; then
+        local time_id="$(sqlite_getLastTimeStampId)";
+        local test_case_id="$(sqlite_getTestCaseId ${class})";
+        local finalMsg='';
+        for msg in ${extraMsgs[@]}
+        do
+            if [ -z "${finalMsg}" ]; then
+                finalMsg="${msg}";
+            else
+                finalMsg="$(echo -e "${finalMsg}" \\n "${msg}")";
+            fi;
+        done
+        sqlite_updateTestResultExtraMessages "${time_id}" "${test_case_id}" "${finalMsg}";
+    fi;
+}
+
+function parseTestRunnerLogs() {
+    updateTestCasesThreshold;
+	insertExtraMessages;
+}
+
 ## main
 cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-syncExternalProjects;
+#syncExternalProjects;
 
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
-syncLauncher;
+#syncLauncher;
 
-getTestingDeviceInfo;
+#getTestingDeviceInfo;
 
 ## checkout to right commit
-git_helper_syncDatabase $git_logs;
-parseAndInsertGitLogs;
-resetToRightChange;
+#git_helper_syncDatabase $gitLogs;
+#parseAndInsertGitLogs;
+#resetToRightChange;
 
-buildLauncher;
-checkBuildLauncherResult;
+#buildLauncher;
+#checkBuildLauncherResult;
 
-buildTestLauncher;
-checkBuildTestLauncherResult;
+#buildTestLauncher;
+#checkBuildTestLauncherResult;
 
 ## install apk
-installLauncher;
-installTestLauncher;
+#installLauncher;
+#installTestLauncher;
+
+## clear logcat files & cache
+#rm -f "${adbLogcat}";
+#adb logcat -c;
+
+## open new terminal & log to file
+#gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
 
 ## run all tests
-runAllTests;
+#runAllTests;
+
+## install wmctrl in advance
+## close logcat terminal
+#sleep 5000;
+#wmctrl -F -c "${adbLogcatTerminalTitle}";
 
 ## parse test results
-parseTestsResult;
-readTestResultAdapter;
-sqlite_removeOldTimeStamp;
+#parseTestsResult;
+#readTestResultAdapter;
 
-sqlite_update_lastest_untested_hash;
+## parse test thresholds
+parseTestRunnerLogs;
+
+#sqlite_updateLastedUntestedHash;
+#sqlite_removeOldTimeStamp;
 
 echo "66666666";

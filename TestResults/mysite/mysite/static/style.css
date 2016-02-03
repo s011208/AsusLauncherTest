@@ -95,3 +95,12 @@ div.para_title {
 	margin: 15px;
 	color: rgb(0,0,255);
 }
+
+td.column_threshold {
+	background-color: rgb(192, 255, 62);
+}
+
+td.column_threshold  div.column{
+	font-size: 14px;
+	text-align: left;
+}

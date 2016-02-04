@@ -1,0 +1,58 @@
+tag_TIME_STAMP
+2016/02/04 17:15:36
+tag_TEST_VERSION
+1510402060
+tag_TEST_LAUNCHER_TAG
+AsusLauncher_2.1.0.6
+tag_TEST_CASE
+com.asus.launcher.TestAfterSwipeLauncherData
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.original.TestOnFirstTimeCreate
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.original.TestPackageUpdate
+tag_TEST_RESULT
+Failure in testBindAppsUpdated:junit.framework.AssertionFailedError: package update takes: 49ms	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)	at com.asus.launcher.original.TestPackageUpdate.testBindAppsUpdated(TestPackageUpdate.java:25)	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+tag_TEST_CASE
+com.asus.launcher.original.TestResume
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.original.workspace.TestFirstOnCreateIconShowingTime
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.original.workspace.TestIconShowingTime
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.original.configurechange.TestScreenRotation
+tag_TEST_RESULT
+Failure in testOnCreate:junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Failed	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)	at com.asus.launcher.original.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:49)	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+tag_TEST_CASE
+com.asus.launcher.withfolders.TestOnFirstTimeCreate
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.withfolders.TestPackageUpdate
+tag_TEST_RESULT
+Failure in testBindAppsUpdated:junit.framework.AssertionFailedError: package update takes: -1ms	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)	at com.asus.launcher.withfolders.TestPackageUpdate.testBindAppsUpdated(TestPackageUpdate.java:25)	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+tag_TEST_CASE
+com.asus.launcher.withfolders.TestResume
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.withfolders.workspace.TestFirstOnCreateIconShowingTime
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.withfolders.workspace.TestIconShowingTime
+tag_TEST_RESULT
+OK
+tag_TEST_CASE
+com.asus.launcher.withfolders.configurechange.TestScreenRotation
+tag_TEST_RESULT
+Failure in testOnCreate:junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Failed	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)	at com.asus.launcher.withfolders.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:49)	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)

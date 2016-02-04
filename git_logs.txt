@@ -1,3 +1,13 @@
+[AMAX][AsusLauncher][Instrumentation] fix wrong test cases class name@@@yen-hsun_huang@@@982f07e8ba599b2923ac00499775b16aae14c460@@@yen-hsun_huang@asus.com
+[AMAX][AsusLauncher][String][GT-160200076][administrator] String translation (2016/02/02 081922 release)[null]@@@Roger_Huang@@@713ae62f49ad691009bab93557e8952b6efd0673@@@roger_huang@asus.com
+[AMAX][AsusLauncher] Add M permission flow when receive an zipped theme apply broadcast from ThemeApp@@@nokia_du@@@3d2c362e3e47e74e35047e10d5cf28bbf2613d5a@@@nokia_du@asus.com
+[AMAX][AsusLauncher][Fix] Handle NullPointerException in showDialogFragmentSafely@@@Roger_Huang@@@d5704ee6ed887752498fc931d6bc7ec0de24386d@@@roger_huang@asus.com
+[AMAX][AsusLauncher][ThemeStore] Catch java.lang.IllegalStateException error to avoid crash@@@charlie2_lin@@@f8d797ea38f4555ba475678209554b2906a26c97@@@charlie2_lin@asus.com
+[AsusLauncher][QuickFind] Fix IndexOutOfBoundsException in HotTrendView@@@WeiSheng_Cheng@@@8be9688fac14a4275b00b4580792a53eb83fe8b8@@@weisheng_cheng@asus.com
+[AMAX][AsusLauncher][TT-739546] Fix Launcher has stopped after orientation changed on WallpaperPickerActivity@@@Hadwin Hsu@@@4d82c9ee2168f0fb876817857b5177df684ba9c2@@@hadwin_hsu@asus.com
+Revert "[AMAX][AsusLauncher][ThemeStore] Fix UI design and bug 1. Add applied tag in installed more page 2. Fix default and applied tag coexistence issue 3. Hide status bar in FullScreenImageViewActivity to view full image"@@@Du Nokia@@@93948e09adf543b50874da64d5e009d056a1712d@@@Nokia_Du@asus.com
+[AMAX][AsusLauncher][ThemeStore] Fix UI design and bug 1. Add applied tag in installed more page 2. Fix default and applied tag coexistence issue 3. Hide status bar in FullScreenImageViewActivity to view full image@@@steven2_hsu@@@171da4724daf23703ab3c875fc4c8a2bf9221080@@@steven2_hsu@asus.com
+[AMAX][AsusLauncher][ThemeApp] Set prefs when apply zip@@@steven2_hsu@@@57754b9a6deae658949ad43937e9209e79dd338e@@@steven2_hsu@asus.com
 [AMAX][AsusLauncher][ThemeStore] fixed crash when download page IndexOutOfBounds@@@Peter_Chou@@@66aa5b917141a2ef33602fec6ee5af2c26d4467d@@@Peter_Chou@asus.com
 [AMAX][AsusLauncher][Fix] Google play NPE crash@@@nokia_du@@@a61686c749687df164bed8b2131691854dd0cf31@@@nokia_du@asus.com
 [AMAX][AsusLauncher][ThemeStore][Banner] Fix NPE problem if user cannot donwload valid banner_list.json at first time@@@lansilote_lin@@@b65e536a5c3c48df6ddfa9093bc15c3edb8fb4b9@@@lansilote_lin@asus.com
@@ -18,13 +28,3 @@ Revert "[AMAX][AsusLauncher][ZenUI Now] move start ZenUI Now service to Launcher
 [QuickFind][TT-736296] Fix that Contacts preference still disabled after permission granted@@@WeiSheng_Cheng@@@e09ceb6b3658499c60f81b7cea3da8b848ba259e@@@weisheng_cheng@asus.com
 [QuickFind][TT-735461] Remove clear history preference in SearchSettings in verizon sku@@@WeiSheng_Cheng@@@848b814800d25cd0164403b5b9c863e18a1b97d9@@@weisheng_cheng@asus.com
 [AMAX][AsusLauncher][TT 735459] 橫屏下，轉場動畫的圖標icon在左上角@@@yen-hsun_huang@@@fb6d006368c3d946e8ed2be348c495a8d1a6134b@@@yen-hsun_huang@asus.com
-[AMAX][AsusLauncher][TT 736305] [MGSEI][Home/ Launcher]橫屏時，頁面管理界面顯示不完整@@@yen-hsun_huang@@@f00a19840b729f49279eb47e85fbabd6a31466e4@@@yen-hsun_huang@asus.com
-[AMAX][AsusLauncher][TT-736294] Modify asus live wallpapers folder is empty on Verizon devices@@@kaiwun_shih@@@d70574257fb026c56961c0ec987c077c8689e84b@@@kaiwun_shih@asus.com
-[AMAX][AsusLauncher] hide font style option in Verizon@@@Tzu-Yen_Huang@@@5a255360e0a9359be82282b2cdc82e20adf3bcc6@@@Tzu-Yen_Huang@asus.com
-[AMAX][AsusLauncher][TT-735295] HideApps button not working in workspace chooser when single laye@@@Tzu-Yen_Huang@@@6e6cbd0657eedf2353c4110778dc3a071c7f1003@@@Tzu-Yen_Huang@asus.com
-[AMAX][AsusLauncher] Dangerous permission - Utilities, check with context instead of activity@@@kyle1_tsai@@@7b4ba7b855c34f592497a78b54c55e6baee2045d@@@kyle1_tsai@asus.com
-[AMAX][AsusLauncher][Badge] Gmail - Check permission with Context instead of LauncherActivity@@@mingchun_hsu@@@1b36984f726221ff3e2c3a288a6da8fe48799b80@@@mingchun_hsu@asus.com
-[AMAX][AsusLauncher][TT-733644][Fix] [AppInstallationService][1.0][Ze550KL]沒有跑progressbar下載的動畫@@@george_yeh@@@e30da067a05ea86991f706119b6d8403f4d4f7a2@@@george_yeh@asus.com
-[AMAX][AsusLauncher][LAUN-937][Tips] Finish quick find tips directly in VZW SKU@@@johnson2_chen@@@0d517572c37a0fd677d936ed3c8e3db05c4bc42b@@@johnson2_chen@asus.com
-[AMAX][AsusLauncher][Laun-1042][Placement] Set VZW sku's all app button to aosp default@@@Kyle_Peng@@@65bbef3691e6071f945e78d9561d5c2d36a65ae2@@@Kyle_Peng@asus.com
-[AMAX][AsusLauncher][ThemeStore] Avoid ClassCastException when user upgrade ZenUi from 2.0.4.7 to 2.1.0.1@@@nokia_du@@@a1b21434890c07823f010d237dadac90c3f2adb6@@@nokia_du@asus.com

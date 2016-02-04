@@ -1,12 +1,12 @@
 debug:  true
 ====== TEST START =====
-***start to test with default workspace***
+***start to test with original workspace***
 clear launcher data
 Test onCreate and icon showing time after swipe launcher
 
 com.asus.launcher.TestAfterSwipeLauncherData:.
 Test results for InstrumentationTestRunner=.
-Time: 22.85
+Time: 22.961
 
 OK (1 test)
 
@@ -15,12 +15,12 @@ Test onCreate when LauncherApplication start
 Test packages update time
 Test onResume
 
-com.asus.launcher.TestOnFirstTimeCreate:.
-com.asus.launcher.TestPackageUpdate:
-Failure in testBindAppsUpdatedTimeWhenBackground:
-junit.framework.AssertionFailedError: background package update takes: -1ms
-	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:91)
-	at com.asus.launcher.TestPackageUpdate.testBindAppsUpdatedTimeWhenBackground(TestPackageUpdate.java:50)
+com.asus.launcher.original.TestOnFirstTimeCreate:.
+com.asus.launcher.original.TestPackageUpdate:
+Failure in testBindAppsUpdated:
+junit.framework.AssertionFailedError: package update takes: 49ms
+	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+	at com.asus.launcher.original.TestPackageUpdate.testBindAppsUpdated(TestPackageUpdate.java:25)
 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
@@ -29,43 +29,31 @@ junit.framework.AssertionFailedError: background package update takes: -1ms
 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
 
-Failure in testBindAppsUpdatedTimeWhenForeground:
-junit.framework.AssertionFailedError: foreground package update takes: -1ms
-	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:91)
-	at com.asus.launcher.TestPackageUpdate.testBindAppsUpdatedTimeWhenForeground(TestPackageUpdate.java:27)
-	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
-	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
-	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
-	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
-	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
-	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
-	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
-
-com.asus.launcher.TestResume:...
-Test results for InstrumentationTestRunner=..F.F...
-Time: 66.809
+com.asus.launcher.original.TestResume:...
+Test results for InstrumentationTestRunner=..F...
+Time: 99.308
 
 FAILURES!!!
-Tests run: 6,  Failures: 2,  Errors: 0
+Tests run: 5,  Failures: 1,  Errors: 0
 
 
 Test workspace icon showing time
 
-com.asus.launcher.workspace.TestFirstOnCreateIconShowingTime:.
-com.asus.launcher.workspace.TestIconShowingTime:.
+com.asus.launcher.original.workspace.TestFirstOnCreateIconShowingTime:.
+com.asus.launcher.original.workspace.TestIconShowingTime:.
 Test results for InstrumentationTestRunner=..
-Time: 33.496
+Time: 33.848
 
 OK (2 tests)
 
 
 Test rotation
 
-com.asus.launcher.configurechange.TestScreenRotation:
+com.asus.launcher.original.configurechange.TestScreenRotation:
 Failure in testOnCreate:
 junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Failed
-	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:91)
-	at com.asus.launcher.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:46)
+	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+	at com.asus.launcher.original.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:49)
 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
@@ -75,7 +63,7 @@ junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Fai
 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
 
 Test results for InstrumentationTestRunner=.F
-Time: 18.189
+Time: 18.324
 
 FAILURES!!!
 Tests run: 1,  Failures: 1,  Errors: 0
@@ -87,12 +75,12 @@ Test onCreate when LauncherApplication start
 Test packages update time
 Test onResume
 
-com.asus.launcher.TestOnFirstTimeCreate:.
-com.asus.launcher.TestPackageUpdate:
-Failure in testBindAppsUpdatedTimeWhenBackground:
-junit.framework.AssertionFailedError: background package update takes: -1ms
-	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:91)
-	at com.asus.launcher.TestPackageUpdate.testBindAppsUpdatedTimeWhenBackground(TestPackageUpdate.java:50)
+com.asus.launcher.withfolders.TestOnFirstTimeCreate:.
+com.asus.launcher.withfolders.TestPackageUpdate:
+Failure in testBindAppsUpdated:
+junit.framework.AssertionFailedError: package update takes: -1ms
+	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+	at com.asus.launcher.withfolders.TestPackageUpdate.testBindAppsUpdated(TestPackageUpdate.java:25)
 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
@@ -100,55 +88,32 @@ junit.framework.AssertionFailedError: background package update takes: -1ms
 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
-.
-com.asus.launcher.TestResume:...
-Test results for InstrumentationTestRunner=..F....
-Time: 89.845
+
+com.asus.launcher.withfolders.TestResume:...
+Test results for InstrumentationTestRunner=..F...
+Time: 109.19
 
 FAILURES!!!
-Tests run: 6,  Failures: 1,  Errors: 0
+Tests run: 5,  Failures: 1,  Errors: 0
 
 
 Test workspace icon showing time
 
-com.asus.launcher.workspace.TestFirstOnCreateIconShowingTime:
-Failure in testWhenFirstTimeOnCreate:
-junit.framework.AssertionFailedError: onWorkspaceIconShowingTime takes: 6443ms
-	at com.asus.launcher.workspace.TestFirstOnCreateIconShowingTime.testWhenFirstTimeOnCreate(TestFirstOnCreateIconShowingTime.java:19)
-	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
-	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
-	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
-	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
-	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
-	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
-	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+com.asus.launcher.withfolders.workspace.TestFirstOnCreateIconShowingTime:.
+com.asus.launcher.withfolders.workspace.TestIconShowingTime:.
+Test results for InstrumentationTestRunner=..
+Time: 37.124
 
-com.asus.launcher.workspace.TestIconShowingTime:
-Failure in testOnCreate:
-junit.framework.AssertionFailedError: onWorkspaceIconShowingTime takes: 3455ms
-	at com.asus.launcher.workspace.TestIconShowingTime.testOnCreate(TestIconShowingTime.java:19)
-	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
-	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
-	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
-	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
-	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
-	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
-	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
-
-Test results for InstrumentationTestRunner=.F.F
-Time: 36.357
-
-FAILURES!!!
-Tests run: 2,  Failures: 2,  Errors: 0
+OK (2 tests)
 
 
 Test rotation
 
-com.asus.launcher.configurechange.TestScreenRotation:
+com.asus.launcher.withfolders.configurechange.TestScreenRotation:
 Failure in testOnCreate:
-junit.framework.AssertionFailedError: testOnCreate onCreate takes 840ms, Failed
-	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:91)
-	at com.asus.launcher.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:40)
+junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Failed
+	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+	at com.asus.launcher.withfolders.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:49)
 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
@@ -158,7 +123,7 @@ junit.framework.AssertionFailedError: testOnCreate onCreate takes 840ms, Failed
 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
 
 Test results for InstrumentationTestRunner=.F
-Time: 18.376
+Time: 18.587
 
 FAILURES!!!
 Tests run: 1,  Failures: 1,  Errors: 0

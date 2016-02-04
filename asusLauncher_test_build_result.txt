@@ -97,7 +97,7 @@ Buildfile: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/build
      [echo] 
      [echo] /home/yen-hsun_huang/antbuild/sdk/platforms/android-22/android.jar:/home/yen-hsun_huang/antbuild/sdk/platforms/android-22/data/icu4j.jar:/home/yen-hsun_huang/antbuild/sdk/platforms/android-22/data/layoutlib.jar:/home/yen-hsun_huang/antbuild/sdk/platforms/android-22/uiautomator.jar
      [echo]  no google.sdk.type
-    [javac] Compiling 11 source files to /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes
+    [javac] Compiling 16 source files to /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes
 
 -post-compile:
 
@@ -107,45 +107,3 @@ Buildfile: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/build
       [dex] input: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes
       [dex] input: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/libs/classes.jar
       [dex] Pre-Dexing /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/libs/classes.jar -> classes-ae9306fe540ccb87b9180843497d4f1c.jar
-      [dex] Converting compiled files and external libraries into /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/classes.dex...
-       [dx] Result compacted from 9658.6KiB to 8294.8KiB to save 1363.8KiB
-       [dx] Merged dex A (11 defs/17.5KiB) with dex B (8828 defs/8274.8KiB). Result is 8839 defs/8294.8KiB. Took 1.8s
-
--crunch:
-   [crunch] Crunching PNG Files in source dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/res
-   [crunch] To destination dir: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/res
-   [crunch] Crunched 0 PNG files to update cache
-
--package-resources:
-     [aapt] Creating full resource package...
-
--package:
-[apkbuilder] Current build type is different than previous build: forced apkbuilder run.
-[apkbuilder] Creating AsusLauncher-release.apk for release...
-
--post-package:
-
--release-prompt-for-password:
-
--release-nosign:
-
--release-sign:
-     [echo] Signing final apk...
- [zipalign] Running zip align on final apk...
-     [echo] Release Package: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/AsusLauncher-release.apk
-[propertyfile] Creating new property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
-[propertyfile] Updating property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
-[propertyfile] Updating property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
-[propertyfile] Updating property file: /home/yen-hsun_huang/AsusLauncherTest/AsusLauncher/TestLauncher/bin/build.prop
-
--post-build:
-
-release:
-
-BUILD SUCCESSFUL
-Total time: 46 seconds
-
-
-    =====Done. Takes 64s=====
-
-    

@@ -1,0 +1,245 @@
+I/TestRunner(12259): started: testClearApplicationData(com.asus.launcher.Utilities)
+V/TestRunner - LauncherTest(12259): setUp, Launcher id: com.android.launcher3.Launcher@37a32de6
+W/ActivityManager(  982): Crash of app com.asus.launcher running instrumentation ComponentInfo{com.asus.launcher.tests/android.test.InstrumentationTestRunner}
+I/TestRunner(12385): started: testOnCreate(com.asus.launcher.TestAfterSwipeLauncherData)
+V/TestRunner - LauncherTest(12385): setUp, Launcher id: com.android.launcher3.Launcher@3c66837d
+I/TestRunner - LauncherTest(12385): testOnCreate
+V/TestRunner - LauncherTest(12385): close tips activity
+I/TestRunner - LauncherTest(12385): testOnCreate done:
+I/TestRunner - LauncherTest(12385): launcherOnCreateTime: 890
+I/TestRunner - LauncherTest(12385): launcherOnResumeTime: 153
+I/TestRunner - LauncherTest(12385): launcherOnWindowFocusTime: 0
+I/TestRunner - LauncherTest(12385): onWorkspaceIconShowingTime takes: 4459ms
+I/TestRunner(12385): finished: testOnCreate(com.asus.launcher.TestAfterSwipeLauncherData)
+I/TestRunner(12385): passed: testOnCreate(com.asus.launcher.TestAfterSwipeLauncherData)
+I/TestRunner(12540): started: testOnCreate(com.asus.launcher.original.TestOnFirstTimeCreate)
+V/TestRunner - LauncherTest(12540): setUp, Launcher id: com.android.launcher3.Launcher@e5acf27
+I/TestRunner - LauncherTest(12540): testOnCreate
+I/TestRunner - LauncherTest(12540): testOnCreate done:
+I/TestRunner - LauncherTest(12540): launcherOnCreateTime: 705
+I/TestRunner - LauncherTest(12540): launcherOnResumeTime: 90
+I/TestRunner - LauncherTest(12540): launcherOnWindowFocusTime: 0
+I/TestRunner(12540): finished: testOnCreate(com.asus.launcher.original.TestOnFirstTimeCreate)
+I/TestRunner(12540): passed: testOnCreate(com.asus.launcher.original.TestOnFirstTimeCreate)
+I/TestRunner(12540): started: testBindAppsUpdated(com.asus.launcher.original.TestPackageUpdate)
+V/TestRunner - LauncherTest(12540): setUp, Launcher id: com.android.launcher3.Launcher@186e2480
+I/TestRunner - LauncherTest(12540): testBindAppsUpdated
+V/TestRunner - LauncherTest(12540): package update(package:com.android.gpstest#Intent;action=android.intent.action.PACKAGE_CHANGED;package=com.android.gpstest;end) takes: 49ms
+I/TestRunner(12540): failed: testBindAppsUpdated(com.asus.launcher.original.TestPackageUpdate)
+I/TestRunner(12540): ----- begin exception -----
+I/TestRunner(12540): 
+I/TestRunner(12540): junit.framework.AssertionFailedError: package update takes: 49ms
+I/TestRunner(12540): 	at junit.framework.Assert.fail(Assert.java:50)
+I/TestRunner(12540): 	at junit.framework.Assert.assertTrue(Assert.java:20)
+I/TestRunner(12540): 	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+I/TestRunner(12540): 	at com.asus.launcher.original.TestPackageUpdate.testBindAppsUpdated(TestPackageUpdate.java:25)
+I/TestRunner(12540): 	at java.lang.reflect.Method.invoke(Native Method)
+I/TestRunner(12540): 	at java.lang.reflect.Method.invoke(Method.java:372)
+I/TestRunner(12540): 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+I/TestRunner(12540): 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+I/TestRunner(12540): 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+I/TestRunner(12540): 	at junit.framework.TestCase.runBare(TestCase.java:134)
+I/TestRunner(12540): 	at junit.framework.TestResult$1.protect(TestResult.java:115)
+I/TestRunner(12540): 	at junit.framework.TestResult.runProtected(TestResult.java:133)
+I/TestRunner(12540): 	at junit.framework.TestResult.run(TestResult.java:118)
+I/TestRunner(12540): 	at junit.framework.TestCase.run(TestCase.java:124)
+I/TestRunner(12540): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
+I/TestRunner(12540): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
+I/TestRunner(12540): 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+I/TestRunner(12540): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+I/TestRunner(12540): ----- end exception -----
+I/TestRunner(12540): finished: testBindAppsUpdated(com.asus.launcher.original.TestPackageUpdate)
+I/TestRunner(12540): started: testWhenUpdatePackages(com.asus.launcher.original.TestResume)
+V/TestRunner - LauncherTest(12540): setUp, Launcher id: com.android.launcher3.Launcher@29a2c6ab
+I/TestRunner - LauncherTest(12540): testWhenUpdatePackages
+I/TestRunner - LauncherTest(12540): testWhenUpdatePackages done:
+I/TestRunner - LauncherTest(12540): launcherOnResumeTime: 61
+I/TestRunner - LauncherTest(12540): launcherOnNewIntentTime: 4
+I/TestRunner - LauncherTest(12540): launcherOnWindowFocusTime: 0
+I/TestRunner(12540): finished: testWhenUpdatePackages(com.asus.launcher.original.TestResume)
+I/TestRunner(12540): passed: testWhenUpdatePackages(com.asus.launcher.original.TestResume)
+I/TestRunner(12540): started: testWithHomeButton(com.asus.launcher.original.TestResume)
+V/TestRunner - LauncherTest(12540): setUp, Launcher id: com.android.launcher3.Launcher@281b8bd3
+I/TestRunner - LauncherTest(12540): testWithHomeButton
+I/TestRunner - LauncherTest(12540): testWithHomeButton done:
+I/TestRunner - LauncherTest(12540): launcherOnResumeTime: 10
+I/TestRunner - LauncherTest(12540): launcherOnNewIntentTime: 4
+I/TestRunner - LauncherTest(12540): launcherOnWindowFocusTime: 0
+I/TestRunner(12540): finished: testWithHomeButton(com.asus.launcher.original.TestResume)
+I/TestRunner(12540): passed: testWithHomeButton(com.asus.launcher.original.TestResume)
+I/TestRunner(12540): started: testWithoutHomeButton(com.asus.launcher.original.TestResume)
+V/TestRunner - LauncherTest(12540): setUp, Launcher id: com.android.launcher3.Launcher@35de5097
+I/TestRunner - LauncherTest(12540): testWithoutHomeButton
+I/TestRunner - LauncherTest(12540): testWithoutHomeButton done:
+I/TestRunner - LauncherTest(12540): launcherOnResumeTime: 10
+I/TestRunner - LauncherTest(12540): launcherOnNewIntentTime: -1
+I/TestRunner - LauncherTest(12540): launcherOnWindowFocusTime: 0
+I/TestRunner(12540): finished: testWithoutHomeButton(com.asus.launcher.original.TestResume)
+I/TestRunner(12540): passed: testWithoutHomeButton(com.asus.launcher.original.TestResume)
+I/TestRunner(12741): started: testOnCreate(com.asus.launcher.original.workspace.TestFirstOnCreateIconShowingTime)
+V/TestRunner - LauncherTest(12741): setUp, Launcher id: com.android.launcher3.Launcher@e5acf27
+I/TestRunner - LauncherTest(12741): testOnCreate
+D/TestRunner - LauncherTest(12741): onWorkspaceIconShowingTime takes: 2590ms
+I/TestRunner(12741): finished: testOnCreate(com.asus.launcher.original.workspace.TestFirstOnCreateIconShowingTime)
+I/TestRunner(12741): passed: testOnCreate(com.asus.launcher.original.workspace.TestFirstOnCreateIconShowingTime)
+I/TestRunner(12741): started: testOnCreate(com.asus.launcher.original.workspace.TestIconShowingTime)
+V/TestRunner - LauncherTest(12741): setUp, Launcher id: com.android.launcher3.Launcher@3104bab9
+I/TestRunner - LauncherTest(12741): testOnCreate
+D/TestRunner - LauncherTest(12741): onWorkspaceIconShowingTime takes: 1026ms
+I/TestRunner(12741): finished: testOnCreate(com.asus.launcher.original.workspace.TestIconShowingTime)
+I/TestRunner(12741): passed: testOnCreate(com.asus.launcher.original.workspace.TestIconShowingTime)
+I/TestRunner(12873): started: testEnableRotation(com.asus.launcher.Utilities)
+V/TestRunner - LauncherTest(12873): setUp, Launcher id: com.android.launcher3.Launcher@e5acf27
+I/TestRunner(12873): finished: testEnableRotation(com.asus.launcher.Utilities)
+I/TestRunner(12873): passed: testEnableRotation(com.asus.launcher.Utilities)
+I/TestRunner(12976): started: testOnCreate(com.asus.launcher.original.configurechange.TestScreenRotation)
+V/TestRunner - LauncherTest(12976): setUp, Launcher id: com.android.launcher3.Launcher@e5acf27
+I/TestRunner - LauncherTest(12976): testOnCreate done:
+I/TestRunner - LauncherTest(12976): launcherOnCreateTime: 465
+I/TestRunner - LauncherTest(12976): launcherOnResumeTime: 4
+I/TestRunner - LauncherTest(12976): launcherOnWindowFocusTime: -1
+I/TestRunner(12976): failed: testOnCreate(com.asus.launcher.original.configurechange.TestScreenRotation)
+I/TestRunner(12976): ----- begin exception -----
+I/TestRunner(12976): 
+I/TestRunner(12976): junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Failed
+I/TestRunner(12976): 	at junit.framework.Assert.fail(Assert.java:50)
+I/TestRunner(12976): 	at junit.framework.Assert.assertTrue(Assert.java:20)
+I/TestRunner(12976): 	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+I/TestRunner(12976): 	at com.asus.launcher.original.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:49)
+I/TestRunner(12976): 	at java.lang.reflect.Method.invoke(Native Method)
+I/TestRunner(12976): 	at java.lang.reflect.Method.invoke(Method.java:372)
+I/TestRunner(12976): 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+I/TestRunner(12976): 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+I/TestRunner(12976): 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+I/TestRunner(12976): 	at junit.framework.TestCase.runBare(TestCase.java:134)
+I/TestRunner(12976): 	at junit.framework.TestResult$1.protect(TestResult.java:115)
+I/TestRunner(12976): 	at junit.framework.TestResult.runProtected(TestResult.java:133)
+I/TestRunner(12976): 	at junit.framework.TestResult.run(TestResult.java:118)
+I/TestRunner(12976): 	at junit.framework.TestCase.run(TestCase.java:124)
+I/TestRunner(12976): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
+I/TestRunner(12976): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
+I/TestRunner(12976): 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+I/TestRunner(12976): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+I/TestRunner(12976): ----- end exception -----
+I/TestRunner(12976): finished: testOnCreate(com.asus.launcher.original.configurechange.TestScreenRotation)
+I/TestRunner(13109): started: testDisableRotation(com.asus.launcher.Utilities)
+V/TestRunner - LauncherTest(13109): setUp, Launcher id: com.android.launcher3.Launcher@e5acf27
+I/TestRunner(13109): finished: testDisableRotation(com.asus.launcher.Utilities)
+I/TestRunner(13109): passed: testDisableRotation(com.asus.launcher.Utilities)
+I/TestRunner(13214): started: testFillInFolders(com.asus.launcher.Utilities)
+V/TestRunner - LauncherTest(13214): setUp, Launcher id: com.android.launcher3.Launcher@37a32de6
+I/TestRunner(13214): finished: testFillInFolders(com.asus.launcher.Utilities)
+I/TestRunner(13214): passed: testFillInFolders(com.asus.launcher.Utilities)
+I/TestRunner(13390): started: testOnCreate(com.asus.launcher.withfolders.TestOnFirstTimeCreate)
+V/TestRunner - LauncherTest(13390): setUp, Launcher id: com.android.launcher3.Launcher@37a32de6
+I/TestRunner - LauncherTest(13390): testOnCreate
+I/TestRunner - LauncherTest(13390): testOnCreate done:
+I/TestRunner - LauncherTest(13390): launcherOnCreateTime: 683
+I/TestRunner - LauncherTest(13390): launcherOnResumeTime: 104
+I/TestRunner - LauncherTest(13390): launcherOnWindowFocusTime: 0
+I/TestRunner(13390): finished: testOnCreate(com.asus.launcher.withfolders.TestOnFirstTimeCreate)
+I/TestRunner(13390): passed: testOnCreate(com.asus.launcher.withfolders.TestOnFirstTimeCreate)
+I/TestRunner(13390): started: testBindAppsUpdated(com.asus.launcher.withfolders.TestPackageUpdate)
+V/TestRunner - LauncherTest(13390): setUp, Launcher id: com.android.launcher3.Launcher@e2680d1
+I/TestRunner - LauncherTest(13390): testBindAppsUpdated
+V/TestRunner - LauncherTest(13390): package update(package:com.asus.flashlight#Intent;action=android.intent.action.PACKAGE_CHANGED;package=com.asus.flashlight;end) takes: -1ms
+I/TestRunner(13390): failed: testBindAppsUpdated(com.asus.launcher.withfolders.TestPackageUpdate)
+I/TestRunner(13390): ----- begin exception -----
+I/TestRunner(13390): 
+I/TestRunner(13390): junit.framework.AssertionFailedError: package update takes: -1ms
+I/TestRunner(13390): 	at junit.framework.Assert.fail(Assert.java:50)
+I/TestRunner(13390): 	at junit.framework.Assert.assertTrue(Assert.java:20)
+I/TestRunner(13390): 	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+I/TestRunner(13390): 	at com.asus.launcher.withfolders.TestPackageUpdate.testBindAppsUpdated(TestPackageUpdate.java:25)
+I/TestRunner(13390): 	at java.lang.reflect.Method.invoke(Native Method)
+I/TestRunner(13390): 	at java.lang.reflect.Method.invoke(Method.java:372)
+I/TestRunner(13390): 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+I/TestRunner(13390): 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+I/TestRunner(13390): 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+I/TestRunner(13390): 	at junit.framework.TestCase.runBare(TestCase.java:134)
+I/TestRunner(13390): 	at junit.framework.TestResult$1.protect(TestResult.java:115)
+I/TestRunner(13390): 	at junit.framework.TestResult.runProtected(TestResult.java:133)
+I/TestRunner(13390): 	at junit.framework.TestResult.run(TestResult.java:118)
+I/TestRunner(13390): 	at junit.framework.TestCase.run(TestCase.java:124)
+I/TestRunner(13390): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
+I/TestRunner(13390): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
+I/TestRunner(13390): 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+I/TestRunner(13390): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+I/TestRunner(13390): ----- end exception -----
+I/TestRunner(13390): finished: testBindAppsUpdated(com.asus.launcher.withfolders.TestPackageUpdate)
+I/TestRunner(13390): started: testWhenUpdatePackages(com.asus.launcher.withfolders.TestResume)
+V/TestRunner - LauncherTest(13390): setUp, Launcher id: com.android.launcher3.Launcher@4ad3f7a
+I/TestRunner - LauncherTest(13390): testWhenUpdatePackages
+I/TestRunner - LauncherTest(13390): testWhenUpdatePackages done:
+I/TestRunner - LauncherTest(13390): launcherOnResumeTime: 95
+I/TestRunner - LauncherTest(13390): launcherOnNewIntentTime: 2
+I/TestRunner - LauncherTest(13390): launcherOnWindowFocusTime: 0
+I/TestRunner(13390): finished: testWhenUpdatePackages(com.asus.launcher.withfolders.TestResume)
+I/TestRunner(13390): passed: testWhenUpdatePackages(com.asus.launcher.withfolders.TestResume)
+I/TestRunner(13390): started: testWithHomeButton(com.asus.launcher.withfolders.TestResume)
+V/TestRunner - LauncherTest(13390): setUp, Launcher id: com.android.launcher3.Launcher@92e6a02
+I/TestRunner - LauncherTest(13390): testWithHomeButton
+I/TestRunner - LauncherTest(13390): testWithHomeButton done:
+I/TestRunner - LauncherTest(13390): launcherOnResumeTime: 9
+I/TestRunner - LauncherTest(13390): launcherOnNewIntentTime: 3
+I/TestRunner - LauncherTest(13390): launcherOnWindowFocusTime: 0
+I/TestRunner(13390): finished: testWithHomeButton(com.asus.launcher.withfolders.TestResume)
+I/TestRunner(13390): passed: testWithHomeButton(com.asus.launcher.withfolders.TestResume)
+I/TestRunner(13390): started: testWithoutHomeButton(com.asus.launcher.withfolders.TestResume)
+V/TestRunner - LauncherTest(13390): setUp, Launcher id: com.android.launcher3.Launcher@bd8246d
+I/TestRunner - LauncherTest(13390): testWithoutHomeButton
+I/TestRunner - LauncherTest(13390): testWithoutHomeButton done:
+I/TestRunner - LauncherTest(13390): launcherOnResumeTime: 12
+I/TestRunner - LauncherTest(13390): launcherOnNewIntentTime: -1
+I/TestRunner - LauncherTest(13390): launcherOnWindowFocusTime: 0
+I/TestRunner(13390): finished: testWithoutHomeButton(com.asus.launcher.withfolders.TestResume)
+I/TestRunner(13390): passed: testWithoutHomeButton(com.asus.launcher.withfolders.TestResume)
+I/TestRunner(13593): started: testOnCreate(com.asus.launcher.withfolders.workspace.TestFirstOnCreateIconShowingTime)
+V/TestRunner - LauncherTest(13593): setUp, Launcher id: com.android.launcher3.Launcher@e5acf27
+I/TestRunner - LauncherTest(13593): testOnCreate
+D/TestRunner - LauncherTest(13593): onWorkspaceIconShowingTime takes: 6949ms
+I/TestRunner(13593): finished: testOnCreate(com.asus.launcher.withfolders.workspace.TestFirstOnCreateIconShowingTime)
+I/TestRunner(13593): passed: testOnCreate(com.asus.launcher.withfolders.workspace.TestFirstOnCreateIconShowingTime)
+I/TestRunner(13593): started: testOnCreate(com.asus.launcher.withfolders.workspace.TestIconShowingTime)
+V/TestRunner - LauncherTest(13593): setUp, Launcher id: com.android.launcher3.Launcher@a778b27
+I/TestRunner - LauncherTest(13593): testOnCreate
+D/TestRunner - LauncherTest(13593): onWorkspaceIconShowingTime takes: 3703ms
+I/TestRunner(13593): finished: testOnCreate(com.asus.launcher.withfolders.workspace.TestIconShowingTime)
+I/TestRunner(13593): passed: testOnCreate(com.asus.launcher.withfolders.workspace.TestIconShowingTime)
+I/TestRunner(13724): started: testEnableRotation(com.asus.launcher.Utilities)
+V/TestRunner - LauncherTest(13724): setUp, Launcher id: com.android.launcher3.Launcher@37a32de6
+I/TestRunner(13724): finished: testEnableRotation(com.asus.launcher.Utilities)
+I/TestRunner(13724): passed: testEnableRotation(com.asus.launcher.Utilities)
+I/TestRunner(13828): started: testOnCreate(com.asus.launcher.withfolders.configurechange.TestScreenRotation)
+V/TestRunner - LauncherTest(13828): setUp, Launcher id: com.android.launcher3.Launcher@37a32de6
+I/TestRunner - LauncherTest(13828): testOnCreate done:
+I/TestRunner - LauncherTest(13828): launcherOnCreateTime: 1052
+I/TestRunner - LauncherTest(13828): launcherOnResumeTime: 5
+I/TestRunner - LauncherTest(13828): launcherOnWindowFocusTime: -1
+I/TestRunner(13828): failed: testOnCreate(com.asus.launcher.withfolders.configurechange.TestScreenRotation)
+I/TestRunner(13828): ----- begin exception -----
+I/TestRunner(13828): 
+I/TestRunner(13828): junit.framework.AssertionFailedError: testOnCreate OnWindowFocus takes -1ms, Failed
+I/TestRunner(13828): 	at junit.framework.Assert.fail(Assert.java:50)
+I/TestRunner(13828): 	at junit.framework.Assert.assertTrue(Assert.java:20)
+I/TestRunner(13828): 	at com.asus.launcher.TestMain.assertTimeLessThanValid(TestMain.java:67)
+I/TestRunner(13828): 	at com.asus.launcher.withfolders.configurechange.TestScreenRotation.testOnCreate(TestScreenRotation.java:49)
+I/TestRunner(13828): 	at java.lang.reflect.Method.invoke(Native Method)
+I/TestRunner(13828): 	at java.lang.reflect.Method.invoke(Method.java:372)
+I/TestRunner(13828): 	at android.test.InstrumentationTestCase.runMethod(InstrumentationTestCase.java:214)
+I/TestRunner(13828): 	at android.test.InstrumentationTestCase.runTest(InstrumentationTestCase.java:199)
+I/TestRunner(13828): 	at android.test.ActivityInstrumentationTestCase2.runTest(ActivityInstrumentationTestCase2.java:192)
+I/TestRunner(13828): 	at junit.framework.TestCase.runBare(TestCase.java:134)
+I/TestRunner(13828): 	at junit.framework.TestResult$1.protect(TestResult.java:115)
+I/TestRunner(13828): 	at junit.framework.TestResult.runProtected(TestResult.java:133)
+I/TestRunner(13828): 	at junit.framework.TestResult.run(TestResult.java:118)
+I/TestRunner(13828): 	at junit.framework.TestCase.run(TestCase.java:124)
+I/TestRunner(13828): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:191)
+I/TestRunner(13828): 	at android.test.AndroidTestRunner.runTest(AndroidTestRunner.java:176)
+I/TestRunner(13828): 	at android.test.InstrumentationTestRunner.onStart(InstrumentationTestRunner.java:555)
+I/TestRunner(13828): 	at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:1837)
+I/TestRunner(13828): ----- end exception -----
+I/TestRunner(13828): finished: testOnCreate(com.asus.launcher.withfolders.configurechange.TestScreenRotation)
+I/TestRunner(13960): started: testDisableRotation(com.asus.launcher.Utilities)
+V/TestRunner - LauncherTest(13960): setUp, Launcher id: com.android.launcher3.Launcher@37a32de6
+I/TestRunner(13960): finished: testDisabl

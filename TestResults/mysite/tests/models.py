@@ -32,6 +32,7 @@ class test_git_log(models.Model):
     git_author_email = models.TextField(null=False)
     git_hash_code = models.TextField(null=False)
     git_tested = models.TextField(null=False, default='False')
+    git_branch = models.TextField(default='', null=True)
 
 class test_device_info(models.Model):
     version_sdk = models.TextField(null=False)

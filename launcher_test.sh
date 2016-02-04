@@ -14,9 +14,10 @@ SOURCE_UTILITIES="./AsusLauncherTest/utilities.sh";
 SOURCE_GIT_HELPER="./AsusLauncherTest/git_helper.sh";
 SOURCE_DEVICES_INFO_HELPER="./AsusLauncherTest/devices_info_helper.sh";
 
+targetBranch="AsusLauncher_1.4_play";
+
 debug=true;
 syncExternalProjectScriptName="deploy_AsusLauncher_1.4.sh";
-targetBranch="AsusLauncher_1.4_play";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
@@ -99,7 +100,7 @@ function exitWitherror() {
 ## update test columns
 function handleErrors() {
     echo "$1";
-    sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1" $(get_helper_getCurrentBranch) ${testDeviceId};
+    sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1" $(git_helper_getCurrentBranch) ${testDeviceId};
 	sqlite_updateLastedUntestedHash;
 }
 
@@ -302,7 +303,7 @@ function parseAndInsertGitLogs() {
 }
 
 function resetToRightChange() {
-    local last_untested_hash=$(sqlite_get_lastest_untested_hash);
+    local last_untested_hash=$(sqlite_getLastestUntestedHash);
 	echo $last_untested_hash;
     git reset --hard $last_untested_hash;
 }
@@ -427,7 +428,27 @@ function parseTestRunnerLogs() {
 	insertExtraMessages;
 }
 
+function readParams() {
+	params=${@};
+	echo "length of params: ${#params}"
+	for param in $params
+	do
+	    local cmd="$(echo ${param} | sed 's/=.*//')";
+		local value="$(echo ${param} | sed 's/.*=//')";
+		if [ "$cmd" == "b" -o "$cmd" == "B" ]; then
+		    targetBranch="${value}";
+		    echo "target bransh: ${targetBranch}";
+		else
+		    echo "unknow command: ${params}";
+			exit 0;
+		fi;
+	done
+}
+
+
 ## main
+readParams ${@};
+
 cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest

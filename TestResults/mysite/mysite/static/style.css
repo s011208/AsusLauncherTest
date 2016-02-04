@@ -104,3 +104,12 @@ td.column_threshold  div.column{
 	font-size: 14px;
 	text-align: left;
 }
+
+ul.branch_nav li {
+	display: inline;
+	margin-left: 20px
+}
+
+div.branch_name {
+	text-align: center;
+}

@@ -37,8 +37,8 @@ TAG_EXTRA_MESSAGES="EXTRA_MESSAGES_TAG";
 
 
 ## for django
-sqlitePath="./AsusLauncherTest/TestResults/mysite/db.sqlite3";
-sqlitePathWhenInAsusLauncher="./.././AsusLauncherTest/TestResults/mysite/db.sqlite3";
+sqlitePath="./AsusLauncherTest/TestResults/mysite/AsusLauncher_1.4_play.db";
+sqlitePathWhenInAsusLauncher="./.././AsusLauncherTest/TestResults/mysite/AsusLauncher_1.4_play.db";
 
 ## for script only
 #sqlitePath="./test_results.db";
@@ -432,54 +432,54 @@ cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-#syncExternalProjects;
+syncExternalProjects;
 
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
-#syncLauncher;
+syncLauncher;
 
-#getTestingDeviceInfo;
+getTestingDeviceInfo;
 
 ## checkout to right commit
-#git_helper_syncDatabase $gitLogs;
-#parseAndInsertGitLogs;
-#resetToRightChange;
+git_helper_syncDatabase $gitLogs;
+parseAndInsertGitLogs;
+resetToRightChange;
 
-#buildLauncher;
-#checkBuildLauncherResult;
+buildLauncher;
+checkBuildLauncherResult;
 
-#buildTestLauncher;
-#checkBuildTestLauncherResult;
+buildTestLauncher;
+checkBuildTestLauncherResult;
 
 ## install apk
-#installLauncher;
-#installTestLauncher;
+installLauncher;
+installTestLauncher;
 
 ## clear logcat files & cache
-#rm -f "${adbLogcat}";
-#adb logcat -c;
+rm -f "${adbLogcat}";
+adb logcat -c;
 
 ## open new terminal & log to file
-#gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
+gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
 
 ## run all tests
-#runAllTests;
+runAllTests;
 
 ## install wmctrl in advance
 ## close logcat terminal
-#sleep 5000;
-#wmctrl -F -c "${adbLogcatTerminalTitle}";
+sleep 10;
+wmctrl -F -c "${adbLogcatTerminalTitle}";
 
 ## parse test results
-#parseTestsResult;
-#readTestResultAdapter;
+parseTestsResult;
+readTestResultAdapter;
 
 ## parse test thresholds
 parseTestRunnerLogs;
 
-#sqlite_updateLastedUntestedHash;
-#sqlite_removeOldTimeStamp;
+sqlite_updateLastedUntestedHash;
+sqlite_removeOldTimeStamp;
 
 echo "66666666";

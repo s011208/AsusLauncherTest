@@ -67,68 +67,205 @@
 			{% endfor %}
 		</table>
 		<div class="para_title">Test results</div>
-		<table>
-		    <tr>
-				<td class="column">
-				</td>
-				<td class="column">
-				</td>
-				{% for test_case in all_test_cases %}
-				<td class="column_threshold">
-					<div class="column">{{test_case.test_threshold|linebreaksbr}}
-					</div>
-				</td>
-				{% endfor %}
-			</tr>
-			<tr>
-				<td class="column">
-				</td>
-				<td class="column">
-				</td>
-				{% for test_case in all_test_cases %}
-				<td class="column">
-					<div class="column">{% remove_pkg test_case.test_case %}
-					    <br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)
-					</div>
-				</td>
-				{% endfor %}
-			</tr>
-			{% for test_time in all_test_times %}
+		<ul class="branch_nav">
+		   <li><a href="#branch_play">Branch play</a></li>
+		   <li><a href="#branch_beta">Branch beta</a></li>
+		   <li><a href="#branch_dev">Branch dev</a></li>
+		</ul>
+		<div class="tab_container">
+			<div id="branch_play">
+				<table>
+					<tr>
+						<td class="column">
+							<div class="branch_name">AsusLauncher_1.4_play</div>
+						</td>
+						<td class="column">
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="column_threshold">
+							<div class="column">{{test_case.test_threshold|linebreaksbr}}
+							</div>
+						</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td class="column">
+						</td>
+						<td class="column">
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="column">
+							<div class="column">{% remove_pkg test_case.test_case %}
+								<br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)
+							</div>
+						</td>
+						{% endfor %}
+					</tr>
+					{% for test_time in all_test_times %}
 
-			<tr class="content_column">
-				<td class="column">
-					<div class="column">
-					<div class="title">test time:</div>{{ test_time.test_time }}
-					<br><br><div class="title">version:</div>{% get_test_version all_versions test_time.id%}
-					<br><br><div class="title">tag:</div>{% get_test_tag all_test_tags test_time.id%}
-					<br><br><div class="title">test status:</div>{{test_time.test_done}}
-					<br><br><div class="title">device id:</div>{{test_time.test_device_info_id}}
-					</div>
-				</td>
-				<td class="column">
-					<div class="column">
-					{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
-					<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
-					<br><br><div class="title">branch:</div>{{test_time.test_branch}}
-					</div>
-				</td>
-				{% for test_case in all_test_cases %}
-				<td class="content">
-					<script>
-					var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
-					var extra_msg="{% get_test_result_extra_message all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
-					if (result.localeCompare("OK") == 0) {
-						document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
-					} else {
-						document.write('<div class="content_failure">' + result + '</div>');
-					}
-					</script>
-					
-				</td>
-				{% endfor %}
-			</tr>
-			{% endfor %}
-		</table>
+					<tr class="content_column">
+						<td class="column">
+							<div class="column">
+							<div class="title">test time:</div>{{ test_time.test_time }}
+							<br><br><div class="title">version:</div>{% get_test_version all_versions test_time.id%}
+							<br><br><div class="title">tag:</div>{% get_test_tag all_test_tags test_time.id%}
+							<br><br><div class="title">test status:</div>{{test_time.test_done}}
+							<br><br><div class="title">device id:</div>{{test_time.test_device_info_id}}
+							</div>
+						</td>
+						<td class="column">
+							<div class="column">
+							{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
+							<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
+							<br><br><div class="title">branch:</div>{{test_time.test_branch}}
+							</div>
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="content">
+							<script>
+							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
+							var extra_msg="{% get_test_result_extra_message all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
+							if (result.localeCompare("OK") == 0) {
+								document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
+							} else {
+								document.write('<div class="content_failure">' + result + '</div>');
+							}
+							</script>
+						</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div id="branch_beta">
+			<table>
+					<tr>
+						<td class="column">
+							<div class="branch_name">AsusLauncher_1.4_beta</div>
+						</td>
+						<td class="column">
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="column_threshold">
+							<div class="column">{{test_case.test_threshold|linebreaksbr}}
+							</div>
+						</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td class="column">
+						</td>
+						<td class="column">
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="column">
+							<div class="column">{% remove_pkg test_case.test_case %}
+								<br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)
+							</div>
+						</td>
+						{% endfor %}
+					</tr>
+					{% for test_time in all_test_times %}
+
+					<tr class="content_column">
+						<td class="column">
+							<div class="column">
+							<div class="title">test time:</div>{{ test_time.test_time }}
+							<br><br><div class="title">version:</div>{% get_test_version all_versions test_time.id%}
+							<br><br><div class="title">tag:</div>{% get_test_tag all_test_tags test_time.id%}
+							<br><br><div class="title">test status:</div>{{test_time.test_done}}
+							<br><br><div class="title">device id:</div>{{test_time.test_device_info_id}}
+							</div>
+						</td>
+						<td class="column">
+							<div class="column">
+							{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
+							<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
+							<br><br><div class="title">branch:</div>{{test_time.test_branch}}
+							</div>
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="content">
+							<script>
+							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
+							var extra_msg="{% get_test_result_extra_message all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
+							if (result.localeCompare("OK") == 0) {
+								document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
+							} else {
+								document.write('<div class="content_failure">' + result + '</div>');
+							}
+							</script>
+						</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+			<div id="branch_dev">
+			<table>
+					<tr>
+						<td class="column">
+							<div class="branch_name">AsusLauncher_1.4_dev</div>
+						</td>
+						<td class="column">
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="column_threshold">
+							<div class="column">{{test_case.test_threshold|linebreaksbr}}
+							</div>
+						</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						<td class="column">
+						</td>
+						<td class="column">
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="column">
+							<div class="column">{% remove_pkg test_case.test_case %}
+								<br>(Fail rate: {% get_test_case_fail_rate all_test_results test_case.id %}%)
+							</div>
+						</td>
+						{% endfor %}
+					</tr>
+					{% for test_time in all_test_times %}
+
+					<tr class="content_column">
+						<td class="column">
+							<div class="column">
+							<div class="title">test time:</div>{{ test_time.test_time }}
+							<br><br><div class="title">version:</div>{% get_test_version all_versions test_time.id%}
+							<br><br><div class="title">tag:</div>{% get_test_tag all_test_tags test_time.id%}
+							<br><br><div class="title">test status:</div>{{test_time.test_done}}
+							<br><br><div class="title">device id:</div>{{test_time.test_device_info_id}}
+							</div>
+						</td>
+						<td class="column">
+							<div class="column">
+							{% get_git_log_subject_from_time_stamp all_git_tags test_time.test_git_log_id %}
+							<br><br><div class="git_author">{% get_git_log_author_name_from_time_stamp all_git_tags test_time.test_git_log_id %}</div>
+							<br><br><div class="title">branch:</div>{{test_time.test_branch}}
+							</div>
+						</td>
+						{% for test_case in all_test_cases %}
+						<td class="content">
+							<script>
+							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
+							var extra_msg="{% get_test_result_extra_message all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
+							if (result.localeCompare("OK") == 0) {
+								document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
+							} else {
+								document.write('<div class="content_failure">' + result + '</div>');
+							}
+							</script>
+						</td>
+						{% endfor %}
+					</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
     </body>
 	
 </html>

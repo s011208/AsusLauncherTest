@@ -9,6 +9,8 @@ def get_test_result(test_results, test_case_id, test_time_id):
     for result in test_results:
         if int(result.get('test_case_id')) == int(test_case_id):
             if isinstance(result.get('test_time_id'), int) and int(result.get('test_time_id')) == int(test_time_id):
+                if not result.get('test_result'):
+                    return "N/A"
                 return result.get('test_result').replace("\r", "@@@")
     return "N/A"
 	
@@ -16,6 +18,8 @@ def get_test_result_extra_message(test_results, test_case_id, test_time_id):
     for result in test_results:
         if int(result.get('test_case_id')) == int(test_case_id):
             if isinstance(result.get('test_time_id'), int) and int(result.get('test_time_id')) == int(test_time_id):
+                if not result.get('test_extra_msgs'):
+                    return "N/A"
                 return result.get('test_extra_msgs').replace("\n", "@@@")
     return ""
     

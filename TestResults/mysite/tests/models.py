@@ -3,18 +3,18 @@ from django.db import models
 # Create your models here.
 class test_cases(models.Model):
     test_case = models.TextField(null=False)
-    test_threshold = models.TextField(default='')
+    test_threshold = models.TextField(default='', null=True)
 
 class test_results(models.Model):
     test_case_id = models.IntegerField(null=False)
     test_time_id = models.IntegerField(null=False)
     test_result = models.TextField(null=False)
-    test_extra_msgs = models.TextField(default='')
+    test_extra_msgs = models.TextField(default='', null=True)
     
 class test_times(models.Model):
     test_time = models.TextField(null=False)
     test_done = models.TextField(null=False, default='False')
-    test_branch = models.TextField(default='')
+    test_branch = models.TextField(default='', null=True)
     test_git_log_id = models.IntegerField(null=False, default=-1)
     test_device_info_id = models.IntegerField(null=False, default=-1)
     

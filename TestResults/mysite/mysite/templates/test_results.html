@@ -9,63 +9,65 @@
     </head>
     <body>
 		{% load test_library %}
-		<div class="para_title">Device list</div>
-		<table class="devices">
-		    <tr>
-			    <td class="column_titles">
-				    device id
-				</td>
-				<td class="column_titles">
-				    version sdk
-				</td>
-				<td class="column_titles">
-				    version incremental
-				</td>
-				<td class="column_titles">
-				    product
-				</td>
-				<td class="column_titles">
-				    csc version
-				</td>
-				<td class="column_titles">
-				    characristics
-				</td>
-				<td class="column_titles">
-				    sku
-				</td>
-				<td class="column_titles">
-				    device adb id
-				</td>
-			</tr>
-			{% for device_info in all_device_infos %}
-		    <tr>
-				<td class="column_values">
-				    {{device_info.id}}
-				</td>
-				<td class="column_values">
-				    {{device_info.version_sdk}}
-				</td>
-				<td class="column_values">
-				    {{device_info.version_incremental}}
-				</td>
-				<td class="column_values">
-				    {{device_info.product}}
-				</td>
-				<td class="column_values">
-				    {{device_info.csc_version}}
-				</td>
-				<td class="column_values">
-				    {{device_info.characristics}}
-				</td>
-				<td class="column_values">
-				    {{device_info.sku}}
-				</td>
-				<td class="column_values">
-				    {{device_info.device_id}}
-				</td>
-			</tr>
-			{% endfor %}
-		</table>
+		<div class="para_title" id="device_list_title">Device list</div>
+		<div id="devices_list_table_div">
+			<table class="devices">
+				<tr>
+					<td class="column_titles">
+						device id
+					</td>
+					<td class="column_titles">
+						version sdk
+					</td>
+					<td class="column_titles">
+						version incremental
+					</td>
+					<td class="column_titles">
+						product
+					</td>
+					<td class="column_titles">
+						csc version
+					</td>
+					<td class="column_titles">
+						characristics
+					</td>
+					<td class="column_titles">
+						sku
+					</td>
+					<td class="column_titles">
+						device adb id
+					</td>
+				</tr>
+				{% for device_info in all_device_infos %}
+				<tr>
+					<td class="column_values">
+						{{device_info.id}}
+					</td>
+					<td class="column_values">
+						{{device_info.version_sdk}}
+					</td>
+					<td class="column_values">
+						{{device_info.version_incremental}}
+					</td>
+					<td class="column_values">
+						{{device_info.product}}
+					</td>
+					<td class="column_values">
+						{{device_info.csc_version}}
+					</td>
+					<td class="column_values">
+						{{device_info.characristics}}
+					</td>
+					<td class="column_values">
+						{{device_info.sku}}
+					</td>
+					<td class="column_values">
+						{{device_info.device_id}}
+					</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
 		<div class="para_title">Test results</div>
 		<ul class="branch_nav">
 		   <li><a href="#branch_play">Branch play</a></li>

@@ -1,4 +1,14 @@
 $(document).ready(function() {
+	$("#device_list_title").click(function() {
+		$("#devices_list_table_div").slideToggle( "normal", function() {
+			if ( $("#devices_list_table_div").css('display') == 'none' ){
+				$("#device_list_title").text("click to show device list");
+			} else {
+				$("#device_list_title").text("Device list");
+			}
+		});
+	});
+	
     var collapse_height=70;
     var expand_height=380;
     var expand_delta=expand_height-collapse_height;

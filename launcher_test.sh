@@ -298,7 +298,7 @@ function parseAndInsertGitLogs() {
         done
 		#debugMessage $data_f;
 		#debugMessage "s: " $change_subject "a: " $change_author "h: " $change_hash "ae: " $change_author_email
-		sqlite_insertGitLog "$change_subject" "$change_author" "$change_hash" "$change_author_email";
+		sqlite_insertGitLog "$change_subject" "$change_author" "$change_hash" "$change_author_email" "${targetBranch}";
     done
 }
 

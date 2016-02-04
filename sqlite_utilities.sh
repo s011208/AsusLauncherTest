@@ -220,18 +220,20 @@ function sqlite_getLastestUntestedHash() {
     sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' order by ${COLUMN_ID} limit 1";
 }
 
+## $1=hash, $2=branch_name
 function sqlite_getGitLog() {
-    sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_HASH}='$1'";
+    sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_HASH}='$1' and ${COLUMN_GIT_LOG_BRANCH}='$2'";
 }
 
-## with $1=subject, $2=author, $3=hash, $4=author_email
+## with $1=subject, $2=author, $3=hash, $4=author_email, $5=branch_name
 function sqlite_insertGitLog() {
     if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then
 	    return;
 	fi;
-    local result=$(sqlite_getGitLog $3);
+	## do not add duplicate git log
+    local result="$(sqlite_getGitLog $3 $5)";
 	if [ -z $result ]; then
-	    sqlite3 "$sqlite_path" "insert into ${TABLE_GIT_LOG} ('${COLUMN_GIT_LOG_SUBJECT}','${COLUMN_GIT_LOG_AUTHOR_NAME}','${COLUMN_GIT_LOG_HASH}','${COLUMN_GIT_LOG_AUTHOR_EMAIL}','${COLUMN_GIT_LOG_TESTED}') values ('$1', '$2', '$3', '$4', 'False');";
+	    sqlite3 "$sqlite_path" "insert into ${TABLE_GIT_LOG} ('${COLUMN_GIT_LOG_SUBJECT}','${COLUMN_GIT_LOG_AUTHOR_NAME}','${COLUMN_GIT_LOG_HASH}','${COLUMN_GIT_LOG_AUTHOR_EMAIL}','${COLUMN_GIT_LOG_TESTED}','${COLUMN_GIT_LOG_BRANCH}') values ('$1', '$2', '$3', '$4', 'False', '$5');";
 	fi;
 }
 

@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$("#device_list_title").click(function() {
-		$("#devices_list_table_div").slideToggle( "normal", function() {
+		$("#devices_list_table_div").slideToggle( "fast", function() {
 			if ( $("#devices_list_table_div").css('display') == 'none' ){
 				$("#device_list_title").text("click to show device list");
 			} else {

@@ -116,6 +116,9 @@ function sqlite_getTestCaseId() {
 
 ## $1=test_case, $2=threshold
 function sqlite_updateTestCaseThreshold() {
+    if [ -z "$1" -o -z "$2" ]; then
+	    return;
+	fi;
     sqlite3 "$sqlite_path" "update ${TABLE_TESTCASES} set ${COLUMN_TESTCASES_THRESHOLD}='$2' where ${COLUMN_TESTCASES_NAME}='$1'"
 }
 
@@ -124,6 +127,9 @@ function sqlite_insertErrorTimeStamp() {
     local unTestedId=$(sqlite_getLastestUntestedId);
 	if [ -z ${unTestedId} ]; then
 	    unTestedId=$(sqlite_getLastId);
+	fi;
+	if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then
+	    return;
 	fi;
 	#debugMessage "sqlite_insertNewTimeStamp: ${unTestedId}";
     sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}','${COLUMN_TESTTIME_BRANCH}', '${COLUMN_TEST_DEVICE_INFO_ID}') values ('$1',($unTestedId),'$2','$3','$4');";
@@ -134,6 +140,9 @@ function sqlite_insertNewTimeStamp() {
     local unTestedId=$(sqlite_getLastestUntestedId);
 	if [ -z ${unTestedId} ]; then
 	    unTestedId=$(sqlite_getLastId);
+	fi;
+	if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
+	    return;
 	fi;
 	#debugMessage "sqlite_insertNewTimeStamp: ${unTestedId}";
     sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}','${COLUMN_TESTTIME_BRANCH}', '${COLUMN_TEST_DEVICE_INFO_ID}') values ('$1',($unTestedId),'Done','$2','$3');";
@@ -149,6 +158,9 @@ function sqlite_getLastTimeStampId() {
 
 ## $1=test_time_id, $2=test_case_id, $3=extra_msg
 function sqlite_updateTestResultExtraMessages() {
+    if [ -z "$1" -o -z "$2" ]; then
+	    return;
+	fi;
     sqlite3 "$sqlite_path" "update ${TABLE_TESTRESULTS} set ${COLUMN_TESTRESULTS_EXTRA_MESSAGES}='$3' where ${COLUMN_TESTTIME_ID}=$1 and ${COLUMN_TESTCASES_ID}=$2";
 }
 
@@ -159,21 +171,33 @@ function sqlite_insertTestResult() {
 
 ## with $1=test_time_id
 function sqlite_getTestVersion() {
+    if [ -z "$1" ]; then
+	    return;
+	fi;
     sqlite3 "$sqlite_path" "select ${COLUMN_TESTVERSION_VERSION} from ${TABLE_TESTVERSION} where ${COLUMN_TESTTIME_ID}='$1'";
 }
 
 ## with $1=test_version, $2=test_time_id
 function sqlite_insertTestVersion() {
+    if [ -z "$1" -o -z "$2" ]; then
+	    return;
+	fi;
     sqlite3 "$sqlite_path" "insert into ${TABLE_TESTVERSION} ('${COLUMN_TESTVERSION_VERSION}','${COLUMN_TESTTIME_ID}') values ('$1', '$2');";
 }
 
 ## with $1=test_time_id
 function sqlite_getTestTag() {
+    if [ -z "$1" ]; then
+	    return;
+	fi;
     sqlite3 "$sqlite_path" "select ${COLUMN_LAUNCHERTAG_TAG} from ${TABLE_LAUNCHERTAG} where ${COLUMN_TESTTIME_ID}='$1'";
 }
 
 ## with $1=test_tag, $2=test_time_id
 function sqlite_insertTestTag() {
+    if [ -z "$1" -o -z "$2" ]; then
+	    return;
+	fi;
     sqlite3 "$sqlite_path" "insert into ${TABLE_LAUNCHERTAG} ('${COLUMN_LAUNCHERTAG_TAG}','${COLUMN_TESTTIME_ID}') values ('$1', '$2');";
 }
 
@@ -201,6 +225,9 @@ function sqlite_getGitLog() {
 
 ## with $1=subject, $2=author, $3=hash, $4=author_email
 function sqlite_insertGitLog() {
+    if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then
+	    return;
+	fi;
     local result=$(sqlite_getGitLog $3);
 	if [ -z $result ]; then
 	    sqlite3 "$sqlite_path" "insert into ${TABLE_GIT_LOG} ('${COLUMN_GIT_LOG_SUBJECT}','${COLUMN_GIT_LOG_AUTHOR_NAME}','${COLUMN_GIT_LOG_HASH}','${COLUMN_GIT_LOG_AUTHOR_EMAIL}','${COLUMN_GIT_LOG_TESTED}') values ('$1', '$2', '$3', '$4', 'False');";

@@ -393,16 +393,17 @@ function insertExtraMessages() {
 				done
 				sqlite_updateTestResultExtraMessages "${time_id}" "${test_case_id}" "${finalMsg}";
 			fi;
-			if [ "${class}" !=  "$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')" ]; then
+			nextClass="$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')";
+			if [ "${class}" !=  "${nextClass}" ]; then
 			    extraMsgs=();
-		        class="$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')";
-				debugMessage "class: ${class}";
+		        class="${nextClass}";
+				#debugMessage "class: ${class}";
 			fi;
 			method="$(echo ${methodRaw} | sed 's/.*started: //' | sed 's/(.*//') :";
-			extraMsgs+=(${method});
-		elif [ ! -z ${extraMsg} ]; then
+			extraMsgs+=("${method}");
+		elif [ ! -z "${extraMsg}" ]; then
 		    extraMsgs+=("$(echo ${extraMsg} | sed 's/.*]//')");
-			debugMessage "extraMsg: ${extraMsg}";
+			#debugMessage "extraMsg: ${extraMsg}";
 		fi;
 	done
 	if [ ${#extraMsgs[@]} != 0 ]; then

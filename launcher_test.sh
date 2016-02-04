@@ -368,6 +368,7 @@ function updateTestCasesThreshold() {
 
 function insertExtraMessages() {
     local class='';
+	local method='';
 	local extraMsgs=();
 	
 	IFS=$'\n'$'\r';
@@ -375,6 +376,7 @@ function insertExtraMessages() {
 	for next in $rawata
     do
 	    local classRaw="$(echo ${next} | grep ": started: ")";
+		local methodRaw="${classRaw}";
 		local extraMsg="$(echo ${next} | grep "\[${TAG_EXTRA_MESSAGES}\]")";
 		if [ ! -z ${classRaw} ]; then
 		    if [ ${#extraMsgs[@]} != 0 ]; then
@@ -391,9 +393,13 @@ function insertExtraMessages() {
 				done
 				sqlite_updateTestResultExtraMessages "${time_id}" "${test_case_id}" "${finalMsg}";
 			fi;
-			extraMsgs=();
-		    class="$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')";
-			debugMessage "class: ${class}";
+			if [ "${class}" !=  "$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')" ]; then
+			    extraMsgs=();
+		        class="$(echo ${classRaw} | sed 's/.*(//' | sed 's/)//')";
+				debugMessage "class: ${class}";
+			fi;
+			method="$(echo ${methodRaw} | sed 's/.*started: //' | sed 's/(.*//') :";
+			extraMsgs+=(${method});
 		elif [ ! -z ${extraMsg} ]; then
 		    extraMsgs+=("$(echo ${extraMsg} | sed 's/.*]//')");
 			debugMessage "extraMsg: ${extraMsg}";

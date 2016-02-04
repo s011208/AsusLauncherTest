@@ -35,13 +35,13 @@ td.content {
 div.content_pass {
 	font-size: 14px;
 	text-align: center;
-	color: #55AA00;
+	color: #557700;
 }
 
 div.content_failure {
 	font-size: 13px;
 	text-align: left;
-	color: rgb(255, 99, 71);
+	color: rgb(230, 99, 71);
 	overflow: auto;
 	overflow-x: hidden;
 	margin:3px;

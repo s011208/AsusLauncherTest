@@ -101,7 +101,7 @@ function exitWitherror() {
 function handleErrors() {
     echo "$1";
     sqlite_insertErrorTimeStamp "$(date "+%Y/%m/%d %H:%M:%S")" "$1" $(git_helper_getCurrentBranch) ${testDeviceId};
-	sqlite_updateLastedUntestedHash;
+	sqlite_updateLastedUntestedHash "${targetBranch}";
 }
 
 function installApk() {
@@ -120,7 +120,7 @@ function installApk() {
 function syncExternalProjects() {
     ## sync all external project
     debugMessage "sync all external project with $syncExternalProjectScriptName";
-    ./${syncExternalProjectScriptName};
+    ./${syncExternalProjectScriptName} > "/dev/null";
 }
 
 function syncLauncher() {
@@ -303,7 +303,7 @@ function parseAndInsertGitLogs() {
 }
 
 function resetToRightChange() {
-    local last_untested_hash=$(sqlite_getLastestUntestedHash);
+    local last_untested_hash=$(sqlite_getLastestUntestedHash "${targetBranch}");
 	echo $last_untested_hash;
     git reset --hard $last_untested_hash;
 }
@@ -500,7 +500,7 @@ readTestResultAdapter;
 ## parse test thresholds
 parseTestRunnerLogs;
 
-sqlite_updateLastedUntestedHash;
+sqlite_updateLastedUntestedHash "${targetBranch}";
 sqlite_removeOldTimeStamp;
 
 echo "66666666";

@@ -125,9 +125,9 @@ function sqlite_updateTestCaseThreshold() {
 
 ## $1=test time, $2=error reason, $3=branch name, $4=device id
 function sqlite_insertErrorTimeStamp() {
-    local unTestedId=$(sqlite_getLastestUntestedId);
+    local unTestedId=$(sqlite_getLastestUntestedId "$3");
 	if [ -z ${unTestedId} ]; then
-	    unTestedId=$(sqlite_getLastId);
+	    unTestedId=$(sqlite_getLastId "$3");
 	fi;
 	if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then
 	    return;
@@ -138,9 +138,9 @@ function sqlite_insertErrorTimeStamp() {
 
 ## $1=test time, $2=branch name, $3=device id
 function sqlite_insertNewTimeStamp() {
-    local unTestedId=$(sqlite_getLastestUntestedId);
+    local unTestedId=$(sqlite_getLastestUntestedId "$2");
 	if [ -z ${unTestedId} ]; then
-	    unTestedId=$(sqlite_getLastId);
+	    unTestedId=$(sqlite_getLastId "$2");
 	fi;
 	if [ -z "$1" -o -z "$2" -o -z "$3" ]; then
 	    return;
@@ -202,22 +202,26 @@ function sqlite_insertTestTag() {
     sqlite3 "$sqlite_path" "insert into ${TABLE_LAUNCHERTAG} ('${COLUMN_LAUNCHERTAG_TAG}','${COLUMN_TESTTIME_ID}') values ('$1', '$2');";
 }
 
-## update tests_test_git_log set git_tested='True' where git_hash_code in (select git_hash_code from tests_test_git_log where git_tested='False' order by id limit 1)
+## $1=branch_name
+## update tests_test_git_log set git_tested='True' where git_hash_code in (select git_hash_code from tests_test_git_log where git_tested='False' order by id limit 1) and branch name = branch_name
 function sqlite_updateLastedUntestedHash() {
-    sqlite3 "$sqlite_path" "update ${TABLE_GIT_LOG} set ${COLUMN_GIT_LOG_TESTED}='True' where ${COLUMN_GIT_LOG_HASH}='$(sqlite_getLastestUntestedHash)'"
+    sqlite3 "$sqlite_path" "update ${TABLE_GIT_LOG} set ${COLUMN_GIT_LOG_TESTED}='True' where ${COLUMN_GIT_LOG_HASH}='$(sqlite_getLastestUntestedHash $1)' and ${COLUMN_GIT_LOG_BRANCH}='$1'"
 }
 
+## $1=branch_name
 function sqlite_getLastestUntestedId() {
-    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' order by ${COLUMN_ID} limit 1";
+    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' and ${COLUMN_GIT_LOG_BRANCH}='$1' order by ${COLUMN_ID} limit 1";
 }
 
+## $1=branch_name
 function sqlite_getLastId() {
-    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_GIT_LOG} order by ${COLUMN_ID} desc limit 1";
+    sqlite3 "$sqlite_path" "select ${COLUMN_ID} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_BRANCH}='$1' order by ${COLUMN_ID} desc limit 1";
 }
 
+## $1=branch_name
 ## select git_hash_code from tests_test_git_log where git_tested='False' order by id limit 1
 function sqlite_getLastestUntestedHash() {
-    sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' order by ${COLUMN_ID} limit 1";
+    sqlite3 "$sqlite_path" "select ${COLUMN_GIT_LOG_HASH} from ${TABLE_GIT_LOG} where ${COLUMN_GIT_LOG_TESTED}='False' and ${COLUMN_GIT_LOG_BRANCH}='$1' order by ${COLUMN_ID} limit 1";
 }
 
 ## $1=hash, $2=branch_name

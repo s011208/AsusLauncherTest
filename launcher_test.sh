@@ -14,6 +14,8 @@ SOURCE_UTILITIES="./AsusLauncherTest/utilities.sh";
 SOURCE_GIT_HELPER="./AsusLauncherTest/git_helper.sh";
 SOURCE_DEVICES_INFO_HELPER="./AsusLauncherTest/devices_info_helper.sh";
 
+TOTAL_TEST_TIME=3;
+
 targetBranch="AsusLauncher_1.4_play";
 
 debug=true;
@@ -321,11 +323,13 @@ function getTestingDeviceInfo() {
 	    sqlite_insertDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId};
 	fi;
 	testDeviceId=$(sqlite_getDeviceInfoId ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId});
-	debugMessage "testing device id:" ${testDeviceId};
+	debugMessage "testing device id:" "${testDeviceId}";
 }
 
 function updateTestCasesThreshold() {
     local class='';
+	local method='';
+	local displayOrder=0;
 	local thresholdMsgs=();
 
 	IFS=$'\n'$'\r';
@@ -349,12 +353,19 @@ function updateTestCasesThreshold() {
 				sqlite_updateTestCaseThreshold "${class}" "${finalMsg}";
 			fi;
 			class="$(echo ${classRaw} | sed 's/.*]//')";
+			displayOrder=0;
 			thresholdMsgs=();
 			#debugMessage ${class};
 		elif [ ! -z ${methodRaw} ]; then
+		    method="$(echo ${methodRaw} | sed 's/.*]//')";
 			thresholdMsgs+=("$(echo ${methodRaw} | sed 's/.*]//')");
 	    elif [ ! -z ${valueRaw} ]; then
 		    thresholdMsgs+=("$(echo ${valueRaw} | sed 's/.*]//')");
+			local rawThresholdMessage="$(echo ${valueRaw} | sed 's/.*]//')";
+			local thresholdMessageName="$(echo ${rawThresholdMessage} | sed 's/ = .*//')";
+			local thresholdMessageValue="$(echo ${rawThresholdMessage} | sed 's/.* = //')";
+			sqlite_updateThreshold "${class}" "${targetBranch}" "${displayOrder}" "${thresholdMessageName}" "${thresholdMessageValue}" "${method}"
+			((displayOrder+=1));
 		fi;
 	done
 	if [ ${#thresholdMsgs[@]} != 0 ]; then
@@ -453,54 +464,58 @@ cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-syncExternalProjects;
+#syncExternalProjects;
 
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
-syncLauncher;
+#syncLauncher;
 
-getTestingDeviceInfo;
+#getTestingDeviceInfo;
 
 ## checkout to right commit
-git_helper_syncDatabase $gitLogs;
-parseAndInsertGitLogs;
-resetToRightChange;
+#git_helper_syncDatabase $gitLogs;
+#parseAndInsertGitLogs;
+#resetToRightChange;
 
-buildLauncher;
-checkBuildLauncherResult;
+#buildLauncher;
+#checkBuildLauncherResult;
 
-buildTestLauncher;
-checkBuildTestLauncherResult;
+#buildTestLauncher;
+#checkBuildTestLauncherResult;
 
 ## install apk
-installLauncher;
-installTestLauncher;
+#installLauncher;
+#installTestLauncher;
 
-## clear logcat files & cache
-rm -f "${adbLogcat}";
-adb logcat -c;
+#for ((testTime=0;testTime<${TOTAL_TEST_TIME};testTime++))
+#do
+#    adbLogcat=${adbLogcat}${testTime};
+#	echo "adbLogcat: " ${adbLogcat}
+	## clear logcat files & cache
+	#rm -f "${adbLogcat}";
+	#adb logcat -c;
 
-## open new terminal & log to file
-gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
+	## open new terminal & log to file
+	#gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
 
-## run all tests
-runAllTests;
+	## run all tests
+	#runAllTests;
 
-## install wmctrl in advance
-## close logcat terminal
-sleep 10;
-wmctrl -F -c "${adbLogcatTerminalTitle}";
-
+	## install wmctrl in advance
+	## close logcat terminal
+	#sleep 10;
+	#wmctrl -F -c "${adbLogcatTerminalTitle}";
+#done
 ## parse test results
-parseTestsResult;
-readTestResultAdapter;
+#parseTestsResult;
+#readTestResultAdapter;
 
 ## parse test thresholds
 parseTestRunnerLogs;
 
-sqlite_updateLastedUntestedHash "${targetBranch}";
-sqlite_removeOldTimeStamp;
+#sqlite_updateLastedUntestedHash "${targetBranch}";
+#sqlite_removeOldTimeStamp;
 
 echo "66666666";

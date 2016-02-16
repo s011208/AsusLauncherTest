@@ -85,8 +85,11 @@
 						</td>
 						{% for test_case in all_test_cases %}
 						<td class="column_threshold">
-							<div class="column">{{test_case.test_threshold|linebreaksbr}}
+							<div class="column">
+							    {% get_test_threshold all_test_thresholds 'AsusLauncher_1.4_play' test_case.id as threshold %}
+							    {{threshold|linebreaksbr}}
 							</div>
+							
 						</td>
 						{% endfor %}
 					</tr>
@@ -149,7 +152,9 @@
 						</td>
 						{% for test_case in all_test_cases %}
 						<td class="column_threshold">
-							<div class="column">{{test_case.test_threshold|linebreaksbr}}
+							<div class="column">
+							    {% get_test_threshold all_test_thresholds 'AsusLauncher_1.4_play' test_case.id as threshold %}
+							    {{threshold|linebreaksbr}}
 							</div>
 						</td>
 						{% endfor %}
@@ -213,7 +218,9 @@
 						</td>
 						{% for test_case in all_test_cases %}
 						<td class="column_threshold">
-							<div class="column">{{test_case.test_threshold|linebreaksbr}}
+							<div class="column">
+							    {% get_test_threshold all_test_thresholds 'AsusLauncher_1.4_play' test_case.id as threshold %}
+							    {{threshold|linebreaksbr}}
 							</div>
 						</td>
 						{% endfor %}

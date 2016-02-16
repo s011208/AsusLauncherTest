@@ -10,7 +10,7 @@ def test_results(request):
         'play_test_times' : getBranchPlayTestTimes(), 'beta_test_times' : getBranchBetaTestTimes(), 'dev_test_times' : getBranchDevTestTimes(), 
         'all_test_results' : getAllResults(), 'all_versions' : getAllVersions(),
 		'all_test_tags' : getAllLauncherTags(), 'all_git_tags' : getAllGitLogs(),
-		'all_device_infos' : getAllDeviceInfos()
+		'all_device_infos' : getAllDeviceInfos(), 'all_test_thresholds' : getAllTestThresholds()
     })
 
 def getAllTestCases():
@@ -42,3 +42,6 @@ def getAllGitLogs():
 
 def getAllDeviceInfos():
     return test_device_info.objects.all().values()
+
+def getAllTestThresholds():
+    return test_threshold.objects.all().order_by('test_display_order').values()

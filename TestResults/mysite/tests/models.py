@@ -4,12 +4,28 @@ from django.db import models
 class test_cases(models.Model):
     test_case = models.TextField(null=False)
     test_threshold = models.TextField(default='', null=True)
+    test_threshold_value = models.IntegerField(default=-1, null=True)
+
+class test_threshold(models.Model):
+    test_case_id = models.IntegerField(null=False)
+    test_branch = models.TextField(default='', null=True)
+    test_display_order = models.IntegerField(default=0, null=True)
+    test_method_name = models.TextField(default='', null=True)
+    test_threshold_name = models.TextField(default='', null=True)
+    test_threshold_value = models.IntegerField(default=-1, null=True)
 
 class test_results(models.Model):
     test_case_id = models.IntegerField(null=False)
     test_time_id = models.IntegerField(null=False)
     test_result = models.TextField(null=False)
     test_extra_msgs = models.TextField(default='', null=True)
+	
+class test_extra_messages(models.Model):
+    test_case_id = models.IntegerField(null=False)
+    test_time_id = models.IntegerField(null=False)
+    test_message_name = models.TextField(default='', null=False)
+    test_message_value = models.IntegerField(default=-1, null=False)
+    test_message_extra_messages = models.TextField(default='', null=False)
     
 class test_times(models.Model):
     test_time = models.TextField(null=False)

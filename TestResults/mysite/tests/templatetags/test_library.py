@@ -69,6 +69,12 @@ def get_git_log_hash_code_from_time_stamp(git_logs, test_time_git_id):
         return "N/A"
     return test_time_git_id
 
+def get_test_threshold(test_thresholds, branch, test_case_id):
+    rtn = ""
+    for test_threshold in test_thresholds:
+        if int(test_threshold.get('test_case_id')) == int(test_case_id) and test_threshold.get('test_branch') == branch:
+            rtn += "[" + test_threshold.get('test_method_name') + "] " + test_threshold.get('test_threshold_name') + ": " + str(test_threshold.get('test_threshold_value')) + "\n";
+    return rtn
 
 register.simple_tag(remove_pkg)
 register.simple_tag(get_test_result)
@@ -79,3 +85,4 @@ register.simple_tag(get_git_log_subject_from_time_stamp)
 register.simple_tag(get_git_log_author_name_from_time_stamp)
 register.simple_tag(get_git_log_hash_code_from_time_stamp)
 register.simple_tag(get_test_result_extra_message)
+register.simple_tag(get_test_threshold)

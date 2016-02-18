@@ -23,6 +23,7 @@ class test_results(models.Model):
 class test_extra_messages(models.Model):
     test_case_id = models.IntegerField(null=False)
     test_time_id = models.IntegerField(null=False)
+    test_method_name = models.TextField(default='', null=True)
     test_message_name = models.TextField(default='', null=False)
     test_message_value = models.IntegerField(default=-1, null=False)
     test_message_extra_messages = models.TextField(default='', null=False)
@@ -33,6 +34,7 @@ class test_times(models.Model):
     test_branch = models.TextField(default='', null=True)
     test_git_log_id = models.IntegerField(null=False, default=-1)
     test_device_info_id = models.IntegerField(null=False, default=-1)
+    number_of_test_time = models.IntegerField(null=False, default=1)
     
 class test_versions(models.Model):
     test_time_id = models.IntegerField(null=False)

@@ -76,6 +76,14 @@ def get_test_threshold(test_thresholds, branch, test_case_id):
             rtn += "[" + test_threshold.get('test_method_name') + "] " + test_threshold.get('test_threshold_name') + ": " + str(test_threshold.get('test_threshold_value')) + "\n";
     return rtn
 
+def get_test_extra_messages(tests_extra_messages, test_case_id, test_time_id):
+    rtn = ""
+    for tests_extra_message in tests_extra_messages:
+        if int(test_time_id) == int(tests_extra_message.get('test_time_id')) and int(test_case_id) == int(tests_extra_message.get('test_case_id')):
+            rtn += "[" + tests_extra_message.get('test_method_name') + "]" + tests_extra_message.get('test_message_name') + ": " + str(tests_extra_message.get('test_message_value')) + "@@@";
+    return rtn
+
+
 register.simple_tag(remove_pkg)
 register.simple_tag(get_test_result)
 register.simple_tag(get_test_version)
@@ -86,3 +94,4 @@ register.simple_tag(get_git_log_author_name_from_time_stamp)
 register.simple_tag(get_git_log_hash_code_from_time_stamp)
 register.simple_tag(get_test_result_extra_message)
 register.simple_tag(get_test_threshold)
+register.simple_tag(get_test_extra_messages)

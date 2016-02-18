@@ -382,7 +382,8 @@ function insertExtraMessages() {
     local class='';
 	local method='';
 	local extraMsgs=();
-	
+	local time_id="$(sqlite_getLastTimeStampId)";
+	local test_case_id=0;
 	IFS=$'\n'$'\r';
     local rawata="$(cat ${adbLogcat} | grep "\[${TAG_EXTRA_MESSAGES}.*\]\|started:")";
 	for next in $rawata
@@ -392,8 +393,6 @@ function insertExtraMessages() {
 		local extraMsg="$(echo ${next} | grep "\[${TAG_EXTRA_MESSAGES}\]")";
 		if [ ! -z ${classRaw} ]; then
 		    if [ ${#extraMsgs[@]} != 0 ]; then
-			    local time_id="$(sqlite_getLastTimeStampId)";
-				local test_case_id="$(sqlite_getTestCaseId ${class})";
 			    local finalMsg='';
 				for msg in ${extraMsgs[@]}
 				do
@@ -409,12 +408,17 @@ function insertExtraMessages() {
 			if [ "${class}" !=  "${nextClass}" ]; then
 			    extraMsgs=();
 		        class="${nextClass}";
+				test_case_id="$(sqlite_getTestCaseId ${class})";
 				#debugMessage "class: ${class}";
 			fi;
-			method="$(echo ${methodRaw} | sed 's/.*started: //' | sed 's/(.*//') :";
+			method="$(echo ${methodRaw} | sed 's/.*started: //' | sed 's/(.*//')";
 			extraMsgs+=("${method}");
 		elif [ ! -z "${extraMsg}" ]; then
 		    extraMsgs+=("$(echo ${extraMsg} | sed 's/.*]//')");
+			local rawMsg="$(echo ${extraMsg} | sed 's/.*]//')";
+			local msgName="$(echo ${rawMsg} | sed 's/: .*//')";
+			local msgValue="$(echo ${rawMsg} | sed 's/.*: //' | sed 's/ms//')";
+			sqlite_insertTestExtraMessages "${test_case_id}" "${time_id}" "${msgName}" "${msgValue}" " " "${method}"
 			#debugMessage "extraMsg: ${extraMsg}";
 		fi;
 	done
@@ -491,31 +495,30 @@ sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 
 #for ((testTime=0;testTime<${TOTAL_TEST_TIME};testTime++))
 #do
-#    adbLogcat=${adbLogcat}${testTime};
-#	echo "adbLogcat: " ${adbLogcat}
-	## clear logcat files & cache
-	#rm -f "${adbLogcat}";
-	#adb logcat -c;
+    ## clear logcat files & cache
+#	rm -f "${adbLogcat}";
+#	adb logcat -c;
 
 	## open new terminal & log to file
-	#gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
+#	gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
 
 	## run all tests
-	#runAllTests;
+#	runAllTests;
 
 	## install wmctrl in advance
 	## close logcat terminal
-	#sleep 10;
-	#wmctrl -F -c "${adbLogcatTerminalTitle}";
+#	sleep 30;
+#	wmctrl -F -c "${adbLogcatTerminalTitle}";
+
+	## parse test results
+#	parseTestsResult;
+#	readTestResultAdapter;
+
+	## parse test thresholds
+#	parseTestRunnerLogs;
 #done
-## parse test results
-#parseTestsResult;
-#readTestResultAdapter;
-
-## parse test thresholds
-parseTestRunnerLogs;
-
 #sqlite_updateLastedUntestedHash "${targetBranch}";
+sqlite_computeAverageTimeOfTheDuplicatedTests;
 #sqlite_removeOldTimeStamp;
 
 echo "66666666";

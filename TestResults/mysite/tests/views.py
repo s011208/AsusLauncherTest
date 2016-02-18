@@ -10,8 +10,12 @@ def test_results(request):
         'play_test_times' : getBranchPlayTestTimes(), 'beta_test_times' : getBranchBetaTestTimes(), 'dev_test_times' : getBranchDevTestTimes(), 
         'all_test_results' : getAllResults(), 'all_versions' : getAllVersions(),
 		'all_test_tags' : getAllLauncherTags(), 'all_git_tags' : getAllGitLogs(),
-		'all_device_infos' : getAllDeviceInfos(), 'all_test_thresholds' : getAllTestThresholds()
+		'all_device_infos' : getAllDeviceInfos(), 'all_test_thresholds' : getAllTestThresholds(),
+		'all_tests_extra_messages' : getAllTestsExtraMessages()
     })
+
+def getAllTestsExtraMessages():
+    return test_extra_messages.objects.all().values()
 
 def getAllTestCases():
     return test_cases.objects.all().order_by('id').values()

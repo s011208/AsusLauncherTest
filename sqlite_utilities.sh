@@ -255,6 +255,11 @@ function sqlite_updateTestCaseThreshold() {
 	#debugMessage "$1 ${test_case_id}";
 }
 
+## $1=branch
+function sqlite_removeOldThreshold() {
+    sqlite3 "$sqlite_path" "delete from ${TABLE_TEST_THRESHOLD} where ${COLUMN_TEST_THRESHOLD_BRANCH}='$1'";
+}
+
 ## $1=test_case_name, $2=branch $3=display_order, $4=threshold_name, $5=threshold_value, $6=method_name
 function sqlite_updateThreshold() {
     #debugMessage "$1, $2, $3, $4, $5, $6";

@@ -19,7 +19,7 @@ TOTAL_TEST_TIME=3;
 targetBranch="AsusLauncher_1.4_play";
 
 debug=true;
-syncExternalProjectScriptName="deploy_AsusLauncher_1.4.sh";
+syncExternalProjectScriptName="deploy_AsusLauncher_1.6.sh";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
@@ -334,6 +334,7 @@ function updateTestCasesThreshold() {
 
 	IFS=$'\n'$'\r';
     local rawata="$(cat ${adbLogcat} | grep "\[THRESHOLD.*\]")";
+	sqlite_removeOldThreshold "${targetBranch}";
 	for next in $rawata
     do
 	    local classRaw="$(echo ${next} | grep "\[${TAG_CLASS}\]")";
@@ -468,30 +469,30 @@ cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-#syncExternalProjects;
+syncExternalProjects;
 
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
 
-#syncLauncher;
+syncLauncher;
 
-#getTestingDeviceInfo;
+getTestingDeviceInfo;
 
 ## checkout to right commit
-#git_helper_syncDatabase $gitLogs;
-#parseAndInsertGitLogs;
-#resetToRightChange;
+git_helper_syncDatabase $gitLogs;
+parseAndInsertGitLogs;
+resetToRightChange;
 
-#buildLauncher;
-#checkBuildLauncherResult;
+buildLauncher;
+checkBuildLauncherResult;
 
-#buildTestLauncher;
-#checkBuildTestLauncherResult;
+buildTestLauncher;
+checkBuildTestLauncherResult;
 
 ## install apk
-#installLauncher;
-#installTestLauncher;
+installLauncher;
+installTestLauncher;
 
 for ((testTime=0;testTime<${TOTAL_TEST_TIME};testTime++))
 do
@@ -508,6 +509,8 @@ do
 	## install wmctrl in advance
 	## close logcat terminal
 	sleep 30;
+	adb logcat -c;
+	sleep 30;
 	wmctrl -F -c "${adbLogcatTerminalTitle}";
 
 	## parse test results
@@ -518,7 +521,7 @@ do
 	parseTestRunnerLogs;
     sqlite_computeAverageTimeOfTheDuplicatedTests;
 done
-#sqlite_updateLastedUntestedHash "${targetBranch}";
-#sqlite_removeOldTimeStamp;
+sqlite_updateLastedUntestedHash "${targetBranch}";
+sqlite_removeOldTimeStamp;
 
 echo "66666666";

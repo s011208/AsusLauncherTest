@@ -9,7 +9,7 @@ $(document).ready(function() {
 		});
 	});
 	
-    var collapse_height=70;
+/*     var collapse_height=70;
     var expand_height=380;
     var expand_delta=expand_height-collapse_height;
     var expand_animate_time=200;
@@ -28,7 +28,7 @@ $(document).ready(function() {
                 $(this).animate({height:collapse_height},expand_animate_time);
 			}
 		});
-	});
+	}); */
 	
 	var _showTab = 0;
 	var $defaultLi = $('ul.branch_nav li').eq(_showTab).addClass('active');

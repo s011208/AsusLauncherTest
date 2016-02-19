@@ -493,32 +493,32 @@ sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 #installLauncher;
 #installTestLauncher;
 
-#for ((testTime=0;testTime<${TOTAL_TEST_TIME};testTime++))
-#do
+for ((testTime=0;testTime<${TOTAL_TEST_TIME};testTime++))
+do
     ## clear logcat files & cache
-#	rm -f "${adbLogcat}";
-#	adb logcat -c;
+	rm -f "${adbLogcat}";
+	adb logcat -c;
 
 	## open new terminal & log to file
-#	gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
+	gnome-terminal -t "${adbLogcatTerminalTitle}" -x sh -c "adb logcat | grep TestRunner > ${adbLogcat};bash";
 
 	## run all tests
-#	runAllTests;
+	runAllTests;
 
 	## install wmctrl in advance
 	## close logcat terminal
-#	sleep 30;
-#	wmctrl -F -c "${adbLogcatTerminalTitle}";
+	sleep 30;
+	wmctrl -F -c "${adbLogcatTerminalTitle}";
 
 	## parse test results
-#	parseTestsResult;
-#	readTestResultAdapter;
+	parseTestsResult;
+	readTestResultAdapter;
 
 	## parse test thresholds
-#	parseTestRunnerLogs;
-#done
+	parseTestRunnerLogs;
+    sqlite_computeAverageTimeOfTheDuplicatedTests;
+done
 #sqlite_updateLastedUntestedHash "${targetBranch}";
-sqlite_computeAverageTimeOfTheDuplicatedTests;
 #sqlite_removeOldTimeStamp;
 
 echo "66666666";

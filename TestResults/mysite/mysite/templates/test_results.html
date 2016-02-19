@@ -131,9 +131,17 @@
 							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							var extra_msg="{% get_test_extra_messages all_tests_extra_messages test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							if (result.localeCompare("OK") == 0) {
-								document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
+								if (extra_msg.localeCompare("") == 0) {
+								    document.write('<div class="content_pass">' + result + '</div>');
+								}else {
+								    document.write('<div class="content_pass">' + extra_msg + '</div>');
+								}
 							} else {
-								document.write('<div class="content_failure">' + extra_msg + '</div>');
+							    if (extra_msg.localeCompare("") == 0) {
+									document.write('<div class="content_failure">' + result + '</div>');
+								} else {
+								    document.write('<div class="content_failure">' + extra_msg + '</div>');
+								}
 							}
 							</script>
 						</td>
@@ -197,9 +205,17 @@
 							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							var extra_msg="{% get_test_extra_messages all_tests_extra_messages test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							if (result.localeCompare("OK") == 0) {
-								document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
+								if (extra_msg.localeCompare("") == 0) {
+								    document.write('<div class="content_pass">' + result + '</div>');
+								}else {
+								    document.write('<div class="content_pass">' + extra_msg + '</div>');
+								}
 							} else {
-								document.write('<div class="content_failure">' + result + '</div>');
+							    if (extra_msg.localeCompare("") == 0) {
+									document.write('<div class="content_failure">' + result + '</div>');
+								} else {
+								    document.write('<div class="content_failure">' + extra_msg + '</div>');
+								}
 							}
 							</script>
 						</td>
@@ -263,9 +279,17 @@
 							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							var extra_msg="{% get_test_extra_messages all_tests_extra_messages test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							if (result.localeCompare("OK") == 0) {
-								document.write('<div class="content_pass">' + result + '<br>' + extra_msg + '</div>');
+								if (extra_msg.localeCompare("") == 0) {
+								    document.write('<div class="content_pass">' + result + '</div>');
+								}else {
+								    document.write('<div class="content_pass">' + extra_msg + '</div>');
+								}
 							} else {
-								document.write('<div class="content_failure">' + result + '</div>');
+							    if (extra_msg.localeCompare("") == 0) {
+									document.write('<div class="content_failure">' + result + '</div>');
+								} else {
+								    document.write('<div class="content_failure">' + extra_msg + '</div>');
+								}
 							}
 							</script>
 						</td>

@@ -155,11 +155,17 @@ function sqlite_updateTestValueById() {
     sqlite3 "$sqlite_path" "update ${TABLE_EXTRA_MESSAGES} set ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_VALUE}=$2 where id=$1";
 }
 
+## $1=test_time_id
+function sqlite_getNumberOfTestTimeByTestTimeId() {
+    sqlite3 "$sqlite_path" "select ${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME} from ${TABLE_TESTTIME} where id=$1";
+}
+
 ## $1=id, $2=git_log_id, $3=test_branch, $4=number_of_test_time
 function sqlite_combineDataRowsWithTheDuplicatedTests() {
     local duplicatedTestTimeId=$(sqlite3 "$sqlite_path" "select id from ${TABLE_TESTTIME} where id!=$1 and ${COLUME_GIT_LOG_ID}=$2 and ${COLUMN_TESTTIME_BRANCH}='$3' order by id desc limit 1");
 	if [ ! -z "${duplicatedTestTimeId}" ]; then
 	    echo "duplicatedTestTimeId: ${duplicatedTestTimeId}";
+		local numberOfDuplicatedTestTime="$(sqlite_getNumberOfTestTimeByTestTimeId ${duplicatedTestTimeId})";
 		local lastestData=$(sqlite_getDataFromTestExtraMessagesByTimeId $1);
 		local lastestDataArray=();
 		IFS=$'\n'$'\r';
@@ -187,9 +193,16 @@ function sqlite_combineDataRowsWithTheDuplicatedTests() {
 			#echo "select ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_VALUE} from ${TABLE_EXTRA_MESSAGES} where ${COLUMN_EXTRA_MESSAGES_TESTCASE_ID}=${testCaseId} and ${COLUMN_EXTRA_MESSAGES_TESTTIME_ID}=${duplicatedTestTimeId} and ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_NAME}='${testMsgName}' and ${COLUMN_EXTRA_MESSAGES_METHOD_NAME}='${testMethodName}'";
 			local valueOfDuplicatedTest=$(sqlite_getTestValueFromExtraMessagesByTimeId ${testCaseId} ${duplicatedTestTimeId} "${testMsgName}" "${testMethodName}");
 			#echo "valueOfDuplicatedTest: ${valueOfDuplicatedTest}";
+			if [ $(echo ${valueOfDuplicatedTest} | wc -l) -eq 1 ]; then
+			    valueOfDuplicatedTest="$(echo ${valueOfDuplicatedTest} | sed 's/[^0-9]*//g')";
+				#echo "re-format: ${valueOfDuplicatedTest}";
+			fi;
+			#echo "line number: " $(echo ${valueOfDuplicatedTest} | wc -l);
+			#echo "char count: " $(echo ${valueOfDuplicatedTest} | wc -m);
+			#echo "word count: " $(echo ${valueOfDuplicatedTest} | wc -w);
 			if [ -z "${valueOfDuplicatedTest}" -o "${#valueOfDuplicatedTest}" == 0 ]; then
 			    newTestMsgValue=${testMsgValue};
-			elif [ "${valueOfDuplicatedTest}" <= -1 ]; then
+			elif [ ${valueOfDuplicatedTest} -le -1 ]; then
 			     newTestMsgValue=${testMsgValue};
 			else
 			    #echo "find new ${testMsgValue}, $4, ${valueOfDuplicatedTest}";
@@ -200,8 +213,7 @@ function sqlite_combineDataRowsWithTheDuplicatedTests() {
 		done
 		sqlite3 "$sqlite_path" "delete from ${TABLE_EXTRA_MESSAGES} where ${COLUMN_EXTRA_MESSAGES_TESTTIME_ID}=${duplicatedTestTimeId}";
 		sqlite3 "$sqlite_path" "delete from ${TABLE_TESTTIME} where id=${duplicatedTestTimeId}"
-		sqlite3 "$sqlite_path" "update ${TABLE_TESTTIME} set ${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}=${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}+1 where id=$1";
-		
+		sqlite3 "$sqlite_path" "update ${TABLE_TESTTIME} set ${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}=${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}+${numberOfDuplicatedTestTime} where id=$1";
 	fi;
 }
 
@@ -296,7 +308,7 @@ function sqlite_insertNewTimeStamp() {
 	    return;
 	fi;
 	#debugMessage "sqlite_insertNewTimeStamp: ${unTestedId}";
-    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}','${COLUMN_TESTTIME_BRANCH}', '${COLUMN_TEST_DEVICE_INFO_ID}') values ('$1',($unTestedId),'Done','$2','$3');";
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}','${COLUMN_TESTTIME_BRANCH}', '${COLUMN_TEST_DEVICE_INFO_ID}', '${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}') values ('$1',($unTestedId),'Done','$2','$3', 1);";
 }
 
 function sqlite_getTimeStampId() {
@@ -415,5 +427,6 @@ function sqlite_removeOldTimeStamp() {
     sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_TESTRESULTS} WHERE ${COLUMN_TESTTIME_ID} in ${deleteTimeCmd};";
     sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_TESTTIME} WHERE ROWID in (SELECT ROWID FROM ${TABLE_TESTTIME} ORDER BY ROWID DESC LIMIT -1 OFFSET ${remainItems});";
     sqlite3 "$sqlite_path" "delete from ${TABLE_TESTCASES} where id not in (select distinct ${COLUMN_TESTCASES_ID} from ${TABLE_TESTRESULTS});";
+	sqlite3 "$sqlite_path" "DELETE FROM ${TABLE_EXTRA_MESSAGES}} WHERE ${COLUMN_EXTRA_MESSAGES_TESTTIME_ID}} in ${deleteTimeCmd};";
 }
 

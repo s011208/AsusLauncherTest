@@ -43,6 +43,8 @@ def get_test_case_fail_rate(test_results, test_case_id):
            total_results += 1
            if result.get('test_result') == 'OK':
                pass_results += 1
+    if total_results == 0:
+	    return 0
     return int(round(1 - float(pass_results) / float(total_results), 2) * 100)
 
 def get_git_log_subject_from_time_stamp(git_logs, test_time_git_id):

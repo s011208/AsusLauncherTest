@@ -70,17 +70,24 @@ function syncLauncherSourceCode {
     if [ ! -d "$directory" ]; then
         echo "[INFO] Choose you target branch:"
         local branch_options="AsusLauncher_1.4_dev AsusLauncher_1.4_beta AsusLauncher_1.4_play"
-        select opt in ${branch_options}; do
-            if [ "$opt" = "AsusLauncher_1.4_dev" ] || [ "$opt" = "AsusLauncher_1.4_beta" ] || [ "$opt" = "AsusLauncher_1.4_play" ]; then
-                echo "[START] sync $directory"
-                syncSourceCode ${directory} ${project} ${opt}
-                echo "[Success] sync $directory"
-                break
-            else
-                echo bad option
-                exit
-            fi
-        done
+		if [ -z "${targetBranch}" ]; then
+			select opt in ${branch_options}; do
+				if [ "$opt" = "AsusLauncher_1.4_dev" ] || [ "$opt" = "AsusLauncher_1.4_beta" ] || [ "$opt" = "AsusLauncher_1.4_play" ]; then
+					echo "[START] sync $directory"
+					syncSourceCode ${directory} ${project} ${opt}
+					echo "[Success] sync $directory"
+					break
+				else
+					echo bad option
+					exit
+				fi
+			done
+		else
+		    echo "[INFO] Choose you target branch: ${targetBranch}"
+		    echo "[START] sync $directory"
+            syncSourceCode ${directory} ${project} ${targetBranch}
+            echo "[Success] sync $directory"
+		fi;
     else
         echo "[WARN] sync fail, $directory exist"
     fi
@@ -337,7 +344,22 @@ function release_note() {
     echo "###########################"
 }
 
+function readParams() {
+	params=${@};
+	echo "length of params: ${#params}"
+	for param in $params
+	do
+	    local cmd="$(echo ${param} | sed 's/=.*//')";
+		local value="$(echo ${param} | sed 's/.*=//')";
+		if [ "$cmd" == "b" -o "$cmd" == "B" ]; then
+		    targetBranch="${value}";
+		    echo "target bransh: ${targetBranch}";
+		fi;
+	done
+}
 
+targetBranch="";
+readParams ${@};
 
 #####################################
 

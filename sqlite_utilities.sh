@@ -301,7 +301,7 @@ function sqlite_insertErrorTimeStamp() {
 	    return;
 	fi;
 	#debugMessage "sqlite_insertNewTimeStamp: ${unTestedId}";
-    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}','${COLUMN_TESTTIME_BRANCH}', '${COLUMN_TEST_DEVICE_INFO_ID}') values ('$1',($unTestedId),'$2','$3','$4');";
+    sqlite3 "$sqlite_path" "insert into ${TABLE_TESTTIME} ('${COLUMN_TESTTIME_TIME}','${COLUME_GIT_LOG_ID}','${COLUMN_TESTTIME_TEST_DONE}','${COLUMN_TESTTIME_BRANCH}', '${COLUMN_TEST_DEVICE_INFO_ID}', '${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}') values ('$1',($unTestedId),'$2','$3','$4', 0);";
 }
 
 ## $1=test time, $2=branch name, $3=device id

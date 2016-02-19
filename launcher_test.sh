@@ -19,7 +19,7 @@ TOTAL_TEST_TIME=3;
 targetBranch="AsusLauncher_1.4_play";
 
 debug=true;
-syncExternalProjectScriptName="deploy_AsusLauncher_1.6.sh";
+syncExternalProjectScriptName="./../deploy_AsusLauncher_1.6.sh";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
@@ -122,7 +122,7 @@ function installApk() {
 function syncExternalProjects() {
     ## sync all external project
     debugMessage "sync all external project with $syncExternalProjectScriptName";
-    ./${syncExternalProjectScriptName} > "/dev/null";
+    ./${syncExternalProjectScriptName} "b=${targetBranch}" ## > "/dev/null";
 }
 
 function syncLauncher() {
@@ -469,7 +469,6 @@ cd ~;
 cd './AsusLauncherTest';
 ## in ./AsusLauncherTest
 readSources;
-syncExternalProjects;
 
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
@@ -483,6 +482,8 @@ getTestingDeviceInfo;
 git_helper_syncDatabase $gitLogs;
 parseAndInsertGitLogs;
 resetToRightChange;
+
+syncExternalProjects;
 
 buildLauncher;
 checkBuildLauncherResult;

@@ -214,6 +214,7 @@ function sqlite_combineDataRowsWithTheDuplicatedTests() {
 		sqlite3 "$sqlite_path" "delete from ${TABLE_EXTRA_MESSAGES} where ${COLUMN_EXTRA_MESSAGES_TESTTIME_ID}=${duplicatedTestTimeId}";
 		sqlite3 "$sqlite_path" "delete from ${TABLE_TESTTIME} where id=${duplicatedTestTimeId}"
 		sqlite3 "$sqlite_path" "update ${TABLE_TESTTIME} set ${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}=${COLUMN_TESTTIME_NUMBER_OF_TEST_TIME}+${numberOfDuplicatedTestTime} where id=$1";
+		debugMessage "merge ${duplicatedTestTimeId} to $1 completed"
 	fi;
 }
 

@@ -369,9 +369,9 @@ echo "[Info] version 1.6"
 #####################################
 
 USER_NAME=$(git config user.email | cut -d '@' -f1 | awk '{print tolower($0)}')
-if [ ! -z "${1}" ]; then
-    USER_NAME=${1}
-fi
+#if [ ! -z "${1}" ]; then
+#    USER_NAME=${1}
+#fi
 echo "[Info] SSH user is $USER_NAME"
 echo "[Info] Customize SSH user in param 1 if connect fail"
 

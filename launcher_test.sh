@@ -19,7 +19,7 @@ TOTAL_TEST_TIME=3;
 targetBranch="AsusLauncher_1.4_play";
 
 debug=true;
-syncExternalProjectScriptName="./../deploy_AsusLauncher_1.6.sh";
+syncExternalProjectScriptName="./deploy_AsusLauncher_1.6.sh";
 asusLauncherBuildResult="./../asusLauncher_build_result.txt";
 testBuildResult="./../asusLauncher_test_build_result.txt";
 unitTestResults="./../test_results.txt";
@@ -453,7 +453,7 @@ function readParams() {
 		local value="$(echo ${param} | sed 's/.*=//')";
 		if [ "$cmd" == "b" -o "$cmd" == "B" ]; then
 		    targetBranch="${value}";
-		    echo "target bransh: ${targetBranch}";
+		    echo "target branch: ${targetBranch}";
 		else
 		    echo "unknow command: ${params}";
 			exit 0;
@@ -483,7 +483,11 @@ git_helper_syncDatabase $gitLogs;
 parseAndInsertGitLogs;
 resetToRightChange;
 
+cd '..'
+## in ./AsusLauncherTest
 syncExternalProjects;
+cd './AsusLauncher';
+## in ./AsusLauncherTest/AsusLauncher
 
 buildLauncher;
 checkBuildLauncherResult;

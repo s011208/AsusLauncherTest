@@ -85,6 +85,29 @@ def get_test_extra_messages(tests_extra_messages, test_case_id, test_time_id):
             rtn += "[" + tests_extra_message.get('test_method_name') + "]" + tests_extra_message.get('test_message_name') + ": " + str(tests_extra_message.get('test_message_value')) + "@@@";
     return rtn
 
+def get_is_result_pass(test_thresholds, test_extra_messages, test_case_id, test_time_id, branch):
+## -1=failed to find thresholds, 0=pass, 1=failed
+    rtn = -1;
+    failedToFind = 0;
+    for test_extra_message in test_extra_messages:
+        if int(test_time_id) == int(test_extra_message.get('test_time_id')) and int(test_case_id) == int(test_extra_message.get('test_case_id')):
+            thresholdName = test_extra_message.get('test_message_name');
+            thresholdValue = test_extra_message.get('test_message_value');
+            testMethod = test_extra_message.get('test_method_name');
+            isFind = False;
+            for test_threshold in test_thresholds:
+                if test_threshold.get('test_branch') == branch and test_threshold.get('test_threshold_name') == thresholdName and test_threshold.get('test_method_name') == testMethod and test_case_id == int(test_threshold.get('test_case_id')):
+                    isFind = True;
+                    if int(test_threshold.get('test_threshold_value')) > thresholdValue:
+                        if rtn == -1:
+                            rtn = 0;
+                    else:
+                        rtn = 1;
+            if isFind == False:
+                rtn = -1;
+                break;
+    return rtn;		
+
 
 register.simple_tag(remove_pkg)
 register.simple_tag(get_test_result)
@@ -97,3 +120,4 @@ register.simple_tag(get_git_log_hash_code_from_time_stamp)
 register.simple_tag(get_test_result_extra_message)
 register.simple_tag(get_test_threshold)
 register.simple_tag(get_test_extra_messages)
+register.simple_tag(get_is_result_pass)

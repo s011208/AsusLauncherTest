@@ -128,9 +128,10 @@
 						{% for test_case in all_test_cases %}
 						<td class="content">
 							<script>
+							var isPass="{% get_is_result_pass all_test_thresholds all_tests_extra_messages test_case.id test_time.id 'AsusLauncher_1.4_play' %}";
 							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							var extra_msg="{% get_test_extra_messages all_tests_extra_messages test_case.id test_time.id %}".replace(/@@@/g, "<br>");
-							if (result.localeCompare("OK") == 0) {
+							if (result.localeCompare("OK") == 0 || isPass == 0) {
 								if (extra_msg.localeCompare("") == 0) {
 								    document.write('<div class="content_pass">' + result + '</div>');
 								}else {
@@ -202,9 +203,10 @@
 						{% for test_case in all_test_cases %}
 						<td class="content">
 							<script>
+							var isPass="{% get_is_result_pass all_test_thresholds all_tests_extra_messages test_case.id test_time.id 'AsusLauncher_1.4_beta' %}";
 							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							var extra_msg="{% get_test_extra_messages all_tests_extra_messages test_case.id test_time.id %}".replace(/@@@/g, "<br>");
-							if (result.localeCompare("OK") == 0) {
+							if (result.localeCompare("OK") == 0 || isPass == 0) {
 								if (extra_msg.localeCompare("") == 0) {
 								    document.write('<div class="content_pass">' + result + '</div>');
 								}else {
@@ -276,9 +278,10 @@
 						{% for test_case in all_test_cases %}
 						<td class="content">
 							<script>
+							var isPass="{% get_is_result_pass all_test_thresholds all_tests_extra_messages test_case.id test_time.id 'AsusLauncher_1.4_dev' %}";
 							var result="{% get_test_result all_test_results test_case.id test_time.id %}".replace(/@@@/g, "<br>");
 							var extra_msg="{% get_test_extra_messages all_tests_extra_messages test_case.id test_time.id %}".replace(/@@@/g, "<br>");
-							if (result.localeCompare("OK") == 0) {
+							if (result.localeCompare("OK") == 0 || isPass == 0) {
 								if (extra_msg.localeCompare("") == 0) {
 								    document.write('<div class="content_pass">' + result + '</div>');
 								}else {

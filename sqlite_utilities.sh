@@ -190,7 +190,7 @@ function sqlite_combineDataRowsWithTheDuplicatedTests() {
 			local testMethodName=${rowsData[6]};
 			local newTestMsgValue=${testMsgValue};
 			# find value of $duplicatedTestTimeId
-			#echo "select ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_VALUE} from ${TABLE_EXTRA_MESSAGES} where ${COLUMN_EXTRA_MESSAGES_TESTCASE_ID}=${testCaseId} and ${COLUMN_EXTRA_MESSAGES_TESTTIME_ID}=${duplicatedTestTimeId} and ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_NAME}='${testMsgName}' and ${COLUMN_EXTRA_MESSAGES_METHOD_NAME}='${testMethodName}'";
+			echo "select ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_VALUE} from ${TABLE_EXTRA_MESSAGES} where ${COLUMN_EXTRA_MESSAGES_TESTCASE_ID}=${testCaseId} and ${COLUMN_EXTRA_MESSAGES_TESTTIME_ID}=${duplicatedTestTimeId} and ${COLUMN_EXTRA_MESSAGES_TEST_MESSAGE_NAME}='${testMsgName}' and ${COLUMN_EXTRA_MESSAGES_METHOD_NAME}='${testMethodName}'";
 			local valueOfDuplicatedTest=$(sqlite_getTestValueFromExtraMessagesByTimeId ${testCaseId} ${duplicatedTestTimeId} "${testMsgName}" "${testMethodName}");
 			#echo "valueOfDuplicatedTest: ${valueOfDuplicatedTest}";
 			if [ $(echo ${valueOfDuplicatedTest} | wc -l) -eq 1 ]; then

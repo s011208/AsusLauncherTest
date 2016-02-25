@@ -318,12 +318,20 @@ function getTestingDeviceInfo() {
 	local characteristics=$(devices_info_helper_getBuildCharacteristics);
 	local sku=$(devices_info_helper_getBuildSku);
 	local deviceId=$(devices_info_helper_getDeviceId);
-
-    if [ -z  $(sqlite_getDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId}) ]; then
-	    sqlite_insertDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId};
+    #debugMessage "versionSdk: ${versionSdk}";
+	#debugMessage "versionIncremental: ${versionIncremental}";
+	#debugMessage "product: ${product}";
+	#debugMessage "cscVersion: ${cscVersion}";
+	#debugMessage "characteristics: ${characteristics}";
+	#debugMessage "sku: ${sku}";
+	#debugMessage "deviceId: ${deviceId}";
+	#debugMessage "$(sqlite_getDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId})";
+    if [ -z  "$(sqlite_getDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId})" ]; then
+	    #debugMessage "new device";
+	    "sqlite_insertDeviceInfo ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId}";
 	fi;
-	testDeviceId=$(sqlite_getDeviceInfoId ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId});
-	debugMessage "testing device id:" "${testDeviceId}";
+	testDeviceId="$(sqlite_getDeviceInfoId ${versionSdk} ${versionIncremental} ${product} ${cscVersion} ${characteristics} ${sku} ${deviceId} | sed 's/[^0-9]*//g')";
+	debugMessage "testing device id: ${testDeviceId}";
 }
 
 function updateTestCasesThreshold() {
@@ -461,8 +469,13 @@ function readParams() {
 	done
 }
 
+function killAllAdbProcess {
+    ps aux | grep -ie adb | awk '{print $2}' | xargs kill -9 
+}
+
 
 ## main
+## killAllAdbProcess;
 readParams ${@};
 
 cd ~;
@@ -473,9 +486,7 @@ readSources;
 cd './AsusLauncher';
 sqlite_changePath ${sqlitePathWhenInAsusLauncher};
 ## in ./AsusLauncherTest/AsusLauncher
-
 syncLauncher;
-
 getTestingDeviceInfo;
 
 ## checkout to right commit

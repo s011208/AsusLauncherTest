@@ -473,42 +473,59 @@ function killAllAdbProcess {
     ps aux | grep -ie adb | awk '{print $2}' | xargs kill -9 
 }
 
-
 ## main
-## killAllAdbProcess;
-readParams ${@};
+ignoreBuild=false;
 
-cd ~;
-cd './AsusLauncherTest';
-## in ./AsusLauncherTest
-readSources;
+if [ $ignoreBuild == true ]; then
+    echo "ignore build & start test";
+	readParams ${@};
+	cd ~;
+	cd './AsusLauncherTest';
+	## in ./AsusLauncherTest
+	readSources;
+	cd './AsusLauncher';
+	## in ./AsusLauncherTest/AsusLauncher
+	sqlite_changePath ${sqlitePathWhenInAsusLauncher};
+	cd '..'
+	## in ./AsusLauncherTest
+	cd './AsusLauncher';
+	## in ./AsusLauncherTest/AsusLauncher
+else
+    ## killAllAdbProcess;
+	readParams ${@};
 
-cd './AsusLauncher';
-sqlite_changePath ${sqlitePathWhenInAsusLauncher};
-## in ./AsusLauncherTest/AsusLauncher
-syncLauncher;
-getTestingDeviceInfo;
+	cd ~;
+	cd './AsusLauncherTest';
+	## in ./AsusLauncherTest
+	readSources;
 
-## checkout to right commit
-git_helper_syncDatabase $gitLogs;
-parseAndInsertGitLogs;
-resetToRightChange;
+	cd './AsusLauncher';
+	sqlite_changePath ${sqlitePathWhenInAsusLauncher};
+	## in ./AsusLauncherTest/AsusLauncher
+	syncLauncher;
+	getTestingDeviceInfo;
 
-cd '..'
-## in ./AsusLauncherTest
-syncExternalProjects;
-cd './AsusLauncher';
-## in ./AsusLauncherTest/AsusLauncher
+	## checkout to right commit
+	git_helper_syncDatabase $gitLogs;
+	parseAndInsertGitLogs;
+	resetToRightChange;
 
-buildLauncher;
-checkBuildLauncherResult;
+	cd '..'
+	## in ./AsusLauncherTest
+	syncExternalProjects;
+	cd './AsusLauncher';
+	## in ./AsusLauncherTest/AsusLauncher
 
-buildTestLauncher;
-checkBuildTestLauncherResult;
+	buildLauncher;
+	checkBuildLauncherResult;
 
-## install apk
-installLauncher;
-installTestLauncher;
+	buildTestLauncher;
+	checkBuildTestLauncherResult;
+
+	## install apk
+	installLauncher;
+	installTestLauncher;
+fi;
 
 for ((testTime=0;testTime<${TOTAL_TEST_TIME};testTime++))
 do
